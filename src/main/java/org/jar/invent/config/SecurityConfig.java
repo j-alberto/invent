@@ -1,8 +1,8 @@
-package org.pke.liberalbus.config;
+package org.jar.invent.config;
 
 import javax.sql.DataSource;
 
-import org.pke.liberalbus.config.interceptor.AuthenticationInterceptor;
+import org.jar.invent.config.interceptor.AuthenticationInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;

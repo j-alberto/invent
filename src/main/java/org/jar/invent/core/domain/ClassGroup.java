@@ -1,4 +1,4 @@
-package org.pke.liberalbus.domain;
+package org.jar.invent.core.domain;
 
 import java.util.Date;
 import java.util.List;

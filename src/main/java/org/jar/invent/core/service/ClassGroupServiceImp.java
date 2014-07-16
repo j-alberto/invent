@@ -1,12 +1,12 @@
-package org.pke.liberalbus.service;
+package org.jar.invent.core.service;
 
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import org.pke.liberalbus.bean.ClassGroupBean;
-import org.pke.liberalbus.domain.ClassGroup;
-import org.pke.liberalbus.domain.dao.ClassGroupRepository;
+import org.jar.invent.core.domain.ClassGroup;
+import org.jar.invent.core.domain.dao.ClassGroupRepository;
+import org.jar.invent.web.domain.ClassGroupBean;
 import org.springframework.beans.factory.annotation.Autowired;
 
 public class ClassGroupServiceImp implements ClassGroupService {

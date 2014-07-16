@@ -1,8 +1,8 @@
-package org.pke.liberalbus.service;
+package org.jar.invent.core.service;
 
 import java.util.List;
 
-import org.pke.liberalbus.bean.ClassGroupBean;
+import org.jar.invent.web.domain.ClassGroupBean;
 
 public interface ClassGroupService {
 

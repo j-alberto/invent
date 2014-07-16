@@ -1,4 +1,4 @@
-package org.pke.liberalbus.config.interceptor;
+package org.jar.invent.config.interceptor;
 
 import java.io.IOException;
 

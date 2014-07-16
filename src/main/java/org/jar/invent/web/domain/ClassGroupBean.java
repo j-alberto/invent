@@ -1,4 +1,4 @@
-package org.pke.liberalbus.bean;
+package org.jar.invent.web.domain;
 
 import java.util.Date;
 import java.util.List;
@@ -16,8 +16,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
-import org.pke.liberalbus.domain.ClassGroup;
-import org.pke.liberalbus.domain.Student;
+import org.jar.invent.core.domain.ClassGroup;
+import org.jar.invent.core.domain.Student;
 import org.springframework.beans.BeanUtils;
 
 public class ClassGroupBean{

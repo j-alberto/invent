@@ -1,4 +1,4 @@
-package org.pke.liberalbus.config;
+package org.jar.invent.config;
 
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;

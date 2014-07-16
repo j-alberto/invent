@@ -1,4 +1,4 @@
-package org.pke.liberalbus.controller;
+package org.jar.invent.web.controller;
 
 import java.util.Collection;
 import java.util.Iterator;
@@ -7,10 +7,10 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.apache.log4j.Logger;
-import org.pke.liberalbus.domain.ClassGroup;
-import org.pke.liberalbus.domain.Student;
-import org.pke.liberalbus.domain.dao.ClassGroupRepository;
-import org.pke.liberalbus.domain.dao.StudentRepository;
+import org.jar.invent.core.domain.ClassGroup;
+import org.jar.invent.core.domain.Student;
+import org.jar.invent.core.domain.dao.ClassGroupRepository;
+import org.jar.invent.core.domain.dao.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

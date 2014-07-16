@@ -1,4 +1,4 @@
-package org.pke.liberalbus.config;
+package org.jar.invent.config;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.web.SpringBootServletInitializer;
