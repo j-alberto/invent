@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Libel Albus - Error</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+	<h1 th:text="#{msg.error.server}">SERVER ERROR!!</h1>
+	<h3 th:text="#{msg.error.server.note}">Content cannot be displayed, reason:!!</h3>
+	
+	<ul>
+		<li th:text="${status}"></li>
+		<li th:text="${error}"></li>
+		<li th:text="${timestamp}"></li>
+		<li th:text="${message}"></li>
+		<li th:text="${exception}"></li>
+		<li th:text="${trace}"></li>
+		<li th:text="${path}"></li>
+<!-- 		<li th:text="${errors}"></li> -->
+	</ul>
+</body>
+</html>

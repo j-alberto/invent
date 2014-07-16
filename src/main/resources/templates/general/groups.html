@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+    
+</head>
+<body>
+	<div th:replace="index :: menu"></div>
+
+	<div id="main">
+	
+	 	<h2 th:text="#{group.lbl.title.list}">list of groups!!</h2>
+	<!--     <div id="classGroupListContainer" th:include="frags/classGroupFragments :: classGroupList"></div> -->
+	 	<div id="classGroupListContainer" th:fragment="classGroupList">
+			<table>
+				<thead>
+					<tr>
+						<th th:text="#{group.lbl.id}">Id!!</th>
+						<th th:text="#{group.lbl.name}">group name!!</th>
+					</tr>
+				</thead>
+				<tbody th:unless="${#lists.isEmpty(classGroups)}">
+					<tr th:each="g : ${classGroups}">
+						<td th:text="${g.id}">111</td>
+						<td th:text="${g.name}">Grupo 111</td>
+					</tr>
+				</tbody>
+				<tbody  th:unless="${true}">
+					<tr>
+						<td>222</td>
+						<td>Grupo 222</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Grupo 333</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Grupo 222</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Grupo 333</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Grupo 222</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Grupo 333</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

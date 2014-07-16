@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+<title>LiberAlbus - Login</title>
+
+<!--[if lt IE 9]>
+          <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+        <![endif]-->
+
+<!-- Our CSS stylesheet file -->
+<link rel="stylesheet" type="text/css" 
+	href="../../webapp/css/login.css" 
+	th:href="@{/css/login.css}"/>
+
+	<!-- JavaScript includes -->
+	<script src="../../webapp/js/jquery.js" 
+		th:src="@{/js/jquery.js}"></script>
+		
+	<script src="../../webapp/js/login.js" 
+		th:src="@{/js/login.js}"></script>
+</head>
+<body>
+	<div id="formContainer">
+
+		<form id="formLogin" method="post" th:action="@{/login}">
+
+		<label th:if="${param.error}" class="errorLabel" th:text="#{login.lbl.fail}">Invalid username or password!!</label>
+
+		<label th:if="${param.logout}" class="logoutLabel" th:text="#{login.lbl.logout}">Logged out, come back soon!!</label>
+
+			<input type="text" name="username" id="loginEmail" autofocus="autofocus"
+				th:placeholder="#{login.lbl.user}" placeholder="Username!!"/>
+			<input type="password" name="password" id="loginPass"
+				th:placeholder="#{login.lbl.password}" placeholder="Password!!" />
+			<input type="submit" name="submit" 
+				th:value="#{login.btn.login}" value="Login!!"/>
+			<a href="#" id="flipToRecover" class="flipLink" th:text="#{login.lbl.forgotPass}">Forgot Password?!!</a>
+		</form>
+		<form id="formRecover" method="post" action="./">
+			<input type="text" name="recoverEmail" id="recoverEmail" autofocus="autofocus"
+				th:placeholder="#{login.lbl.email}" placeholder="Email!!"/>
+			<input type="submit" name="submit"
+				th:value="#{login.btn.recoverPass}" value="Recover Password" />
+			<a href="#" id="flipToLogin" class="flipLink" th:text="#{login.lbl.back}">Back to Login!!</a>
+		</form>
+	</div>
+
+	<footer>
+		<h2>Powered by: X</h2>
+		<a href="http://google.com">http://google.com</a>
+	</footer>
+
+</body>
+</html>
+

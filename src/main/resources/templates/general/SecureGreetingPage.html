@@ -1,0 +1,36 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<title>Lista de alumnos</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+</head>
+<body>
+	<p th:text="${'User authorities : '+ #strings.listJoin(auth.principal.authorities,',')}">User authorities : simple user, guest</p>
+	<p th:text="${#ctx.applicationAttributes}">ctx.attrs</p>
+<!-- 	<p th:text="${#ctx.httpSession}">ctx.httpSess</p> -->
+	<p th:text="${#ctx.requestAttributes}">ctx.reqAttrs</p>
+	<p th:text="${#ctx.requestParameters}">ctx.reqParms</p>
+	<p th:text="${#ctx.sessionAttributes}">ctx.sessAttrs</p>
+
+<!-- 	<div th:switch="${user.role}"> -->
+<!--   <p th:case="'admin'">User is an administrator</p> -->
+<!--   <p th:case="#{roles.manager}">User is a manager</p> -->
+<!--   <p th:case="*">User is some other thing</p> -->
+<!-- </div> -->
+	
+	<table>
+      <tr>
+        <th>CODE</th>
+        <th>NAME</th>
+        <th>LAST NAME</th>
+      </tr>
+      <tr th:each="s : ${students}">
+        <td th:text="${s.code}">654654</td>
+        <td th:text="${s.name}">Pke</td>
+        <td th:text="${s.lastName}">Shredder</td>
+      </tr>
+    </table>
+    
+</body>
+</html>

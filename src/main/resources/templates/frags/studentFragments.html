@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta name="viewport"
+	content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+</head>
+<body>
+	<div th:fragment="studentList" class="results-block">
+		<table>
+			<thead>
+				<tr>
+					<th>Id</th>
+					<th>code</th>
+					<th>name</th>
+					<th>lastName</th>
+				</tr>
+			</thead>
+			<tbody th:unless="${#lists.isEmpty(STUDENT_LIST)}">
+				<tr th:each="student : ${STUDENT_LIST}">
+					<td th:text="${student.id}">1</td>
+					<td th:text="${student.code}">12345678</td>
+					<td th:text="${student.name}">Max</td>
+					<td th:text="${student.lastName}">Power</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	
+	<div th:fragment="classGroupAdd">
+		    <h2 th:text="#{group.lbl.title.new}">Add new group!!</h2>
+	<!--     <div id="classGroupAddcontainer" th:include="frags/classGroupFragments :: classGroupAdd"></div> -->
+		<div id="classGroupAddContainer" th:fragment="classGroupAdd">
+			<form th:action="@{/groups}" method="post" th:object="${classGroup}">
+				<table>
+				<tr>
+					<td>
+						<label for="name" th:text="#{group.lbl.name}">Group Name!!</label>
+					</td>
+					<td>
+						<input id="name" type="text" th:field="*{name}" th:errorclass="invalidField"
+						required="required"/>
+					</td>
+					<td>
+						<ul th:if="${#fields.hasErrors('name')}"><li th:each="err : ${#fields.errors('name')}" th:text="${err}" /></ul>
+					</td>
+				</tr>
+	<!-- 			<tr> -->
+	<!-- 				<td><label for="active" th:text="#{group.lbl.active}">Active!!</label></td> -->
+	<!-- 				<td><input id="active" type="checkbox" th:field="*{status}" th:errorclass="invalidField"/></td> -->
+	<!-- 			</tr> -->
+				<tr>
+					<td>
+						<label for="dateAdd" th:text="#{group.lbl.active}">registered on!!</label>
+					</td>
+					<td>
+						<input id="dateAdd" type="datetime" th:field="*{dateAdd}" th:errorclass="invalidField" value="2014/07/18 : 13:14:55.155" disabled="disabled"/>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2">
+					<button type="submit" th:text="#{btn.add}" onclick="asyncSubmit(this,'main')">Add!!</button>
+		<!-- 			<p th:if="${#fields.hasErrors('name')}" th:errors="*{name}">Incorrect!!</p> -->
+					</td>
+				</tr>
+				</table>
+	
+			</form>
+	
+		</div>
+	
+	</div>
+</body>
+</html>
+
