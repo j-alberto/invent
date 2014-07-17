@@ -21,9 +21,8 @@
 	 	<a th:href="@{/catalogs/categories/add}" href="#"
 	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
 	 	<br/><br/>
-
-			<table id="table1" class="display"
-				th:fragment="tableCatagory">
+		<div>
+			<table id="table1" class="display" th:fragment="tableCategory">
 				<thead>
 					<tr>
 						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
@@ -44,79 +43,12 @@
 						<td th:text="${cat.description}">Category 111</td>
 						<td th:text="#{${'itemCategory.lbl.status.'+cat.status}}">a status</td>
 					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>222</td>
-						<td>Category 222</td>
-						<td>a status</td>
-					</tr>
-					<tr>
-						<td>333</td>
-						<td>Category 333</td>
-						<td>a status</td>
-					</tr>
+					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
+					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
+					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
 				</tbody>
 			</table>
-		
-		<ul th:replace="frags/common :: pagingBar(${itemCategories},5)"></ul>
+			<ul th:replace="frags/common :: pagingBar(${itemCategories},5)"></ul>
+		</div>
 </body>
 </html>
