@@ -3,23 +3,17 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
-	<link rel="stylesheet" type="text/css" href="../../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
-	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
 	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
-    
+	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+   
 </head>
 <body>
-	<div th:replace="index :: menu"></div>
-
-	<div id="main">
-		<ul class="breadcrumb">
-			<li th:replace="frags/common :: cat"></li>
-			<li th:replace="frags/common :: cat-categ"></li>
-			<li th:replace="frags/common :: cat-categ-add"></li>
-		</ul>
+	<br th:replace="frags/common :: menu"/>
+	<br th:replace="frags/common :: breadcrumbsCatagories"/>		
 		
 	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
 	 	<p th:text="#{itemcategory.lbl.caption}">ADD Item categories description!!</p>
@@ -45,7 +39,6 @@
 	 		</tr>
 	 	</table>
 	 	</form>
-		
-	</div>
+
 </body>
 </html>

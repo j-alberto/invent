@@ -8,5 +8,7 @@
 <body>
     
      <p th:text="${'login name: '+auth.principal.username}">login name: aUser</p>
+     
+     <p th:text="${#httpServletRequest.requestURI}"></p>
 </body>
 </html>

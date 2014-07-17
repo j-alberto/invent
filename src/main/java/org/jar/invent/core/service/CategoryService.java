@@ -11,6 +11,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
@@ -21,17 +22,24 @@ public class CategoryService {
 	
 	private Logger log = LoggerFactory.getLogger(CategoryService.class);
 	
+	private static final int MAX_PAGE_SIZE= 100;
+	
 	@Autowired
 	public CategoryService(CategoryDAO categoryDAO) {
 		this.categoryDAO = categoryDAO;
 	}
 
 
-	public List<Category> getCategoryList(){
+	public List<Category> getAllCategories(){
 		return asWebDomainList((List<CategoryEntity>)categoryDAO.findAll());
 	}
 	
-	public Page<Category> getCategoryList(Pageable pageRequest){
+	public Page<Category> getCategories(Pageable pageRequest){
+		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
+			//TODO: let consumer know about change in page's size
+			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
+		}
+
 		Page<CategoryEntity> resultPage = categoryDAO.findAll(pageRequest);
 		List<Category> categoriesWeb = asWebDomainList(resultPage.getContent());
 		
@@ -45,7 +53,11 @@ public class CategoryService {
 		return Category.parseViewBean(c);
 	}
 	
-	
+	/**
+	 * Transforms a Core-object List into a Web-object list
+	 * @param categories
+	 * @return
+	 */
 	private List<Category> asWebDomainList(List<CategoryEntity> categories){
 		List<Category> webCategories = new ArrayList<Category>();
 		

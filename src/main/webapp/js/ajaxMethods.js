@@ -60,36 +60,41 @@ function asyncSubmit(element,targetId){
 }
 
 $(document).ready(
-	function() {
-		$('#table1').dataTable( {
-			processing: true,
-	        serverSide: true,
-	        ajax: {
-	        	"url": '/invent/rest/category',
-	        	"type": 'GET',
-	    		"data": {
-	    	        "page": 0,
-	    	        "size": $('#table1_length select').prop('value')
-	    	    },
-    	    	"dataSrc": function ( json ) {
-    	    		
-    	    		var s=new Array();
-				      for ( var i=0, ien=json.content.length ; i<ien ; i++ ) {
-				    	 s[i]=[];
-				    		  
-				    	  var j=0;
-				    	  for ( var p in json.content[i]) {
-				    		  if(json.content[i].hasOwnProperty(p)){
-				    			  s[i][j]=json.content[i][p]+'xxx';
-					    		  console.log(s[i][j]);
-				    			  j++;
-				    		  }
-				    	  }
-				      }
-				      console.log('finish');
-				      return s;
-    	    	}
-	        }
-    });
-});
-
+		function() {
+			$('#mytable').dataTable( {
+				processing: true,
+		        serverSide: true,
+		        ajax: {
+		        	"url": '/invent/rest/category',
+		        	"type": 'GET',
+		        	"data": function(d){
+		        		d.columns = new Array();
+		        		d.order=new Array();
+		        		d.search=new Object();
+		        		d.page=0;
+		        		d.size=$('#table1_length select').prop('value');
+		        	},
+		    	    //"dataSrc": "content"
+	    	    	"dataSrc": function ( json ) {
+					      console.log('finish');
+					      json.page = json.number;
+					      json.pages = json.totalPages;
+					      json.start = json.size * json.number;
+					      json.end = json.start + json.number;
+					      json.length=json.numberOfElements;
+					      json.recordsTotal = json.totalElements;
+					      json.recordsDisplay = json.totalElements;
+					      json.data = json.content;
+					      json.draw = json.number;
+					      return json;
+			    	}
+		        },
+		        "lengthMenu": [5, 10, 15],
+				"columns": [
+		                { "data": "id" },
+		                { "data": "description" },
+		                { "data": "status" }
+		              ]
+	    
+		   });
+	});

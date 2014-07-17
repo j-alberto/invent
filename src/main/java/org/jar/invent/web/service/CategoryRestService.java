@@ -31,11 +31,8 @@ public class CategoryRestService {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public HttpEntity<Page<Category>> getCategoriesPage(@PageableDefault(page=0,size=50) Pageable pageRequest){
-		if(pageRequest.getPageSize()>50){
-			pageRequest = new PageRequest(pageRequest.getPageNumber(), 50);
-		}
 		
-		Page<Category> categories = categoryService.getCategoryList(pageRequest);
+		Page<Category> categories = categoryService.getCategories(pageRequest);
 		
 		return new ResponseEntity<Page<Category>>(categories, HttpStatus.OK);
 	}

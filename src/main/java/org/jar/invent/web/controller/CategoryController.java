@@ -26,6 +26,7 @@ public class CategoryController {
 
 	private CategoryService categoryService;
 	private Logger log = LoggerFactory.getLogger(getClass());
+	private static final int DEFAULT_PAGE_SIZE=10;
 	
 	@Autowired
 	public CategoryController(CategoryService categoryService) {
@@ -34,29 +35,29 @@ public class CategoryController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String getCategories(Model model,
-								@PageableDefault(page=0,size=50) Pageable pageRequest){
+								@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
 		
-		Page<Category> cats= categoryService.getCategoryList(pageRequest);
+		Page<Category> cats= categoryService.getCategories(pageRequest);
 		model.addAttribute("itemCategories", cats);
-		
 		return "general/itemCategory";
-	}
-
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String addCategories(Model model){
-		return "general/itemCategoryAdd";
 	}
 
 	@RequestMapping(value="/raw",method=RequestMethod.GET)
 	public String addCategoriesRaw(Model model,
-		@PageableDefault(page=0,size=50) Pageable pageRequest){
+		@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
 		
-		Page<Category> cats= categoryService.getCategoryList(pageRequest);
+		Page<Category> cats= categoryService.getCategories(pageRequest);
 		model.addAttribute("itemCategories", cats);
 		
 		return "general/itemCategory :: table1";
 	}
 
+
+	@RequestMapping(value="/add",method=RequestMethod.GET)
+	public String addCategories(Model model){
+		return "general/itemCategoryAdd";
+	}
+	
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model){
 
