@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="category")
-public class Category implements Serializable {
+public class CategoryEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,9 +32,9 @@ public class Category implements Serializable {
 	@OneToMany(mappedBy="category")
 	private List<Item> items;
 
-		public Category() {
+		public CategoryEntity() {
 		}
-		public Category(short id, String description, EnumStatusGeneral status) {
+		public CategoryEntity(short id, String description, EnumStatusGeneral status) {
 			this.id = id;
 			this.description = description;
 			this.status = status;
@@ -88,6 +88,6 @@ public class Category implements Serializable {
 	
 	@Override
 	public String toString() {
-		return String.format("Category{id=%d, desc=%s, status=%s}", id, description, status.toString());
+		return String.format("CategoryEntity{id=%d, desc=%s, status=%s}", id, description, status.toString());
 	}
 }

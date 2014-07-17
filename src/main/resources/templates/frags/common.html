@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head></head>
+<body>
+
+	<ul>
+		<li th:fragment="cat">
+			<a th:href="@{/catalogs}"
+				th:text="#{menu.general.catalogs}">Catalogs!!!!</a></li>
+		<li th:fragment="cat-categ">
+			<a th:href="@{/catalogs/categories}" href="#"
+				th:text="#{menu.general.catalogs.itemcategory}">item categories!!!!</a></li>
+		<li th:fragment="cat-categ-add">
+			<a th:href="@{/catalogs/categories/add}" href="#"
+				th:text="#{menu.general.catalogs.itemcategory.addNew}">add new item category!!!!</a></li>
+	</ul>
+</body>
+</html>
+

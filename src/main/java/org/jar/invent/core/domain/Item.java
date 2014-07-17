@@ -39,7 +39,7 @@ public class Item implements Serializable {
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="idcategory", nullable=false)
-	private Category category;
+	private CategoryEntity category;
 
 	public Item() {
 	}
@@ -106,11 +106,11 @@ public class Item implements Serializable {
 		return inventory;
 	}
 
-	public Category getCategory() {
+	public CategoryEntity getCategory() {
 		return this.category;
 	}
 
-	public void setCategory(Category category) {
+	public void setCategory(CategoryEntity category) {
 		this.category = category;
 	}
 

@@ -41,12 +41,7 @@ td{
 	text-transform: uppercase;
 }
 
-.floatingLinkBox{
-	background: windowframe;
-	position: relative;
-	min-height: 100px;
-	min-width: 100px;
-}
+
 /****Breadcrumbs*****/
 .breadcrumb { /* el rectángulo con la lista */
   list-style: none;

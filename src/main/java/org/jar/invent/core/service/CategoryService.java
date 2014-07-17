@@ -3,50 +3,54 @@ package org.jar.invent.core.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jar.invent.core.domain.Category;
+import org.jar.invent.core.domain.CategoryEntity;
 import org.jar.invent.core.domain.dao.CategoryDAO;
-import org.jar.invent.web.domain.CategoryWeb;
+import org.jar.invent.web.domain.Category;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
 public class CategoryService {
 
-	@Autowired
 	private CategoryDAO categoryDAO;
 	
 	private Logger log = LoggerFactory.getLogger(CategoryService.class);
-
-	public void setClassGroupDAO(CategoryDAO categoryDAO) {
+	
+	@Autowired
+	public CategoryService(CategoryDAO categoryDAO) {
 		this.categoryDAO = categoryDAO;
 	}
 
 
-	public List<CategoryWeb> getCategoryList(){
-		return asWebDomainList((List<Category>)categoryDAO.findAll());
+	public List<Category> getCategoryList(){
+		return asWebDomainList((List<CategoryEntity>)categoryDAO.findAll());
 	}
 	
-	public Page<CategoryWeb> getCategoryList(Pageable pageRequest){
-		Page<Category> resultPage = categoryDAO.findAll(pageRequest);
-		List<CategoryWeb> categoriesWeb = asWebDomainList(resultPage.getContent());
+	public Page<Category> getCategoryList(Pageable pageRequest){
+		Page<CategoryEntity> resultPage = categoryDAO.findAll(pageRequest);
+		List<Category> categoriesWeb = asWebDomainList(resultPage.getContent());
 		
-		Page<CategoryWeb> categoriesPage = new PageImpl<CategoryWeb>(categoriesWeb, pageRequest, resultPage.getTotalElements());
+		Page<Category> categoriesPage = new PageImpl<Category>(categoriesWeb, pageRequest, resultPage.getTotalElements());
 
 		return categoriesPage;
 	}
 	
+	public Category saveCategory(Category cat){
+		CategoryEntity c = categoryDAO.save(cat.toEntityBean());
+		return Category.parseViewBean(c);
+	}
 	
-	private List<CategoryWeb> asWebDomainList(List<Category> categories){
-		List<CategoryWeb> webCategories = new ArrayList<CategoryWeb>();
+	
+	private List<Category> asWebDomainList(List<CategoryEntity> categories){
+		List<Category> webCategories = new ArrayList<Category>();
 		
-		for(Category c : categories){
-			webCategories.add(new CategoryWeb(c.getId(), c.getDescription(), c.getStatus()));
+		for(CategoryEntity c : categories){
+			webCategories.add(new Category(c.getId(), c.getDescription(), c.getStatus()));
 		}
 		return webCategories;
 	}

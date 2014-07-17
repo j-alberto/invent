@@ -15,8 +15,8 @@
 	<div th:replace="index :: menu"></div>
 
 	<div id="main">
-	<ul class="breadcrumb">
-		<li><a th:href="@{/catalogs}">Catalogs!!</a></li>
+	<ul id="xyz" class="breadcrumb" th:fragment="breadCrumb">
+		<div th:replace="frags/common :: cat"></div>
 	</ul>
 
 	</div>

@@ -9,34 +9,34 @@
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
 	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
-    
 </head>
 <body>
 	<div th:replace="index :: menu"></div>
 
 	<div id="main">
 		<ul class="breadcrumb">
-			<li><a th:href="@{/catalogs}" href="#">Catalogs!!</a></li>
-			<li><a th:href="@{/catalogs/categories}" href="#">item categories!!</a></li>
+			<li th:replace="frags/common :: cat"></li>
+			<li th:replace="frags/common :: cat-categ"></li>
 		</ul>
 		
-			 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
-	 	<p>Item categories description!!</p>
-	 	<div class="floatingLinkBox">asdasdasdasdasdasdsaasd</div>
+	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
+	 	<a th:href="@{/catalogs/categories/add}" href="#"
+	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
+	 	
 	 	<div id="itemCategoriesDiv" th:fragment="itemCategoriesFrag">
 			<table>
 				<thead>
 					<tr>
-						<th th:text="#{itemCategories.lbl.id}">Id!!</th>
-						<th th:text="#{itemCategories.lbl.desc}">category name!!</th>
-						<th th:text="#{itemCategories.lbl.status}">status!!</th>
+						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
+						<th th:text="#{itemCategory.lbl.desc}">category name!!</th>
+						<th th:text="#{itemCategory.lbl.status}">status!!</th>
 					</tr>
 				</thead>
 				<tbody th:remove="all-but-first">
 					<tr th:each="cat : ${itemCategories.content}">
 						<td th:text="${cat.id}">111</td>
 						<td th:text="${cat.description}">Category 111</td>
-						<td th:text="#{${'itemCategories.lbl.status.'+cat.status}}">a status</td>
+						<td th:text="#{${'itemCategory.lbl.status.'+cat.status}}">a status</td>
 					</tr>
 					<tr>
 						<td>222</td>
