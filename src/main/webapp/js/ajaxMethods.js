@@ -59,3 +59,37 @@ function asyncSubmit(element,targetId){
 
 }
 
+$(document).ready(
+	function() {
+		$('#table1').dataTable( {
+			processing: true,
+	        serverSide: true,
+	        ajax: {
+	        	"url": '/invent/rest/category',
+	        	"type": 'GET',
+	    		"data": {
+	    	        "page": 0,
+	    	        "size": $('#table1_length select').prop('value')
+	    	    },
+    	    	"dataSrc": function ( json ) {
+    	    		
+    	    		var s=new Array();
+				      for ( var i=0, ien=json.content.length ; i<ien ; i++ ) {
+				    	 s[i]=[];
+				    		  
+				    	  var j=0;
+				    	  for ( var p in json.content[i]) {
+				    		  if(json.content[i].hasOwnProperty(p)){
+				    			  s[i][j]=json.content[i][p]+'xxx';
+					    		  console.log(s[i][j]);
+				    			  j++;
+				    		  }
+				    	  }
+				      }
+				      console.log('finish');
+				      return s;
+    	    	}
+	        }
+    });
+});
+

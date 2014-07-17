@@ -5,23 +5,13 @@
     
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/>
-	<link rel="stylesheet" type="text/css" href="../../../webapp/css/jquery-DataTables.css" th:href="@{/css/jquery-dataTables.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/jquery-dataTables.css" th:href="@{/css/jquery-dataTables.css}"/>
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
 	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
 	<script src="../../webapp/js/jquery-dataTables.js" th:src="@{/js/jquery-dataTables.js}"></script>
 	
-	<script type="text/javascript">
-		$(document).ready(
-			function() {
-				$('#table1').dataTable( {
-			        "processing": true,
-			        "serverSide": true,
-			        "ajax": "http://localhost:8080/invent/catalogs/categories/raw"
-			    } );
-			} );
-	</script>
 </head>
 <body>
 	<div th:replace="index :: menu"></div>
