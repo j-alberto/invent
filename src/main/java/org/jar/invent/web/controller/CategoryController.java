@@ -17,8 +17,11 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
 @RequestMapping("/catalogs/categories")
@@ -42,6 +45,51 @@ public class CategoryController {
 		return "general/itemCategory";
 	}
 
+	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	public String getCategory(final Model model, @PathVariable final short id
+		,final RedirectAttributes redirectAttributes){
+
+		Category cat = categoryService.findCategory(id);
+		if(cat==null){
+			redirectAttributes.addFlashAttribute("idNotFound", true);
+			return "redirect:/catalogs/categories";
+		}
+		model.addAttribute("category", cat);
+		model.addAttribute("edit", true);
+		return "general/itemCategoryAdd";
+	}
+
+
+	@RequestMapping(value="/add",method=RequestMethod.GET)
+	public String addCategories(final Model model){
+		
+		for(String s : model.asMap().keySet()){
+			log.info(s+">>"+model.asMap().get(s));
+		}
+		
+		
+		return "general/itemCategoryAdd";
+	}
+	
+	@RequestMapping(value="/add",method=RequestMethod.POST)
+	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model
+			,final RedirectAttributes redirectAttributes){
+
+		if(bindResults.hasErrors()){
+			return "general/itemCategoryAdd";
+		}
+		
+		categoryService.saveCategory(category);
+		model.clear();
+
+		redirectAttributes.addFlashAttribute("added", true);
+		
+		return "redirect:/catalogs/categories";
+	}
+
+	
+	
+
 	@RequestMapping(value="/raw",method=RequestMethod.GET)
 	public String addCategoriesRaw(Model model,
 		@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
@@ -52,24 +100,6 @@ public class CategoryController {
 		return "general/itemCategory :: table1";
 	}
 
-
-	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String addCategories(Model model){
-		return "general/itemCategoryAdd";
-	}
-	
-	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model){
-
-		if(bindResults.hasErrors()){
-			return "general/itemCategoryAdd";
-		}
-		
-		categoryService.saveCategory(category);
-		model.clear();
-		
-		return "redirect:/catalogs/categories";
-	}
 	
 	@ModelAttribute
 	public Category getCategory(){

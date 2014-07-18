@@ -9,7 +9,7 @@
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 <!-- 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script> -->
-<!-- 	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script> -->
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
 	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 	
 </head>
@@ -20,9 +20,13 @@
 	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
 	 	<a th:href="@{/catalogs/categories/add}" href="#"
 	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
+	 	
 	 	<br/><br/>
+	 	<div th:if="${#bools.isTrue(added)}" class="alert alert-success" role="alert">success!!</div>
+	 	<div th:if="${#bools.isTrue(idNotFound)}" class="alert alert-warning" role="alert">category not found!!</div>
+
 		<div class="table-responsive">
-			<table id="table1" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
+			<table id="categoriesTable" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
 				<thead>
 					<tr>
 						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
@@ -41,12 +45,14 @@
 					<tr th:each="cat : ${itemCategories.content}">
 						<td th:text="${cat.id}">111</td>
 						<td th:text="${cat.description}">Category 111</td>
-						<td th:text="#{${'itemCategory.lbl.status.'+cat.status}}">a status</td>
+						<td th:text="#{${'itemCategory.lbl.status.'+cat.status}}" class="cc2">a status</td>
+						<td><a href="#" th:href="@{/catalogs/categories/}+${cat.id}">Modify!!</a></td>
 					</tr>
 					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
 					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
 					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
 				</tbody>
+				
 			</table>
 			
 		</div>

@@ -53,6 +53,11 @@ public class CategoryService {
 		return Category.parseViewBean(c);
 	}
 	
+	public Category findCategory(short id){
+		CategoryEntity c = categoryDAO.findOne(id);
+		return c==null ? null : Category.parseViewBean(c);
+	}
+	
 	/**
 	 * Transforms a Core-object List into a Web-object list
 	 * @param categories
