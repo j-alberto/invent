@@ -1,9 +1,11 @@
 package org.jar.invent.core.service;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.jar.invent.core.domain.CategoryEntity;
+import org.jar.invent.core.domain.EnumStatusGeneral;
 import org.jar.invent.core.domain.dao.CategoryDAO;
 import org.jar.invent.web.domain.Category;
 import org.slf4j.Logger;
@@ -56,6 +58,10 @@ public class CategoryService {
 	public Category findCategory(short id){
 		CategoryEntity c = categoryDAO.findOne(id);
 		return c==null ? null : Category.parseViewBean(c);
+	}
+	
+	public List<EnumStatusGeneral> getCategoryStatuses(){
+		return Arrays.asList(EnumStatusGeneral.values());
 	}
 	
 	/**

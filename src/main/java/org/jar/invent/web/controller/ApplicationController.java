@@ -8,7 +8,7 @@ public class ApplicationController {
 
 	@RequestMapping("/login")
 	public String login(){
-		return "login";
+		return "other/login";
 	}
 	
 	@RequestMapping("/")
@@ -18,9 +18,14 @@ public class ApplicationController {
 
 	@RequestMapping("/catalogs")
 	public String catalogsSiteMap(){
-		return "general/catalogs";
+		return "catalogs/catalogs";
 	}
 	
+	@RequestMapping("/about")
+	public String about(){
+		return "other/about";
+	}
+
 	@RequestMapping("/greeting")
 	public String returnGreeting(){
 		return "general/GreetingPage";

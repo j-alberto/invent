@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="storage")
 @NamedQuery(name="Storage.findAll", query="SELECT s FROM Storage s")
-public class Storage implements Serializable {
+public class StorageEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -32,17 +32,17 @@ public class Storage implements Serializable {
 
 	//bi-directional many-to-one association to InventoryDetail
 	@OneToMany(mappedBy="storage")
-	private List<InventoryDetail> inventoryDetails;
+	private List<InventoryDetailEntity> inventoryDetails;
 
 	//bi-directional many-to-one association to StorageMovement
 	@OneToMany(mappedBy="storage1")
-	private List<StorageMovement> storageMovements1;
+	private List<StorageMovementEntity> storageMovements1;
 
 	//bi-directional many-to-one association to StorageMovement
 	@OneToMany(mappedBy="storage2")
-	private List<StorageMovement> storageMovements2;
+	private List<StorageMovementEntity> storageMovements2;
 
-	public Storage() {
+	public StorageEntity() {
 	}
 
 	public int getId() {
@@ -77,66 +77,66 @@ public class Storage implements Serializable {
 		this.status = status;
 	}
 
-	public List<InventoryDetail> getInventoryDetails() {
+	public List<InventoryDetailEntity> getInventoryDetails() {
 		return this.inventoryDetails;
 	}
 
-	public void setInventoryDetails(List<InventoryDetail> inventoryDetails) {
+	public void setInventoryDetails(List<InventoryDetailEntity> inventoryDetails) {
 		this.inventoryDetails = inventoryDetails;
 	}
 
-	public InventoryDetail addInventoryDetail(InventoryDetail inventoryDetail) {
+	public InventoryDetailEntity addInventoryDetail(InventoryDetailEntity inventoryDetail) {
 		getInventoryDetails().add(inventoryDetail);
 		inventoryDetail.setStorage(this);
 
 		return inventoryDetail;
 	}
 
-	public InventoryDetail removeInventoryDetail(InventoryDetail inventoryDetail) {
+	public InventoryDetailEntity removeInventoryDetail(InventoryDetailEntity inventoryDetail) {
 		getInventoryDetails().remove(inventoryDetail);
 		inventoryDetail.setStorage(null);
 
 		return inventoryDetail;
 	}
 
-	public List<StorageMovement> getStorageMovements1() {
+	public List<StorageMovementEntity> getStorageMovements1() {
 		return this.storageMovements1;
 	}
 
-	public void setStorageMovements1(List<StorageMovement> storageMovements1) {
+	public void setStorageMovements1(List<StorageMovementEntity> storageMovements1) {
 		this.storageMovements1 = storageMovements1;
 	}
 
-	public StorageMovement addStorageMovements1(StorageMovement storageMovements1) {
+	public StorageMovementEntity addStorageMovements1(StorageMovementEntity storageMovements1) {
 		getStorageMovements1().add(storageMovements1);
 		storageMovements1.setStorage1(this);
 
 		return storageMovements1;
 	}
 
-	public StorageMovement removeStorageMovements1(StorageMovement storageMovements1) {
+	public StorageMovementEntity removeStorageMovements1(StorageMovementEntity storageMovements1) {
 		getStorageMovements1().remove(storageMovements1);
 		storageMovements1.setStorage1(null);
 
 		return storageMovements1;
 	}
 
-	public List<StorageMovement> getStorageMovements2() {
+	public List<StorageMovementEntity> getStorageMovements2() {
 		return this.storageMovements2;
 	}
 
-	public void setStorageMovements2(List<StorageMovement> storageMovements2) {
+	public void setStorageMovements2(List<StorageMovementEntity> storageMovements2) {
 		this.storageMovements2 = storageMovements2;
 	}
 
-	public StorageMovement addStorageMovements2(StorageMovement storageMovements2) {
+	public StorageMovementEntity addStorageMovements2(StorageMovementEntity storageMovements2) {
 		getStorageMovements2().add(storageMovements2);
 		storageMovements2.setStorage2(this);
 
 		return storageMovements2;
 	}
 
-	public StorageMovement removeStorageMovements2(StorageMovement storageMovements2) {
+	public StorageMovementEntity removeStorageMovements2(StorageMovementEntity storageMovements2) {
 		getStorageMovements2().remove(storageMovements2);
 		storageMovements2.setStorage2(null);
 

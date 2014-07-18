@@ -1,15 +1,12 @@
 package org.jar.invent.web.domain;
 
-import javax.validation.constraints.Max;
-
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.jar.invent.core.domain.CategoryEntity;
 import org.jar.invent.core.domain.EnumStatusGeneral;
 
-public class Category implements WebBean<CategoryEntity>{
+public class Category{
 
-	@Max(Short.MAX_VALUE)
 	private short id;
 	@NotEmpty
 	@Length(min=1, max=30)

@@ -1,0 +1,33 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<link rel="stylesheet" type="text/css"
+	href="../../../webapp/css/bootstrap.min.css"
+	th:href="@{/css/bootstrap.min.css}" />
+
+<!-- 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script> -->
+<!-- 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script> -->
+<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+
+</head>
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: breadcrumbsCategories"></div>
+
+	<h3 th:text="#{menu.general.catalogs}">Catalogs</h3>
+	<ol>
+		<li><a href="#" th:href="@{/catalogs/categories}" th:text="#{itemcategory.lbl.title}">Item Categories!!</a></li>
+		<li><a href="#" th:href="@{/catalogs/custType}" th:text="#{itemcategory.lbl.title}">Customer Type!!</a></li>
+		<li><a href="#" th:href="@{/catalogs/custStatus}" th:text="#{itemcategory.lbl.title}">Customer Status!!</a></li>
+		<li><a href="#" th:href="@{/catalogs/units}" th:text="#{itemcategory.lbl.title}">Units!!</a></li>
+		<li><a href="#" th:href="@{/catalogs/workflows}" th:text="#{itemcategory.lbl.title}">Order Workflow!!</a></li>
+		<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{itemcategory.lbl.title}">Order Status!!</a></li>
+		<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{itemcategory.lbl.title}">Order Type!!</a></li>
+	</ol>
+
+</body>
+</html>

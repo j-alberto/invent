@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.validation.Valid;
 
+import org.jar.invent.core.domain.EnumStatusGeneral;
 import org.jar.invent.core.service.CategoryService;
 import org.jar.invent.web.domain.Category;
 import org.slf4j.Logger;
@@ -20,7 +21,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.context.request.RequestAttributes;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -29,6 +29,7 @@ public class CategoryController {
 
 	private CategoryService categoryService;
 	private Logger log = LoggerFactory.getLogger(getClass());
+
 	private static final int DEFAULT_PAGE_SIZE=10;
 	
 	@Autowired
@@ -42,41 +43,23 @@ public class CategoryController {
 		
 		Page<Category> cats= categoryService.getCategories(pageRequest);
 		model.addAttribute("itemCategories", cats);
-		return "general/itemCategory";
+		return "catalogs/itemCategory";
 	}
-
-	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public String getCategory(final Model model, @PathVariable final short id
-		,final RedirectAttributes redirectAttributes){
-
-		Category cat = categoryService.findCategory(id);
-		if(cat==null){
-			redirectAttributes.addFlashAttribute("idNotFound", true);
-			return "redirect:/catalogs/categories";
-		}
-		model.addAttribute("category", cat);
-		model.addAttribute("edit", true);
-		return "general/itemCategoryAdd";
-	}
-
 
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String addCategories(final Model model){
 		
-		for(String s : model.asMap().keySet()){
-			log.info(s+">>"+model.asMap().get(s));
-		}
-		
-		
-		return "general/itemCategoryAdd";
+		return "catalogs/itemCategoryAdd";
 	}
-	
+
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model
 			,final RedirectAttributes redirectAttributes){
 
+		log.info("update>>>"+category);
+		
 		if(bindResults.hasErrors()){
-			return "general/itemCategoryAdd";
+			return "catalogs/itemCategoryAdd";
 		}
 		
 		categoryService.saveCategory(category);
@@ -87,23 +70,46 @@ public class CategoryController {
 		return "redirect:/catalogs/categories";
 	}
 
-	
-	
 
-	@RequestMapping(value="/raw",method=RequestMethod.GET)
-	public String addCategoriesRaw(Model model,
-		@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
+	@RequestMapping(value="/{id}",method=RequestMethod.GET)
+	public String editCategory(final Model model, @PathVariable final short id
+		,final RedirectAttributes redirectAttributes){
+
+		Category cat = categoryService.findCategory(id);
+		if(cat==null){
+			redirectAttributes.addFlashAttribute("idNotFound", true);
+			return "redirect:/catalogs/categories";
+		}
+		model.addAttribute("category", cat);
+		model.addAttribute("edit", true);
 		
-		Page<Category> cats= categoryService.getCategories(pageRequest);
-		model.addAttribute("itemCategories", cats);
-		
-		return "general/itemCategory :: table1";
+		return "catalogs/itemCategoryAdd";
 	}
 
+	@RequestMapping(value="/edit",method=RequestMethod.POST)
+	public String editCategory(@Valid final Category category, final BindingResult bindResults
+			,final ModelMap model
+			,final RedirectAttributes redirectAttributes){
+
+		model.addAttribute("edit", true);
+		
+		if(bindResults.hasErrors()){
+			return "catalogs/itemCategoryAdd";
+		}
+		
+		categoryService.saveCategory(category);
+		redirectAttributes.addFlashAttribute("updated", true);
+		
+		return "redirect:/catalogs/categories";
+	}
 	
 	@ModelAttribute
 	public Category getCategory(){
 		return new Category();
 	}
-
+	
+	@ModelAttribute("categoryTypes")
+	public List<EnumStatusGeneral> getCategoryStatuses(){
+		return categoryService.getCategoryStatuses();
+	}
 }

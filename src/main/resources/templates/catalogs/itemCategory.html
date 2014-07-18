@@ -22,8 +22,12 @@
 	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
 	 	
 	 	<br/><br/>
-	 	<div th:if="${#bools.isTrue(added)}" class="alert alert-success" role="alert">success!!</div>
-	 	<div th:if="${#bools.isTrue(idNotFound)}" class="alert alert-warning" role="alert">category not found!!</div>
+	 	<div th:if="${#bools.isTrue(added)}" class="alert alert-success" role="alert"
+	 		th:text="#{itemCategory.msg.addSuccess}">added success!!</div>
+	 	<div th:if="${#bools.isTrue(updated)}" class="alert alert-success" role="alert"
+	 		th:text="#{itemCategory.msg.updateSuccess}">updated success!!</div>
+	 	<div th:if="${#bools.isTrue(idNotFound)}" class="alert alert-warning" role="alert"
+	 		th:text="#{itemCategory.msg.notFount}">category not found!!</div>
 
 		<div class="table-responsive">
 			<table id="categoriesTable" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
@@ -45,8 +49,8 @@
 					<tr th:each="cat : ${itemCategories.content}">
 						<td th:text="${cat.id}">111</td>
 						<td th:text="${cat.description}">Category 111</td>
-						<td th:text="#{${'itemCategory.lbl.status.'+cat.status}}" class="cc2">a status</td>
-						<td><a href="#" th:href="@{/catalogs/categories/}+${cat.id}">Modify!!</a></td>
+						<td th:text="#{${'lbl.status.'+cat.status}}" class="cc2">a status</td>
+						<td><a href="#" th:href="@{/catalogs/categories/}+${cat.id}" th:text="#{lbl.edit}">Modify!!</a></td>
 					</tr>
 					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
 					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>

@@ -14,7 +14,7 @@ import java.util.List;
 @Entity
 @Table(name="storage_movement")
 @NamedQuery(name="StorageMovement.findAll", query="SELECT s FROM StorageMovement s")
-public class StorageMovement implements Serializable {
+public class StorageMovementEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	public static enum EnumStorageMovType {
@@ -43,24 +43,24 @@ public class StorageMovement implements Serializable {
 
 	//bi-directional many-to-one association to OrderDetail
 	@OneToMany(mappedBy="storageMovement")
-	private List<OrderDetail> orderDetails;
+	private List<OrderDetailEntity> orderDetails;
 
 	//bi-directional many-to-one association to Storage
 	@ManyToOne
 	@JoinColumn(name="idstorage_src")
-	private Storage storage1;
+	private StorageEntity storage1;
 
 	//bi-directional many-to-one association to Storage
 	@ManyToOne
 	@JoinColumn(name="idstorage_dst")
-	private Storage storage2;
+	private StorageEntity storage2;
 
 	//bi-directional many-to-one association to InventoryDetail
 	@ManyToOne
 	@JoinColumn(name="idinventory_detail", nullable=false)
-	private InventoryDetail inventoryDetail;
+	private InventoryDetailEntity inventoryDetail;
 
-	public StorageMovement() {
+	public StorageMovementEntity() {
 	}
 
 	public int getId() {
@@ -103,49 +103,49 @@ public class StorageMovement implements Serializable {
 		this.type = type;
 	}
 
-	public List<OrderDetail> getOrderDetails() {
+	public List<OrderDetailEntity> getOrderDetails() {
 		return this.orderDetails;
 	}
 
-	public void setOrderDetails(List<OrderDetail> orderDetails) {
+	public void setOrderDetails(List<OrderDetailEntity> orderDetails) {
 		this.orderDetails = orderDetails;
 	}
 
-	public OrderDetail addOrderDetail(OrderDetail orderDetail) {
+	public OrderDetailEntity addOrderDetail(OrderDetailEntity orderDetail) {
 		getOrderDetails().add(orderDetail);
 		orderDetail.setStorageMovement(this);
 
 		return orderDetail;
 	}
 
-	public OrderDetail removeOrderDetail(OrderDetail orderDetail) {
+	public OrderDetailEntity removeOrderDetail(OrderDetailEntity orderDetail) {
 		getOrderDetails().remove(orderDetail);
 		orderDetail.setStorageMovement(null);
 
 		return orderDetail;
 	}
 
-	public Storage getStorage1() {
+	public StorageEntity getStorage1() {
 		return this.storage1;
 	}
 
-	public void setStorage1(Storage storage1) {
+	public void setStorage1(StorageEntity storage1) {
 		this.storage1 = storage1;
 	}
 
-	public Storage getStorage2() {
+	public StorageEntity getStorage2() {
 		return this.storage2;
 	}
 
-	public void setStorage2(Storage storage2) {
+	public void setStorage2(StorageEntity storage2) {
 		this.storage2 = storage2;
 	}
 
-	public InventoryDetail getInventoryDetail() {
+	public InventoryDetailEntity getInventoryDetail() {
 		return this.inventoryDetail;
 	}
 
-	public void setInventoryDetail(InventoryDetail inventoryDetail) {
+	public void setInventoryDetail(InventoryDetailEntity inventoryDetail) {
 		this.inventoryDetail = inventoryDetail;
 	}
 

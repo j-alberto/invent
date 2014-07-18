@@ -23,3 +23,6 @@ spring:
 #      ddl-auto: validate # defaults to create-drop for embedded dbs
 #    repositories:
 #      enabled: true # if spring data repository support is enabled
+#endpoints:
+#  error:
+#    path:/notFound

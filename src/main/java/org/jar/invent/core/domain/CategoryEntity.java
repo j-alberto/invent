@@ -30,7 +30,7 @@ public class CategoryEntity implements Serializable {
 
 	//bi-directional many-to-one association to Item
 	@OneToMany(mappedBy="category")
-	private List<Item> items;
+	private List<ItemEntity> items;
 
 		public CategoryEntity() {
 		}
@@ -64,22 +64,22 @@ public class CategoryEntity implements Serializable {
 		this.status = status;
 	}
 
-	public List<Item> getItems() {
+	public List<ItemEntity> getItems() {
 		return this.items;
 	}
 
-	public void setItems(List<Item> items) {
+	public void setItems(List<ItemEntity> items) {
 		this.items = items;
 	}
 
-	public Item addItem(Item item) {
+	public ItemEntity addItem(ItemEntity item) {
 		getItems().add(item);
 		item.setCategory(this);
 
 		return item;
 	}
 
-	public Item removeItem(Item item) {
+	public ItemEntity removeItem(ItemEntity item) {
 		getItems().remove(item);
 		item.setCategory(null);
 

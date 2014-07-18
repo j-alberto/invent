@@ -14,12 +14,11 @@
 	        <span class="icon-bar"></span>
 	      </button>
 	      <a href="#" th:href="@{/}" class="navbar-brand"
-	        	th:text="#{menu.home}">!!</a>   
+	        	th:text="#{menu.home}">home!!</a>   
 	    </div>
 	    <!-- Collect the nav links, forms, and other content for toggling -->
 	    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 	      <ul class="nav navbar-nav">
-	        <li><a href="#">Link!!</a></li>
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle"
 	          		data-toggle="dropdown"><span th:text="#{menu.general.catalogs}">catalogs!!</span><span class="caret"></span></a>
@@ -33,6 +32,7 @@
 	            <li><a href="#">dummy3</a></li>
 	          </ul>
 	        </li>
+	        <li><a href="#" th:text="#{menu.about}">Link!!</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li>
@@ -49,8 +49,9 @@
 <!-- *************	PAGINATION BAR : ONLY BUTTONS ********** -->
 	<ul class="pagination pagination-sm" th:fragment="pagingBar(page,pageSize)">
 		<li th:class="${page.firstPage}?'previous disabled' : 'previous '">
-   			<a th:unless="${itemCategories.firstPage}" th:href="@{categories(page=0,size=${pageSize})}">First!!</a>
-   			<a th:if="${page.firstPage}">First!</a>
+   			<a th:unless="${itemCategories.firstPage}" th:href="@{categories(page=0,size=${pageSize})}"
+   			 	th:text="#{lbl.first}">First!!</a>
+   			<a th:if="${page.firstPage}" th:text="#{lbl.first}">First!</a>
 		</li> 
  		<li th:each="number : ${#numbers.sequence(1, page.totalPages)}" th:with="current=(${page.number+1} == ${number})" 
  			th:class="${current}?'active'">
@@ -58,8 +59,9 @@
  			<a th:if="${current}" th:text="${number}"></a>
  		</li> 
 		<li th:class="${page.lastPage}?'next disabled' : 'next'">
-   			<a th:unless="${page.lastPage}" th:href="@{categories(page=${page.totalPages-1},size=${pageSize})}">Last!!</a>
-   			<a th:if="${page.lastPage}">Last!</a>
+   			<a th:unless="${page.lastPage}" th:href="@{categories(page=${page.totalPages-1},size=${pageSize})}"
+   				th:text="#{lbl.last}">Last!!</a>
+   			<a th:if="${page.lastPage}" th:text="#{lbl.last}">Last!</a>
    		</li>
 	</ul>
 
@@ -68,7 +70,7 @@
 	th:with="link0='/catalogs'
 	,link1='/catalogs/categories'
 	,link2='/catalogs/categories/add'
-	,link3='/catalogs/categories/remove'
+	,link3='/catalogs/categories/edit'
 	,indexOf0=${#strings.indexOf(#httpServletRequest.requestURI,link0)  > 0}
 	,endsWith0=${#strings.endsWith(#httpServletRequest.requestURI,link0)}
 	,indexOf1=${#strings.indexOf(#httpServletRequest.requestURI,link1)  > 0}
@@ -91,8 +93,8 @@
 			<span th:if="${endsWith2}" th:text="#{menu.general.catalogs.itemcategory.addNew}"></span>
 		</li>
 		<li th:if="${indexOf3}" class="active">
-			<a th:unless="${endsWith3}" th:href="@{${link3}}" th:text="#{menu.general.catalogs.itemcategory.remove}" href="#"></a>
-			<span th:if="${endsWith3}" th:text="#{menu.general.catalogs.itemcategory.remove}"></span>
+			<a th:unless="${endsWith3}" th:href="@{${link3}}" th:text="#{menu.general.catalogs.itemcategory.edit}" href="#"></a>
+			<span th:if="${endsWith3}" th:text="#{menu.general.catalogs.itemcategory.edit}"></span>
 		</li>
 	</ul>
 </body>

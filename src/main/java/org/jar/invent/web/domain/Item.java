@@ -1,4 +1,4 @@
-package org.jar.invent.core.domain;
+package org.jar.invent.web.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;
@@ -39,7 +39,7 @@ public class Item implements Serializable {
 	//bi-directional many-to-one association to Category
 	@ManyToOne
 	@JoinColumn(name="idcategory", nullable=false)
-	private CategoryEntity category;
+	private Category category;
 
 	public Item() {
 	}
@@ -106,11 +106,11 @@ public class Item implements Serializable {
 		return inventory;
 	}
 
-	public CategoryEntity getCategory() {
+	public Category getCategory() {
 		return this.category;
 	}
 
-	public void setCategory(CategoryEntity category) {
+	public void setCategory(Category category) {
 		this.category = category;
 	}
 

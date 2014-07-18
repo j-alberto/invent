@@ -1,18 +1,22 @@
-package org.jar.invent.core.domain;
+package org.jar.invent.web.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
+import org.jar.invent.core.domain.EnumStatusGeneral;
+
 import java.util.List;
 
 
 /**
- * The persistent class for the order_status database table.
+ * The persistent class for the order_type database table.
  * 
  */
 @Entity
-@Table(name="order_status")
-@NamedQuery(name="OrderStatus.findAll", query="SELECT o FROM OrderStatus o")
-public class OrderStatus implements Serializable {
+@Table(name="order_type")
+@NamedQuery(name="OrderType.findAll", query="SELECT o FROM OrderType o")
+public class OrderType implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -23,20 +27,15 @@ public class OrderStatus implements Serializable {
 	@Column(nullable=false, length=30)
 	private String description;
 
-	@Column(nullable=false)
+	@Column(nullable=false, length=1)
 	@Enumerated
 	private EnumStatusGeneral status;
 
 	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="orderStatus")
+	@OneToMany(mappedBy="orderType")
 	private List<Order> orders;
 
-	//bi-directional many-to-one association to OrderWorkflow
-	@ManyToOne
-	@JoinColumn(name="idworkflow", nullable=false)
-	private OrderWorkflow orderWorkflow;
-
-	public OrderStatus() {
+	public OrderType() {
 	}
 
 	public int getId() {
@@ -73,24 +72,16 @@ public class OrderStatus implements Serializable {
 
 	public Order addOrder(Order order) {
 		getOrders().add(order);
-		order.setOrderStatus(this);
+		order.setOrderType(this);
 
 		return order;
 	}
 
 	public Order removeOrder(Order order) {
 		getOrders().remove(order);
-		order.setOrderStatus(null);
+		order.setOrderType(null);
 
 		return order;
-	}
-
-	public OrderWorkflow getOrderWorkflow() {
-		return this.orderWorkflow;
-	}
-
-	public void setOrderWorkflow(OrderWorkflow orderWorkflow) {
-		this.orderWorkflow = orderWorkflow;
 	}
 
 }

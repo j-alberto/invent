@@ -1,4 +1,4 @@
-package org.jar.invent.core.domain;
+package org.jar.invent.web.domain;
 
 import java.io.Serializable;
 import javax.persistence.*;

@@ -12,7 +12,7 @@ import java.util.List;
 @Entity
 @Table(name="customer_type")
 @NamedQuery(name="CustomerType.findAll", query="SELECT c FROM CustomerType c")
-public class CustomerType implements Serializable {
+public class CustomerTypeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -25,9 +25,9 @@ public class CustomerType implements Serializable {
 
 	//bi-directional many-to-one association to Customer
 	@OneToMany(mappedBy="customerType")
-	private List<Customer> customers;
+	private List<CustomerEntity> customers;
 
-	public CustomerType() {
+	public CustomerTypeEntity() {
 	}
 
 	public int getId() {
@@ -46,22 +46,22 @@ public class CustomerType implements Serializable {
 		this.description = description;
 	}
 
-	public List<Customer> getCustomers() {
+	public List<CustomerEntity> getCustomers() {
 		return this.customers;
 	}
 
-	public void setCustomers(List<Customer> customers) {
+	public void setCustomers(List<CustomerEntity> customers) {
 		this.customers = customers;
 	}
 
-	public Customer addCustomer(Customer customer) {
+	public CustomerEntity addCustomer(CustomerEntity customer) {
 		getCustomers().add(customer);
 		customer.setCustomerType(this);
 
 		return customer;
 	}
 
-	public Customer removeCustomer(Customer customer) {
+	public CustomerEntity removeCustomer(CustomerEntity customer) {
 		getCustomers().remove(customer);
 		customer.setCustomerType(null);
 

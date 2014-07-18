@@ -14,6 +14,11 @@ $(document).ready(function(){
 	    //console.log($(this).children('td:last-child').prop('class'));
 	});
 	
+	$( document ).ajaxError(function( event, request, settings ) {
+		  $( "#msg" ).append( "<li>Error requesting page " + settings.url + "</li>" );
+		  console.log('error!!');
+		  alert('sdf');
+		});
 	
 });
 
