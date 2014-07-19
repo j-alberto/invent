@@ -37,7 +37,7 @@ public class CategoryService {
 		return asWebDomainList((List<CategoryEntity>)categoryDAO.findAll());
 	}
 	
-	public Page<Category> getCategories(String name, Pageable pageRequest){
+	public Page<Category> getCategories(String text, Pageable pageRequest){
 		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
 			//TODO: let consumer know about change in page's size
 			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
@@ -45,10 +45,10 @@ public class CategoryService {
 
 		Page<CategoryEntity> resultPage;
 		
-		if(name.isEmpty()){
+		if(text.isEmpty()){
 			resultPage = categoryDAO.findAll(pageRequest);
 		}else{
-			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(name, pageRequest);
+			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(text, pageRequest);
 		}
 		
 		

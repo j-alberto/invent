@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface UnitDAO extends JpaRepository<UnitEntity, Integer>{
     
-	Page<UnitEntity> findByNameOrDescriptionContainingIgnoreCase(String text, Pageable pageRequest);
+	Page<UnitEntity> findByNameOrDescriptionContainingAllIgnoreCase(String name,String desc, Pageable pageRequest);
 	
 	
 }

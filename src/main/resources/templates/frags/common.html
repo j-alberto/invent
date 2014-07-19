@@ -24,7 +24,7 @@
 	          		data-toggle="dropdown"><span th:text="#{menu.catalogs}">catalogs!!</span><span class="caret"></span></a>
 				<ul th:fragment="catalogList(asList)" th:class="!${asList}?dropdown-menu">
 					<li><a href="#" th:href="@{/catalogs/categories}" th:text="#{menu.catalogs.itemcategory}">Item Categories!!</a></li>
-					<li><a href="#" th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemUnits}">Units!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemunit}">Units!!</a></li>
 					<li class="divider" th:unless="${asList}"></li>
 					<li><a href="#" th:href="@{/catalogs/custType}" th:text="#{menu.catalogs.customerType}">Customer Type!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/custStatus}" th:text="#{menu.catalogs.customerStatus}">Customer Status!!</a></li>
@@ -34,7 +34,7 @@
 					<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}">Order Status!!</a></li>
 				</ul>
 	        </li>
-	        <li><a href="#" th:text="#{menu.about}">Link!!</a></li>
+	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}">Link!!</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li>
@@ -48,10 +48,30 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-<!-- *************	BREADCRUMBS FOR CATEGORIES ********** -->
 	<ul th:fragment="brCrumbCat" class="breadcrumb">
 		<li><span th:text="#{menu.catalogs}"></span></li>
 	</ul>
+
+<!-- *************	PAGINATION BAR : BUTTONS,FISRT AND LAST ********** -->
+	<ul class="pagination pagination-sm" th:fragment="pagingBar(page,pageSize,searchText,path)">
+		<li th:class="${page.firstPage}?'previous disabled' : 'previous '">
+   			<a th:unless="${page.firstPage}" th:href="@{${path}(page=0,size=${pageSize},searchText=${searchText})}"
+   			 	th:text="#{lbl.first}">First!!</a>
+   			<a th:if="${page.firstPage}" th:text="#{lbl.first}">First!</a>
+		</li> 
+ 		<li th:each="number : ${#numbers.sequence(1, page.totalPages)}" th:with="current=(${page.number+1} == ${number})" 
+ 			th:class="${current}?'active'">
+ 			<a th:unless="${current}" th:text="${number}" th:href="@{${path}(page=${number-1},size=${pageSize},searchText=${searchText})}"></a>
+ 			<a th:if="${current}" th:text="${number}"></a>
+ 		</li> 
+		<li th:class="${page.lastPage}?'next disabled' : 'next'">
+   			<a th:unless="${page.lastPage}" th:href="@{${path}(page=${page.totalPages-1},size=${pageSize},searchText=${searchText})}"
+   				th:text="#{lbl.last}">Last!!</a>
+   			<a th:if="${page.lastPage}" th:text="#{lbl.last}">Last!</a>
+   		</li>
+	</ul>
+
+<!-- *************	BREADCRUMBS FOR CATEGORIES ********** -->
 	<ul th:fragment="brCrumbCatCateg" class="breadcrumb">
 		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
 		<li><span th:text="#{menu.catalogs.itemcategory}"></span></li>
@@ -67,25 +87,36 @@
 		<li><span th:text="#{menu.catalogs.itemcategory.edit}">edit!!</span></li>
 	</ul>
 
-<!-- *************	PAGINATION BAR : BUTTONS,FISRT AND LAST ********** -->
-	<ul class="pagination pagination-sm" th:fragment="pagingBar(page,pageSize,name,path)">
-		<li th:class="${page.firstPage}?'previous disabled' : 'previous '">
-   			<a th:unless="${itemCategories.firstPage}" th:href="@{${path}(page=0,size=${pageSize},name=${name})}"
-   			 	th:text="#{lbl.first}">First!!</a>
-   			<a th:if="${page.firstPage}" th:text="#{lbl.first}">First!</a>
-		</li> 
- 		<li th:each="number : ${#numbers.sequence(1, page.totalPages)}" th:with="current=(${page.number+1} == ${number})" 
- 			th:class="${current}?'active'">
- 			<a th:unless="${current}" th:text="${number}" th:href="@{${path}(page=${number-1},size=${pageSize},name=${name})}"></a>
- 			<a th:if="${current}" th:text="${number}"></a>
- 		</li> 
-		<li th:class="${page.lastPage}?'next disabled' : 'next'">
-   			<a th:unless="${page.lastPage}" th:href="@{${path}(page=${page.totalPages-1},size=${pageSize},name=${name})}"
-   				th:text="#{lbl.last}">Last!!</a>
-   			<a th:if="${page.lastPage}" th:text="#{lbl.last}">Last!</a>
-   		</li>
+<!-- *************	BREADCRUMBS FOR UNITS ********** -->
+	<ul th:fragment="brCrumbCatUnit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.itemunit}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatUnitNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemunit}" href="#">unit!!</a></li>
+		<li><span th:text="#{menu.catalogs.itemunit.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatUnitEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemcategory}" href="#">unit!!</a></li>
+		<li><span th:text="#{menu.catalogs.itemunit.edit}">edit!!</span></li>
 	</ul>
 
+<!-- *************	INLINE ALERTS ********** -->
+<!-- 	 	<div class="alert alert-success alert-dismissible" role="alert" th:fragment="alertInfo(message)"> -->
+<!-- 	 		<strong th:text="${message}"></strong> -->
+<!-- 	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	 -->
+<!-- 	 	</div> -->
+<!-- 	 	<div class="alert alert-warning alert-dismissible" role="alert" th:fragment="warningInfo(message)"> -->
+<!-- 	 		<strong th:text="${message}"></strong> -->
+<!-- 	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	 -->
+<!-- 	 	</div> -->
+
+	 	<div th:class="'alert alert-'+${type}+' alert-dismissible'" role="alert" th:fragment="alert(message,type)">
+	 		<strong th:text="${message}"></strong>
+	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	
+	 	</div>
 	
 </body>
 </html>

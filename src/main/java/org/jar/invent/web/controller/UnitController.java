@@ -2,12 +2,11 @@ package org.jar.invent.web.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.jar.invent.core.domain.EnumStatusGeneral;
-import org.jar.invent.core.service.CategoryService;
-import org.jar.invent.web.domain.Category;
+import org.jar.invent.core.domain.UnitEntity.DataType;
+import org.jar.invent.core.service.UnitService;
+import org.jar.invent.web.domain.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,100 +25,99 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/catalogs/categories")
-public class CategoryController {
+@RequestMapping("/catalogs/units")
+public class UnitController {
 
-	private CategoryService categoryService;
+	private UnitService unitService;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final int DEFAULT_PAGE_SIZE=10;
-	private static final String TEMPLATE_ITEM_CAT= "catalogs/itemCategory";
-	private static final String TEMPLATE_ITEM_CAT_ADD= "catalogs/itemCategoryAdd";
-	private static final String REDIR_ITEM_CAT= "redirect:/catalogs/categories";
+	private static final String TEMPLATE_ITEM_UNIT= "catalogs/itemUnit";
+	private static final String TEMPLATE_ITEM_UNIT_ADD= "catalogs/itemUnitAdd";
+	private static final String REDIR_ITEM_UNIT= "redirect:/catalogs/units";
 	
 	@Autowired
-	public CategoryController(CategoryService categoryService) {
-		this.categoryService = categoryService;
+	public UnitController(UnitService unitService) {
+		this.unitService = unitService;
 	}
 	
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String getCategories(Model model
+	public String getUnits(Model model
 								,@RequestParam(value="searchText",required=false,defaultValue="") String searchText
 								,@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
-		
-			
+
 		model.addAttribute("searchText",searchText);
-		Page<Category> cats= categoryService.getCategories(searchText, pageRequest);
-		model.addAttribute("itemCategories", cats);
+		Page<Unit> units= unitService.getUnits(searchText, pageRequest);
+		model.addAttribute("itemUnits", units);
 		
-		return TEMPLATE_ITEM_CAT;
+		return TEMPLATE_ITEM_UNIT;
 	}
 
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String addCategories(final Model model){
 		
-		return TEMPLATE_ITEM_CAT_ADD;
+		return TEMPLATE_ITEM_UNIT_ADD;
 	}
 
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model
+	public String addCategories(@Valid final Unit unit, final BindingResult bindResults, final ModelMap model
 			,final RedirectAttributes redirectAttributes){
 		
-		log.info("adding category: "+category);
+		log.info("adding unit: "+unit);
 		if(bindResults.hasErrors()){
-			return TEMPLATE_ITEM_CAT_ADD;
+			return TEMPLATE_ITEM_UNIT_ADD;
 		}
 		
-		categoryService.saveCategory(category);
+		unitService.saveUnit(unit);
 		model.clear();
 
-		redirectAttributes.addFlashAttribute("eventDone","added");
+		redirectAttributes.addFlashAttribute("eventDone", "added");
 		
-		return REDIR_ITEM_CAT;
+		return REDIR_ITEM_UNIT;
 	}
 
 
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public String editCategory(final Model model, @PathVariable final short id
+	public String editUnit(final Model model, @PathVariable final int id
 		,final RedirectAttributes redirectAttributes){
 
-		Category cat = categoryService.findCategory(id);
-		if(cat==null){
-			redirectAttributes.addFlashAttribute("eventDone","idNotFound");
-			return REDIR_ITEM_CAT;
+		Unit unit = unitService.findUnit(id);
+		if(null == unit){
+			redirectAttributes.addFlashAttribute("eventDone", "idNotFound");
+			return REDIR_ITEM_UNIT;
 		}
-		model.addAttribute("category", cat);
+		model.addAttribute("unit", unit);
 		model.addAttribute("edit", true);
 		
-		return TEMPLATE_ITEM_CAT_ADD;
+		return TEMPLATE_ITEM_UNIT_ADD;
 	}
 
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
-	public String editCategory(@Valid final Category category, final BindingResult bindResults
+	public String editUnit(@Valid final Unit unit, final BindingResult bindResults
 			,final ModelMap model
 			,final RedirectAttributes redirectAttributes){
 
 		model.addAttribute("edit", true);
-		log.info("updating category: "+category);
+		log.info("updating category: "+unit);
 		
 		if(bindResults.hasErrors()){
-			return TEMPLATE_ITEM_CAT_ADD;
+			return TEMPLATE_ITEM_UNIT_ADD;
 		}
 		
-		categoryService.saveCategory(category);
-		redirectAttributes.addFlashAttribute("eventDone","updated");
+		unitService.saveUnit(unit);
+		redirectAttributes.addFlashAttribute("eventDone", "updated");
 		
-		return REDIR_ITEM_CAT;
+		return REDIR_ITEM_UNIT;
 	}
 	
 	@ModelAttribute
-	public Category getCategory(){
-		return new Category();
+	public Unit getUnit(){
+		return new Unit();
 	}
 	
-	@ModelAttribute("categoryTypes")
-	public List<EnumStatusGeneral> getCategoryStatuses(){
-		return categoryService.getCategoryStatuses();
+	@ModelAttribute("unitDataTypes")
+	public List<DataType> getUnitDataTypes(){
+		return unitService.getUnitDataTypes();
 	}
 }

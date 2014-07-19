@@ -17,59 +17,64 @@
 	<div th:replace="frags/common :: menu"></div>
 	<div th:replace="frags/common :: brCrumbCatCateg"></div>
 			
-	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
-	 	<a th:href="@{/catalogs/categories/add}" href="#" class="text-capitalize"
-	 		th:text="#{menu.catalogs.itemcategory.addNew}">Add new category!!</a>
-	 	
-	 	<br/><br/>
-	 	<div th:if="${#bools.isTrue(added)}" class="alert alert-success text-initial" role="alert"
-	 		th:text="#{itemCategory.msg.addSuccess}">added success!!</div>
-	 	<div th:if="${#bools.isTrue(updated)}" class="alert alert-success" role="alert"
-	 		th:text="#{itemCategory.msg.updateSuccess}">updated success!!</div>
-	 	<div th:if="${#bools.isTrue(idNotFound)}" class="alert alert-warning" role="alert"
-	 		th:text="#{itemCategory.msg.notFount}">category not found!!</div>
+ 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
+ 	<a th:href="@{/catalogs/categories/add}" href="#"
+ 		th:text="#{menu.catalogs.itemcategory.addNew}">Add new category!!</a>
+ 	
+ 	<br/><br/>
 
-		<div class="table-responsive">
-			<table id="categoriesTable" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
-				<thead>
-					<tr>
-						<td class="col-sm-4">
-						<form th:action="@{categories}" method="get" class="form-inline">
-						<div class="form-group">
-							<label class="sr-only" for="txtSearch" th:text="#{btn.search}">Search!!</label>
-			   				<input type="search" id="txtSearch" name="name" th:value="${name}"/>
-			   			</div>
-			   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
-		   				</form>
-					</td></tr>
-					<tr>
-						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
-						<th th:text="#{itemCategory.lbl.desc}">category name!!</th>
-						<th th:text="#{itemCategory.lbl.status}">status!!</th>
-						<th></th>
-					</tr>
-				</thead>
-				<tfoot>
-					<tr>
-						<td colspan="3">
-							<ul th:replace="frags/common :: pagingBar(${itemCategories},10,${name},'categories')"></ul>
-						</td>
-					</tr>
-				</tfoot>
-				<tbody th:remove="all-but-first">
-					<tr th:each="cat : ${itemCategories.content}">
-						<td th:text="${cat.id}">111</td>
-						<td th:text="${cat.description}">Category 111</td>
-						<td th:text="#{${'lbl.status.'+cat.status}}" class="cc2">a status</td>
-						<td><a href="#" th:href="@{/catalogs/categories/}+${cat.id}" th:text="#{lbl.edit}">Modify!!</a></td>
-					</tr>
-					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
-					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
-					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
-				</tbody>
-				
-			</table>
+	 <div th:if="${eventDone} == 'added'">
+ 		<div th:replace="frags/common :: alert(#{itemcategory.msg.addSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'updated'">
+ 		<div th:replace="frags/common :: alert(#{itemcategory.msg.updateSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'idNotFound'">
+	 		<div th:replace="frags/common :: alert(#{itemcategory.msg.notFound},'warning')"></div>
+	</div>
+
+
+	<div class="table-responsive">
+		<table id="categoriesTable" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
+			<thead>
+				<tr>
+					<td class="col-sm-4">
+					<form th:action="@{categories}" method="get" class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="searchBox" th:text="#{btn.search}">Search!!</label>
+		   				<input type="search" id="searchBox" name="searchText" th:value="${searchText}"/>
+		   			</div>
+		   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
+	   				</form>
+				</td></tr>
+				<tr>
+					<th th:text="#{itemcategory.lbl.id}">Id!!</th>
+					<th th:text="#{itemcategory.lbl.desc}">category name!!</th>
+					<th th:text="#{itemcategory.lbl.status}">status!!</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<ul th:replace="frags/common :: pagingBar(${itemCategories},10,${searchText},'categories')"></ul>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody th:remove="all-but-first">
+				<tr th:each="cat : ${itemCategories.content}">
+					<td th:text="${cat.id}">111</td>
+					<td th:text="${cat.description}">Category 111</td>
+					<td th:text="#{${'lbl.status.'+cat.status}}" class="cc2">a status</td>
+					<td><a href="#" th:href="@{/catalogs/categories/}+${cat.id}" th:text="#{lbl.edit}">Modify!!</a></td>
+				</tr>
+				<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
+				<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
+				<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
+			</tbody>
 			
-		</div>
+		</table>
+		
+	</div>
 </body>
 </html>

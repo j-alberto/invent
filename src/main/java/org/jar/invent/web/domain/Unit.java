@@ -3,8 +3,9 @@ package org.jar.invent.web.domain;
 import java.io.Serializable;
 import java.util.List;
 
-import org.jar.invent.core.domain.UnitEntity;
-import org.jar.invent.core.domain.UnitEntity.DataType;;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.jar.invent.core.domain.UnitEntity.DataType;
 
 
 /**
@@ -15,13 +16,26 @@ public class Unit implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	
 	private DataType dataType;
+	
+	@Length(min=0, max=50)
 	private String description;
+
+	@NotBlank
+	@Length(min=1, max=30)
 	private String name;
 	private List<Inventory> inventories;
 	private List<InventoryDetail> inventoryDetails;
 
 	public Unit() {
+		dataType = DataType.OTHER;
+	}
+	public Unit(int id, DataType dataType,String description, String name) {
+		this.id = id;
+		this.dataType = dataType;
+		this.description = description;
+		this.name = name;
 	}
 
 	public int getId() {
@@ -98,6 +112,11 @@ public class Unit implements Serializable {
 		inventoryDetail.setUnit(null);
 
 		return inventoryDetail;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("Unit{id=%d,name=%s, desc=%s, dataType=%s}", id, name, description, dataType.toString());
 	}
 
 }

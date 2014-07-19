@@ -4,10 +4,11 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import org.jar.invent.core.domain.EnumStatusGeneral;
 import org.jar.invent.core.domain.UnitEntity;
+import org.jar.invent.core.domain.UnitEntity.DataType;
 import org.jar.invent.core.domain.dao.UnitDAO;
 import org.jar.invent.web.domain.Unit;
+import org.jar.invent.web.domain.util.BeanParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +37,7 @@ public class UnitService {
 		return asWebDomainList((List<UnitEntity>)unitDAO.findAll());
 	}
 	
-	public Page<Unit> getCategories(String name, Pageable pageRequest){
+	public Page<Unit> getUnits(String text, Pageable pageRequest){
 		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
 			//TODO: let consumer know about change in page's size
 			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
@@ -44,10 +45,10 @@ public class UnitService {
 
 		Page<UnitEntity> resultPage;
 		
-		if(name.isEmpty()){
+		if(text.isEmpty()){
 			resultPage = unitDAO.findAll(pageRequest);
 		}else{
-			resultPage = unitDAO.findByNameOrDescriptionContainingIgnoreCase(name, pageRequest);
+			resultPage = unitDAO.findByNameOrDescriptionContainingAllIgnoreCase(text, text, pageRequest);
 		}
 		
 		
@@ -59,17 +60,17 @@ public class UnitService {
 	}
 	
 	public Unit saveUnit(Unit cat){
-		//UnitEntity c = unitDAO.save(cat.toEntityBean());
-		return null;//Unit.parseViewBean(c);
+		UnitEntity c = unitDAO.save(BeanParser.toEntityBean(cat));
+		return BeanParser.toWebBean(c);
 	}
 	
 	public Unit findUnit(int id){
 		UnitEntity c = unitDAO.findOne(id);
-		return null;//c==null ? null : Unit.parseViewBean(c);
+		return c==null ? null : BeanParser.toWebBean(c);
 	}
 	
-	public List<EnumStatusGeneral> getUnitStatuses(){
-		return Arrays.asList(EnumStatusGeneral.values());
+	public List<DataType> getUnitDataTypes(){
+		return Arrays.asList(DataType.values());
 	}
 	
 	/**
@@ -78,11 +79,11 @@ public class UnitService {
 	 * @return
 	 */
 	private List<Unit> asWebDomainList(List<UnitEntity> categories){
-		List<Unit> webCategories = new ArrayList<Unit>();
+		List<Unit> webItemUnits = new ArrayList<Unit>();
 		
 		for(UnitEntity c : categories){
-			//webCategories.add(new Unit(c.getId(), c.getDescription(), c.getStatus()));
+			webItemUnits.add(BeanParser.toWebBean(c));
 		}
-		return webCategories;
+		return webItemUnits;
 	}
 }

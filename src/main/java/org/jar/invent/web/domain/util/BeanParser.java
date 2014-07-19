@@ -16,12 +16,18 @@ public class BeanParser{
 	}
 	
 	public static UnitEntity toEntityBean(Unit bean) {
-		//todo define better constructor
-		return new UnitEntity();
+		//todo resolve transitive dependencies
+		return new UnitEntity(bean.getId()
+				,bean.getDataType()
+				,bean.getDescription()
+				,bean.getName());
 	}
 	public static Unit toWebBean(UnitEntity bean) {
-		//todo define better constructor
-		return new Unit();
+		//todo resolve transitive dependencies
+		return new Unit(bean.getId()
+				,bean.getDataType()
+				,bean.getDescription()
+				,bean.getName());
 	}
 	
 }

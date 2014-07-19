@@ -1,14 +1,13 @@
 package org.jar.invent.web.domain;
 
 import org.hibernate.validator.constraints.Length;
-import org.hibernate.validator.constraints.NotEmpty;
-import org.jar.invent.core.domain.CategoryEntity;
+import org.hibernate.validator.constraints.NotBlank;
 import org.jar.invent.core.domain.EnumStatusGeneral;
 
 public class Category{
 
 	private short id;
-	@NotEmpty
+	@NotBlank
 	@Length(min=1, max=30)
 	private String description;
 	private EnumStatusGeneral status;

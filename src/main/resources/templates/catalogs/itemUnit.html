@@ -1,0 +1,80 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+	
+</head>
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: brCrumbCatUnit"></div>
+			
+	 	<h2 th:text="#{itemunit.lbl.title}">Item units!!</h2>
+	 	<a th:href="@{/catalogs/units/add}" href="#"
+	 		th:text="#{menu.catalogs.itemunit.addNew}">Add new unit!!</a>
+	 	
+ 	<br/><br/>
+
+	 <div th:with="key=${#strings.defaultString(eventDone,'')}" th:switch="${key}">
+		<div th:case="'added'">
+	 		<div th:replace="frags/common :: alert(#{itemunit.msg.addSuccess},'success')"></div>
+		</div>
+		<div th:case="'updated'">
+	 		<div th:replace="frags/common :: alert(#{itemunit.msg.updateSuccess},'success')"></div>
+		</div>
+		<div th:case="'idNotFound'">
+	 		<div th:replace="frags/common :: alert(#{itemunit.msg.notFound},'warning')"></div>
+		</div>
+	</div>
+
+	<div class="table-responsive">
+		<table id="unitsTable" class="table table-condensed table-striped table-hover" th:fragment="tableUnit">
+			<thead>
+				<tr>
+					<td class="col-sm-4">
+					<form th:action="@{units}" method="get" class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="searchBox" th:text="#{btn.search}">Search!!</label>
+		   				<input type="search" id="searchBox" name="searchText" th:value="${searchText}"/>
+		   			</div>
+		   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
+	   				</form>
+				</td></tr>
+				<tr>
+					<th th:text="#{itemunit.lbl.id}">Id!!</th>
+					<th th:text="#{itemunit.lbl.name}">unit name!!</th>
+					<th th:text="#{itemunit.lbl.desc}">unit desc!!</th>
+					<th th:text="#{itemunit.lbl.datatype}">datatype!!</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="4">
+						<ul th:replace="frags/common :: pagingBar(${itemUnits},10,${searchText},'units')"></ul>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody th:remove="all-but-first">
+				<tr th:each="unit : ${itemUnits.content}">
+					<td th:text="${unit.id}">111</td>
+					<td th:text="${unit.name}">Category 111</td>
+					<td th:text="${unit.description}">Category 111 description</td>
+					<td th:text="#{${'lbl.datatype.'+unit.dataType}}" class="cc2">a status</td>
+					<td><a href="#" th:href="@{/catalogs/units/}+${unit.id}" th:text="#{lbl.edit}">Modify!!</a></td>
+				</tr>
+				<tr><td>222</td><td>Category 222</td><td>Category 222 detail</td><td>a status</td></tr>
+				<tr><td>222</td><td>Category 222</td><td>Category 222 detail</td><td>a status</td></tr>
+				<tr><td>222</td><td>Category 222</td><td>Category 222 detail</td><td>a status</td></tr>
+			</tbody>
+			
+		</table>
+		
+	</div>
+</body>
+</html>

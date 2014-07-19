@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CategoryDAO extends JpaRepository<CategoryEntity, Short>{
     
-	Page<CategoryEntity> findByDescriptionContainingIgnoreCase(String text, Pageable pageRequest);
+	Page<CategoryEntity> findByDescriptionContainingIgnoreCase(String desc, Pageable pageRequest);
 	
 	
 }

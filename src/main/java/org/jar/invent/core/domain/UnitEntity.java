@@ -1,7 +1,9 @@
 package org.jar.invent.core.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -17,6 +19,15 @@ public class UnitEntity implements Serializable {
 	public static enum DataType {
 		DATE,TEXT,INTEGER,FLOAT,OTHER;
 	}
+
+		public UnitEntity() {
+		}
+		public UnitEntity(int id, DataType dataType,String description, String name) {
+			this.id = id;
+			this.dataType = dataType;
+			this.description = description;
+			this.name = name;
+		}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -40,9 +51,6 @@ public class UnitEntity implements Serializable {
 	//bi-directional many-to-one association to InventoryDetail
 	@OneToMany(mappedBy="unit")
 	private List<InventoryDetailEntity> inventoryDetails;
-
-	public UnitEntity() {
-	}
 
 	public int getId() {
 		return this.id;
@@ -118,6 +126,11 @@ public class UnitEntity implements Serializable {
 		inventoryDetail.setUnit(null);
 
 		return inventoryDetail;
+	}
+
+	@Override
+	public String toString() {
+		return String.format("UnitEntity{id=%d,name=%s, desc=%s, dataType=%s}", id, name, description, dataType.toString());
 	}
 
 }
