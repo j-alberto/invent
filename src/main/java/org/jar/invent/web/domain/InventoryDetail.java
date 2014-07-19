@@ -1,67 +1,24 @@
 package org.jar.invent.web.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the inventory_detail database table.
- * 
- */
-@Entity
-@Table(name="inventory_detail")
-@NamedQuery(name="InventoryDetail.findAll", query="SELECT i FROM InventoryDetail i")
 public class InventoryDetail implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
-
-	@Column(length=50)
 	private String comment;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name="date_entry", nullable=false)
 	private Date dateEntry;
-
-	@Temporal(TemporalType.DATE)
 	private Date expiration;
-
-	@Column(name="price_entry", precision=10, scale=4)
 	private BigDecimal priceEntry;
-
-	@Column(nullable=false, precision=10, scale=6)
 	private BigDecimal quantity;
-
-	@Column(name="quantity_std", nullable=false, precision=10, scale=6)
 	private BigDecimal quantityStd;
-
-	//bi-directional many-to-one association to Storage
-	@ManyToOne
-	@JoinColumn(name="idstorage")
 	private Storage storage;
-
-	//bi-directional many-to-one association to Unit
-	@ManyToOne
-	@JoinColumn(name="idunit", nullable=false)
 	private Unit unit;
-
-	//bi-directional many-to-one association to Inventory
-	@ManyToOne
-	@JoinColumn(name="idinventory", nullable=false)
 	private Inventory inventory;
-
-	//bi-directional many-to-one association to OrderDetail
-	@OneToMany(mappedBy="inventoryDetail")
 	private List<OrderDetail> orderDetails;
-
-	//bi-directional many-to-one association to StorageMovement
-	@OneToMany(mappedBy="inventoryDetail")
 	private List<StorageMovement> storageMovements;
 
 	public InventoryDetail() {

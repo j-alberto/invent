@@ -2,8 +2,8 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head></head>
 <body>
-	<!-- *************	APPLICATION'S MENU ********** -->
-	<nav class="navbar navbar-default" th:fragment="menu">
+<!-- *************	APPLICATION'S MENU ********** -->
+	<nav class="navbar navbar-default text-uppercase" th:fragment="menu">
 	  	<div class="container-fluid">
 	    <!-- Brand and toggle get grouped for better mobile display -->
 	    <div class="navbar-header">
@@ -21,16 +21,18 @@
 	      <ul class="nav navbar-nav">
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle"
-	          		data-toggle="dropdown"><span th:text="#{menu.general.catalogs}">catalogs!!</span><span class="caret"></span></a>
-	          <ul class="dropdown-menu">
-	          	<li><a href="#" th:text="#{menu.general.catalogs.itemcategory}"
-	                   	th:href="@{/catalogs/categories}">categories!!</a></li>
-	            <li class="divider"></li>
-	            <li><a href="#">dummy1</a></li>
-	            <li><a href="#">dummy2</a></li>
-	            <li class="divider"></li>
-	            <li><a href="#">dummy3</a></li>
-	          </ul>
+	          		data-toggle="dropdown"><span th:text="#{menu.catalogs}">catalogs!!</span><span class="caret"></span></a>
+				<ul th:fragment="catalogList(asList)" th:class="!${asList}?dropdown-menu">
+					<li><a href="#" th:href="@{/catalogs/categories}" th:text="#{menu.catalogs.itemcategory}">Item Categories!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemUnits}">Units!!</a></li>
+					<li class="divider" th:unless="${asList}"></li>
+					<li><a href="#" th:href="@{/catalogs/custType}" th:text="#{menu.catalogs.customerType}">Customer Type!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/custStatus}" th:text="#{menu.catalogs.customerStatus}">Customer Status!!</a></li>
+					<li class="divider" th:unless="${asList}"></li>
+					<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}">Order Type!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/workflows}" th:text="#{menu.catalogs.orderWorkflow}">Order Workflow!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}">Order Status!!</a></li>
+				</ul>
 	        </li>
 	        <li><a href="#" th:text="#{menu.about}">Link!!</a></li>
 	      </ul>
@@ -46,56 +48,44 @@
 	  </div><!-- /.container-fluid -->
 	</nav>
 
-<!-- *************	PAGINATION BAR : ONLY BUTTONS ********** -->
-	<ul class="pagination pagination-sm" th:fragment="pagingBar(page,pageSize)">
+<!-- *************	BREADCRUMBS FOR CATEGORIES ********** -->
+	<ul th:fragment="brCrumbCat" class="breadcrumb">
+		<li><span th:text="#{menu.catalogs}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCateg" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.itemcategory}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCategNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/categories}" th:text="#{menu.catalogs.itemcategory}" href="#">category!!</a></li>
+		<li><span th:text="#{menu.catalogs.itemcategory.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCategEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/categories}" th:text="#{menu.catalogs.itemcategory}" href="#">category!!</a></li>
+		<li><span th:text="#{menu.catalogs.itemcategory.edit}">edit!!</span></li>
+	</ul>
+
+<!-- *************	PAGINATION BAR : BUTTONS,FISRT AND LAST ********** -->
+	<ul class="pagination pagination-sm" th:fragment="pagingBar(page,pageSize,name,path)">
 		<li th:class="${page.firstPage}?'previous disabled' : 'previous '">
-   			<a th:unless="${itemCategories.firstPage}" th:href="@{categories(page=0,size=${pageSize})}"
+   			<a th:unless="${itemCategories.firstPage}" th:href="@{${path}(page=0,size=${pageSize},name=${name})}"
    			 	th:text="#{lbl.first}">First!!</a>
    			<a th:if="${page.firstPage}" th:text="#{lbl.first}">First!</a>
 		</li> 
  		<li th:each="number : ${#numbers.sequence(1, page.totalPages)}" th:with="current=(${page.number+1} == ${number})" 
  			th:class="${current}?'active'">
- 			<a th:unless="${current}" th:text="${number}" th:href="@{categories(page=${number-1},size=${pageSize})}"></a>
+ 			<a th:unless="${current}" th:text="${number}" th:href="@{${path}(page=${number-1},size=${pageSize},name=${name})}"></a>
  			<a th:if="${current}" th:text="${number}"></a>
  		</li> 
 		<li th:class="${page.lastPage}?'next disabled' : 'next'">
-   			<a th:unless="${page.lastPage}" th:href="@{categories(page=${page.totalPages-1},size=${pageSize})}"
+   			<a th:unless="${page.lastPage}" th:href="@{${path}(page=${page.totalPages-1},size=${pageSize},name=${name})}"
    				th:text="#{lbl.last}">Last!!</a>
    			<a th:if="${page.lastPage}" th:text="#{lbl.last}">Last!</a>
    		</li>
 	</ul>
 
-	<!-- *************	BREADCRUMBS FOR CATEGORIES ********** -->
-	<ul th:fragment="breadcrumbsCategories" class="breadcrumb"
-	th:with="link0='/catalogs'
-	,link1='/catalogs/categories'
-	,link2='/catalogs/categories/add'
-	,link3='/catalogs/categories/edit'
-	,indexOf0=${#strings.indexOf(#httpServletRequest.requestURI,link0)  > 0}
-	,endsWith0=${#strings.endsWith(#httpServletRequest.requestURI,link0)}
-	,indexOf1=${#strings.indexOf(#httpServletRequest.requestURI,link1)  > 0}
-	,endsWith1=${#strings.endsWith(#httpServletRequest.requestURI,link1)}
-	,indexOf2=${#strings.indexOf(#httpServletRequest.requestURI,link2)  > 0}
-	,endsWith2=${#strings.endsWith(#httpServletRequest.requestURI,link2)}
-	,indexOf3=${#strings.indexOf(#httpServletRequest.requestURI,link3)  > 0}
-	,endsWith3=${#strings.endsWith(#httpServletRequest.requestURI,link3)}"
-	>
-		<li th:if="${indexOf0}" class="active">
-			<a th:unless="${endsWith0}" th:href="@{${link0}}" th:text="#{menu.general.catalogs}" href="#"></a>
-			<span th:if="${endsWith0}" th:text="#{menu.general.catalogs}"></span>
-		</li>
-		<li th:if="${indexOf1}" class="active">
-			<a th:unless="${endsWith1}" th:href="@{${link1}}" th:text="#{menu.general.catalogs.itemcategory}" href="#"></a>
-			<span th:if="${endsWith1}" th:text="#{menu.general.catalogs.itemcategory}"></span>
-		</li>
-		<li th:if="${indexOf2}" class="active">
-			<a th:unless="${endsWith2}" th:href="@{${link2}}" th:text="#{menu.general.catalogs.itemcategory.addNew}" href="#"></a>
-			<span th:if="${endsWith2}" th:text="#{menu.general.catalogs.itemcategory.addNew}"></span>
-		</li>
-		<li th:if="${indexOf3}" class="active">
-			<a th:unless="${endsWith3}" th:href="@{${link3}}" th:text="#{menu.general.catalogs.itemcategory.edit}" href="#"></a>
-			<span th:if="${endsWith3}" th:text="#{menu.general.catalogs.itemcategory.edit}"></span>
-		</li>
-	</ul>
+	
 </body>
 </html>

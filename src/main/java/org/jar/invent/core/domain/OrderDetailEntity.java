@@ -11,7 +11,6 @@ import java.math.BigDecimal;
  */
 @Entity
 @Table(name="order_detail")
-@NamedQuery(name="OrderDetail.findAll", query="SELECT o FROM OrderDetail o")
 public class OrderDetailEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

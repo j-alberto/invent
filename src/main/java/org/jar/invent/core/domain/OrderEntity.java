@@ -14,7 +14,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="order")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class OrderEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

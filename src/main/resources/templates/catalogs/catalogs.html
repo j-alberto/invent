@@ -16,18 +16,10 @@
 </head>
 <body class="container-fluid">
 	<div th:replace="frags/common :: menu"></div>
-	<div th:replace="frags/common :: breadcrumbsCategories"></div>
+	<div th:replace="frags/common :: brCrumbCat"></div>
 
-	<h3 th:text="#{menu.general.catalogs}">Catalogs</h3>
-	<ol>
-		<li><a href="#" th:href="@{/catalogs/categories}" th:text="#{itemcategory.lbl.title}">Item Categories!!</a></li>
-		<li><a href="#" th:href="@{/catalogs/custType}" th:text="#{itemcategory.lbl.title}">Customer Type!!</a></li>
-		<li><a href="#" th:href="@{/catalogs/custStatus}" th:text="#{itemcategory.lbl.title}">Customer Status!!</a></li>
-		<li><a href="#" th:href="@{/catalogs/units}" th:text="#{itemcategory.lbl.title}">Units!!</a></li>
-		<li><a href="#" th:href="@{/catalogs/workflows}" th:text="#{itemcategory.lbl.title}">Order Workflow!!</a></li>
-		<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{itemcategory.lbl.title}">Order Status!!</a></li>
-		<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{itemcategory.lbl.title}">Order Type!!</a></li>
-	</ol>
+	<h3 th:text="#{menu.catalogs}">Catalogs</h3>
+	<ul th:replace="frags/common :: catalogList(true)"><li>qwe</li></ul>
 
 </body>
 </html>

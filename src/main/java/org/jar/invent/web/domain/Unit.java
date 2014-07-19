@@ -1,45 +1,24 @@
 package org.jar.invent.web.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import org.jar.invent.core.domain.UnitEntity;
+import org.jar.invent.core.domain.UnitEntity.DataType;;
 
 
 /**
  * The persistent class for the unit database table.
  * 
  */
-@Entity
-@Table(name="unit")
-@NamedQuery(name="Unit.findAll", query="SELECT u FROM Unit u")
 public class Unit implements Serializable {
 	private static final long serialVersionUID = 1L;
-	
-	public static enum DataType {
-		DATE,TEXT,INTEGER,FLOAT,OTHER;
-	}
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
-
-	@Column(name="data_type", nullable=false)
-	@Enumerated
 	private DataType dataType;
-
-	@Column(length=50)
 	private String description;
-
-	@Column(nullable=false, length=30)
 	private String name;
-
-	//bi-directional many-to-one association to Inventory
-	@OneToMany(mappedBy="unit")
 	private List<Inventory> inventories;
-
-	//bi-directional many-to-one association to InventoryDetail
-	@OneToMany(mappedBy="unit")
 	private List<InventoryDetail> inventoryDetails;
 
 	public Unit() {

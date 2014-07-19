@@ -11,7 +11,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="order_workflow")
-@NamedQuery(name="OrderWorkflow.findAll", query="SELECT o FROM OrderWorkflow o")
 public class OrderWorkflowEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

@@ -28,14 +28,14 @@ public class ApplicationController {
 
 	@RequestMapping("/greeting")
 	public String returnGreeting(){
-		return "general/GreetingPage";
+		return "other/GreetingPage";
 	}	
 	
 //	public String returnSecureGreeting(@RequestParam(value="name", required=false,defaultValue="Stranger") String name
 	@RequestMapping("/sgreeting")
 	public String returnSecureGreeting(){
 		
-		return "general/SecureGreetingPage";
+		return "other/SecureGreetingPage";
 	}
 
 

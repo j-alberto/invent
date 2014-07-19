@@ -12,7 +12,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="inventory")
-@NamedQuery(name="Inventory.findAll", query="SELECT i FROM Inventory i")
 public class InventoryEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

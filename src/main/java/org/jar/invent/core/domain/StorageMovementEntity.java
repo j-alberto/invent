@@ -13,7 +13,6 @@ import java.util.List;
  */
 @Entity
 @Table(name="storage_movement")
-@NamedQuery(name="StorageMovement.findAll", query="SELECT s FROM StorageMovement s")
 public class StorageMovementEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 

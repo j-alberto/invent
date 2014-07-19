@@ -1,25 +1,13 @@
 /**
- * Style for row clicked in tables
+ * Generic events for application
  */
 $(document).ready(function(){
-	$('table tbody tr').on('click', function(event) {
-	    
+	//highlight selected row in a table
+	$('table tbody tr').on('click', function(event) {  
 	    $(this).addClass('info').siblings().removeClass('info');
-	    
-//	    $(this).siblings().remove('td button');
-//	    
-//	    var x = $("<button id='myButton'>edit</button>");
-//	    $(this).children('td:last-child').append(x);
 
-	    //console.log($(this).children('td:last-child').prop('class'));
 	});
-	
-	$( document ).ajaxError(function( event, request, settings ) {
-		  $( "#msg" ).append( "<li>Error requesting page " + settings.url + "</li>" );
-		  console.log('error!!');
-		  alert('sdf');
-		});
-	
+
 });
 
 /**
@@ -62,3 +50,5 @@ function asyncSubmit(element,targetId){
     });
 
 }
+
+

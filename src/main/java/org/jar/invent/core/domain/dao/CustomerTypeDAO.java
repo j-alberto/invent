@@ -11,7 +11,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface CustomerTypeDAO extends JpaRepository<CustomerTypeEntity, Integer>{
     
-	List<CategoryEntity> findByDescriptionIgnoreCase(String text);
 	List<CategoryEntity> findByDescriptionIgnoreCase(String text, Pageable pageRequest);
 	
 	

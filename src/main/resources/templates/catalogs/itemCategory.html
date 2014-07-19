@@ -15,14 +15,14 @@
 </head>
 <body class="container-fluid">
 	<div th:replace="frags/common :: menu"></div>
-	<div th:replace="frags/common :: breadcrumbsCategories"></div>
+	<div th:replace="frags/common :: brCrumbCatCateg"></div>
 			
 	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
-	 	<a th:href="@{/catalogs/categories/add}" href="#"
-	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
+	 	<a th:href="@{/catalogs/categories/add}" href="#" class="text-capitalize"
+	 		th:text="#{menu.catalogs.itemcategory.addNew}">Add new category!!</a>
 	 	
 	 	<br/><br/>
-	 	<div th:if="${#bools.isTrue(added)}" class="alert alert-success" role="alert"
+	 	<div th:if="${#bools.isTrue(added)}" class="alert alert-success text-initial" role="alert"
 	 		th:text="#{itemCategory.msg.addSuccess}">added success!!</div>
 	 	<div th:if="${#bools.isTrue(updated)}" class="alert alert-success" role="alert"
 	 		th:text="#{itemCategory.msg.updateSuccess}">updated success!!</div>
@@ -33,15 +33,26 @@
 			<table id="categoriesTable" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
 				<thead>
 					<tr>
+						<td class="col-sm-4">
+						<form th:action="@{categories}" method="get" class="form-inline">
+						<div class="form-group">
+							<label class="sr-only" for="txtSearch" th:text="#{btn.search}">Search!!</label>
+			   				<input type="search" id="txtSearch" name="name" th:value="${name}"/>
+			   			</div>
+			   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
+		   				</form>
+					</td></tr>
+					<tr>
 						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
 						<th th:text="#{itemCategory.lbl.desc}">category name!!</th>
 						<th th:text="#{itemCategory.lbl.status}">status!!</th>
+						<th></th>
 					</tr>
 				</thead>
 				<tfoot>
 					<tr>
 						<td colspan="3">
-							<ul th:replace="frags/common :: pagingBar(${itemCategories},10)"></ul>
+							<ul th:replace="frags/common :: pagingBar(${itemCategories},10,${name},'categories')"></ul>
 						</td>
 					</tr>
 				</tfoot>

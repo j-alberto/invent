@@ -45,7 +45,7 @@ public class Category{
 	public CategoryEntity toEntityBean() {
 		return new CategoryEntity(this.id, this.description, this.status);
 	}
-	public static Category parseViewBean(CategoryEntity c) {
+	public static Category toWebBean(CategoryEntity c) {
 		return new Category(c.getId(), c.getDescription(),c.getStatus());
 	}
 	

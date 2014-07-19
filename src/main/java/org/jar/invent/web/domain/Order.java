@@ -1,64 +1,24 @@
 package org.jar.invent.web.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
-import java.sql.Timestamp;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.List;
 
-
-/**
- * The persistent class for the order database table.
- * 
- */
-@Entity
-@Table(name="order")
-@NamedQuery(name="Order.findAll", query="SELECT o FROM Order o")
 public class Order implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
-
-	@Column(length=50)
 	private String comments;
-
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(nullable=false)
 	private Date date;
-
-	@Column(name="idsys_user")
 	private int idsysUser;
-
-	@Column(name="num_items", nullable=false)
 	private int numItems;
-
-	@Column(name="price_total", nullable=false, precision=10, scale=4)
 	private BigDecimal priceTotal;
-
-	@Column(name="sys_stamp")
 	private Timestamp sysStamp;
-
-	//bi-directional many-to-one association to OrderStatus
-	@ManyToOne
-	@JoinColumn(name="idstatus", nullable=false)
 	private OrderStatus orderStatus;
-
-	//bi-directional many-to-one association to OrderType
-	@ManyToOne
-	@JoinColumn(name="idtype", nullable=false)
 	private OrderType orderType;
-
-	//bi-directional many-to-one association to Customer
-	@ManyToOne
-	@JoinColumn(name="idcustomer")
 	private Customer customer;
-
-	//bi-directional many-to-one association to OrderDetail
-	@OneToMany(mappedBy="order")
 	private List<OrderDetail> orderDetails;
 
 	public Order() {

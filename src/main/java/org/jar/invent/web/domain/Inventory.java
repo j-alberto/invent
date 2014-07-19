@@ -1,50 +1,19 @@
 package org.jar.invent.web.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.math.BigDecimal;
 import java.util.List;
 
-
-/**
- * The persistent class for the inventory database table.
- * 
- */
-@Entity
-@Table(name="inventory")
-@NamedQuery(name="Inventory.findAll", query="SELECT i FROM Inventory i")
 public class Inventory implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
-
-	@Column(nullable=false, length=8)
 	private String code;
-
-	@Column(nullable=false)
 	private boolean locked;
-
-	@Column(nullable=false, precision=10, scale=6)
 	private BigDecimal quantity;
-
-	@Column(name="quantity_min", nullable=false, precision=10, scale=6)
 	private BigDecimal quantityMin;
-
-	//bi-directional many-to-one association to Unit
-	@ManyToOne
-	@JoinColumn(name="idunit", nullable=false)
 	private Unit unit;
-
-	//bi-directional many-to-one association to Item
-	@ManyToOne
-	@JoinColumn(name="iditem", nullable=false)
 	private Item item;
-
-	//bi-directional many-to-one association to InventoryDetail
-	@OneToMany(mappedBy="inventory")
 	private List<InventoryDetail> inventoryDetails;
 
 	public Inventory() {

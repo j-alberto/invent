@@ -2,6 +2,7 @@ package org.jar.invent.web.controller;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.jar.invent.core.domain.EnumStatusGeneral;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -31,35 +33,43 @@ public class CategoryController {
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final int DEFAULT_PAGE_SIZE=10;
+	private static final String TEMPLATE_ITEM_CAT= "catalogs/itemCategory";
+	private static final String TEMPLATE_ITEM_CAT_ADD= "catalogs/itemCategoryAdd";
+	private static final String REDIR_ITEM_CAT= "redirect:/catalogs/categories";
 	
 	@Autowired
 	public CategoryController(CategoryService categoryService) {
 		this.categoryService = categoryService;
 	}
 	
+
 	@RequestMapping(method=RequestMethod.GET)
-	public String getCategories(Model model,
-								@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
+	public String getCategories(Model model
+								,@RequestParam(value="name",required=false,defaultValue="") String name
+								,@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
 		
-		Page<Category> cats= categoryService.getCategories(pageRequest);
+			
+		log.info("name2>>"+name);
+		model.addAttribute("name",name);
+		Page<Category> cats= categoryService.getCategories(name, pageRequest);
 		model.addAttribute("itemCategories", cats);
-		return "catalogs/itemCategory";
+		
+		return TEMPLATE_ITEM_CAT;
 	}
 
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String addCategories(final Model model){
 		
-		return "catalogs/itemCategoryAdd";
+		return TEMPLATE_ITEM_CAT_ADD;
 	}
 
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model
 			,final RedirectAttributes redirectAttributes){
-
-		log.info("update>>>"+category);
 		
+		log.info("adding category: "+category);
 		if(bindResults.hasErrors()){
-			return "catalogs/itemCategoryAdd";
+			return TEMPLATE_ITEM_CAT_ADD;
 		}
 		
 		categoryService.saveCategory(category);
@@ -67,7 +77,7 @@ public class CategoryController {
 
 		redirectAttributes.addFlashAttribute("added", true);
 		
-		return "redirect:/catalogs/categories";
+		return REDIR_ITEM_CAT;
 	}
 
 
@@ -78,12 +88,12 @@ public class CategoryController {
 		Category cat = categoryService.findCategory(id);
 		if(cat==null){
 			redirectAttributes.addFlashAttribute("idNotFound", true);
-			return "redirect:/catalogs/categories";
+			return REDIR_ITEM_CAT;
 		}
 		model.addAttribute("category", cat);
 		model.addAttribute("edit", true);
 		
-		return "catalogs/itemCategoryAdd";
+		return TEMPLATE_ITEM_CAT_ADD;
 	}
 
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
@@ -92,15 +102,16 @@ public class CategoryController {
 			,final RedirectAttributes redirectAttributes){
 
 		model.addAttribute("edit", true);
+		log.info("updating category: "+category);
 		
 		if(bindResults.hasErrors()){
-			return "catalogs/itemCategoryAdd";
+			return TEMPLATE_ITEM_CAT_ADD;
 		}
 		
 		categoryService.saveCategory(category);
 		redirectAttributes.addFlashAttribute("updated", true);
 		
-		return "redirect:/catalogs/categories";
+		return REDIR_ITEM_CAT;
 	}
 	
 	@ModelAttribute

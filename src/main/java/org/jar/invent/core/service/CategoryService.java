@@ -36,13 +36,21 @@ public class CategoryService {
 		return asWebDomainList((List<CategoryEntity>)categoryDAO.findAll());
 	}
 	
-	public Page<Category> getCategories(Pageable pageRequest){
+	public Page<Category> getCategories(String name, Pageable pageRequest){
 		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
 			//TODO: let consumer know about change in page's size
 			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
 		}
 
-		Page<CategoryEntity> resultPage = categoryDAO.findAll(pageRequest);
+		Page<CategoryEntity> resultPage;
+		
+		if(name.isEmpty()){
+			resultPage = categoryDAO.findAll(pageRequest);
+		}else{
+			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(name, pageRequest);
+		}
+		
+		
 		List<Category> categoriesWeb = asWebDomainList(resultPage.getContent());
 		
 		Page<Category> categoriesPage = new PageImpl<Category>(categoriesWeb, pageRequest, resultPage.getTotalElements());
@@ -52,12 +60,12 @@ public class CategoryService {
 	
 	public Category saveCategory(Category cat){
 		CategoryEntity c = categoryDAO.save(cat.toEntityBean());
-		return Category.parseViewBean(c);
+		return Category.toWebBean(c);
 	}
 	
 	public Category findCategory(short id){
 		CategoryEntity c = categoryDAO.findOne(id);
-		return c==null ? null : Category.parseViewBean(c);
+		return c==null ? null : Category.toWebBean(c);
 	}
 	
 	public List<EnumStatusGeneral> getCategoryStatuses(){

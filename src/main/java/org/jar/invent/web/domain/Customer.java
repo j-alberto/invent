@@ -1,46 +1,17 @@
 package org.jar.invent.web.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
 
-
-/**
- * The persistent class for the customer database table.
- * 
- */
-@Entity
-@Table(name="customer")
-@NamedQuery(name="Customer.findAll", query="SELECT c FROM Customer c")
 public class Customer implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
-
-	@Column(updatable=false, nullable=false, length=8)
 	private String code;
-
-	@Column(length=50)
 	private String description;
-
-	@Column(nullable=false, length=30)
 	private String name;
-
-	//bi-directional many-to-one association to CustomerStatus
-	@ManyToOne
-	@JoinColumn(name="idstatus")
 	private CustomerStatus customerStatus;
-
-	//bi-directional many-to-one association to CustomerType
-	@ManyToOne
-	@JoinColumn(name="idtype", nullable=false)
 	private CustomerType customerType;
-
-	//bi-directional many-to-one association to Order
-	@OneToMany(mappedBy="customer")
 	private List<Order> orders;
 
 	public Customer() {

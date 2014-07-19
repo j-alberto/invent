@@ -1,49 +1,20 @@
 package org.jar.invent.web.domain;
 
 import java.io.Serializable;
-
-import javax.persistence.*;
+import java.util.List;
 
 import org.jar.invent.core.domain.EnumStatusGeneral;
 
-import java.util.List;
 
-
-/**
- * The persistent class for the storage database table.
- * 
- */
-@Entity
-@Table(name="storage")
-@NamedQuery(name="Storage.findAll", query="SELECT s FROM Storage s")
 public class Storage implements Serializable {
 	private static final long serialVersionUID = 1L;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	@Column(unique=true, nullable=false)
 	private int id;
-
-	@Column(updatable=false, nullable=false, length=8)
 	private String code;
-
-	@Column(nullable=false, length=30)
 	private String description;
-
-	@Column(nullable=false)
-	@Enumerated
 	private EnumStatusGeneral status;
-
-	//bi-directional many-to-one association to InventoryDetail
-	@OneToMany(mappedBy="storage")
 	private List<InventoryDetail> inventoryDetails;
-
-	//bi-directional many-to-one association to StorageMovement
-	@OneToMany(mappedBy="storage1")
 	private List<StorageMovement> storageMovements1;
-
-	//bi-directional many-to-one association to StorageMovement
-	@OneToMany(mappedBy="storage2")
 	private List<StorageMovement> storageMovements2;
 
 	public Storage() {
