@@ -34,7 +34,7 @@
 					<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}">Order Status!!</a></li>
 				</ul>
 	        </li>
-	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}">Link!!</a></li>
+	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}" data-toggle="modal" data-target="#modalBox">About!!</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
 	      	<li>
@@ -46,11 +46,14 @@
 	      </ul>
 	    </div><!-- /.navbar-collapse -->
 	  </div><!-- /.container-fluid -->
+	  
+	  <div class="modal fade" id="modalBox" tabindex="-1" role="dialog" aria-labelledby="modalBox" aria-hidden="true">
+	    <div class="modal-dialog">
+	    	<div class="modal-content"></div>
+	    </div>
+	  </div>
+	  
 	</nav>
-
-	<ul th:fragment="brCrumbCat" class="breadcrumb">
-		<li><span th:text="#{menu.catalogs}"></span></li>
-	</ul>
 
 <!-- *************	PAGINATION BAR : BUTTONS,FISRT AND LAST ********** -->
 	<ul class="pagination pagination-sm" th:fragment="pagingBar(page,pageSize,searchText,path)">
@@ -69,6 +72,12 @@
    				th:text="#{lbl.last}">Last!!</a>
    			<a th:if="${page.lastPage}" th:text="#{lbl.last}">Last!</a>
    		</li>
+	</ul>
+
+
+<!-- *************	BREADCRUMB CATALOGS ********** -->
+	<ul th:fragment="brCrumbCat" class="breadcrumb">
+		<li><span th:text="#{menu.catalogs}"></span></li>
 	</ul>
 
 <!-- *************	BREADCRUMBS FOR CATEGORIES ********** -->
