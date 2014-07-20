@@ -6,10 +6,10 @@ import org.springframework.boot.context.web.SpringBootServletInitializer;
 public class SpringContextLoader extends SpringBootServletInitializer {
 
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-    	application.sources(SecurityConfig.class
-    						,PersistanceJPAConfig.class
-    						,SpringApplicationContext.class);
-       return application
+    
+    	application.sources(SpringApplicationContext.class);
+       
+    	return application
     		   .logStartupInfo(true)
     		   .web(true)
     		   .showBanner(false);

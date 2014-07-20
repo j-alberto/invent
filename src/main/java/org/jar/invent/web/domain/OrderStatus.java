@@ -87,6 +87,10 @@ public class OrderStatus implements Serializable {
 	
 	@Override
 	public String toString(){
-		return String.format("OrderStatus{id=%d, desc=%s, status=%s}", id, description, status.toString());
+		return String.format("OrderStatus{id=%d, desc=%s, status=%s, {wf=%d}}"
+				,id
+				,description
+				,status.toString()
+				,orderWorkflow==null?-1:orderWorkflow.getId());
 	}
 }

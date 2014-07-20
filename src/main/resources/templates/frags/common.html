@@ -160,6 +160,22 @@
 		<li><span th:text="#{menu.catalogs.orderWorkflow.edit}">edit!!</span></li>
 	</ul>
 
+<!-- *************	BREADCRUMBS FOR ORDER STATUS ********** -->
+	<ul th:fragment="brCrumbCatOrderStatus" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.orderStatus}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatOrderStatusNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}" href="#">order status!!</a></li>
+		<li><span th:text="#{menu.catalogs.orderStatus.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatOrderStatusEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}" href="#">order status!!</a></li>
+		<li><span th:text="#{menu.catalogs.orderStatus.edit}">edit!!</span></li>
+	</ul>
+
 <!-- *************	INLINE ALERTS ********** -->
 	 	<div th:class="'alert alert-'+${type}+' alert-dismissible'" role="alert" th:fragment="alert(message,type)">
 	 		<strong th:text="${message}"></strong>

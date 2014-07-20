@@ -125,7 +125,12 @@ public class BeanParser{
 	 * @return bean of type OrderStatusEntity
 	 */
 	public static OrderStatusEntity toEntityBean(OrderStatus bean) {
-		return new OrderStatusEntity(bean.getId(), bean.getDescription(),bean.getStatus());
+		OrderStatusEntity orderStatusEntity = new OrderStatusEntity(bean.getId(), bean.getDescription(),bean.getStatus());
+		if(null != bean.getOrderWorkflow()){
+			orderStatusEntity.setOrderWorkflow(new OrderWorkflowEntity(bean.getOrderWorkflow().getId()
+												, bean.getOrderWorkflow().getDescription()));
+		}
+		return orderStatusEntity;
 	}
 	/**
 	 * Transforms a Core-object into a Web-object
@@ -133,7 +138,11 @@ public class BeanParser{
 	 * @return bean of type OrderStatus
 	 */
 	public static OrderStatus toWebBean(OrderStatusEntity bean) {
-		return new OrderStatus(bean.getId(), bean.getDescription(),bean.getStatus());
+		OrderStatus orderStatus = new OrderStatus(bean.getId(), bean.getDescription(),bean.getStatus());
+		if(null != bean.getOrderWorkflow()){
+			orderStatus.setOrderWorkflow(toWebBean(bean.getOrderWorkflow()));
+		}
+		return orderStatus;
 	}
 	
 	/**

@@ -1,0 +1,79 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+
+</head>
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: brCrumbCatOrderStatus"></div>
+			
+ 	<h2 th:text="#{orderstatus.lbl.title}">order status!!</h2>
+ 	<a th:href="@{/catalogs/orderStatuses/add}" href="#"
+ 		th:text="#{menu.catalogs.orderStatus.addNew}">Add new order status!!</a>
+ 	
+ 	<br/><br/>
+
+	 <div th:if="${eventDone} == 'added'">
+ 		<div th:replace="frags/common :: alert(#{orderstatus.msg.addSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'updated'">
+ 		<div th:replace="frags/common :: alert(#{orderstatus.msg.updateSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'idNotFound'">
+	 		<div th:replace="frags/common :: alert(#{orderstatus.msg.notFound},'warning')"></div>
+	</div>
+
+
+	<div class="table-responsive">
+		<table id="orderStatusTable" class="table table-condensed table-striped table-hover" th:fragment="tableOrderStatus">
+			<thead>
+				<tr>
+					<td class="col-sm-4">
+					<form th:action="@{orderStatuses}" method="get" class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="searchBox" th:text="#{btn.search}">Search!!</label>
+		   				<input type="search" id="searchBox" name="searchText" th:value="${searchText}"/>
+		   			</div>
+		   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
+	   				</form>
+				</td></tr>
+				<tr>
+					<th th:text="#{orderstatus.lbl.id}">Id!!</th>
+					<th th:text="#{orderstatus.lbl.desc}">description!!</th>
+					<th th:text="#{orderstatus.lbl.workflow}">workflow!!</th>
+					<th th:text="#{orderstatus.lbl.status}">status!!</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<ul th:replace="frags/common :: pagingBar(${orderStatuses},10,${searchText},'orderStatuses')"></ul>
+					</td>
+				</tr>
+			</tfoot>
+			<tbody th:remove="all-but-first">
+				<tr th:each="stat : ${orderStatuses.content}">
+					<td th:text="${stat.id}">111</td>
+					<td th:text="${stat.description}">order status 111</td>
+					<td th:text="${stat.orderWorkflow.description}">order status workflow 111</td>
+					<td th:text="#{${'lbl.status.' + stat.status}}">order status' status 111</td>
+					<td><a href="#" th:href="@{/catalogs/orderStatuses/}+${stat.id}" th:text="#{lbl.edit}">Modify!!</a></td>
+				</tr>
+				<tr><td>222</td><td>status 222</td><td>status 222</td><td>status 222</td></tr>
+				<tr><td>222</td><td>status 222</td><td>status 222</td><td>status 222</td></tr>
+				<tr><td>222</td><td>status 222</td><td>status 222</td><td>status 222</td></tr>
+			</tbody>
+			
+		</table>
+		
+	</div>
+</body>
+</html>
