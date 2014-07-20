@@ -1,15 +1,14 @@
 package org.jar.invent.core.domain.dao;
 
-import org.jar.invent.core.domain.OrderTypeEntity;
+import org.jar.invent.core.domain.ItemEntity;
+import org.jar.invent.core.domain.UnitEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrderTypeDAO extends JpaRepository<OrderTypeEntity, Integer>{
+public interface ItemDAO extends JpaRepository<ItemEntity, Integer>{
     
-	Page<OrderTypeEntity> findByDescriptionContainingIgnoreCase(String desc, Pageable pageRequest);
-	
 	
 }

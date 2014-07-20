@@ -1,0 +1,77 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+
+</head>
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: brCrumbCatOrderType"></div>
+			
+ 	<h2 th:text="#{ordertype.lbl.title}">order status!!</h2>
+ 	<a th:href="@{/catalogs/orderTypes/add}" href="#"
+ 		th:text="#{menu.catalogs.orderType.addNew}">Add new order status!!</a>
+ 	
+ 	<br/><br/>
+
+	 <div th:if="${eventDone} == 'added'">
+ 		<div th:replace="frags/common :: alert(#{ordertype.msg.addSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'updated'">
+ 		<div th:replace="frags/common :: alert(#{ordertype.msg.updateSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'idNotFound'">
+	 		<div th:replace="frags/common :: alert(#{ordertype.msg.notFound},'warning')"></div>
+	</div>
+
+
+	<div class="table-responsive">
+		<table id="orderTypeTable" class="table table-condensed table-striped table-hover" th:fragment="tableOrderType">
+			<thead>
+				<tr><td class="col-sm-4">
+					<form th:action="@{orderTypes}" method="get" class="form-inline">
+					<div class="form-group">
+						<label class="sr-only" for="searchBox" th:text="#{btn.search}">Search!!</label>
+		   				<input type="search" id="searchBox" name="searchText" th:value="${searchText}"/>
+		   			</div>
+		   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
+	   				</form>
+				</td></tr>
+				<tr>
+					<th th:text="#{ordertype.lbl.id}">Id!!</th>
+					<th th:text="#{ordertype.lbl.desc}">description!!</th>
+					<th th:text="#{ordertype.lbl.status}">status!!</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="2">
+						<ul th:replace="frags/common :: pagingBar(${orderTypes},10,${searchText},'orderTypes')"></ul>
+					</td>
+					<td></td><td></td>
+				</tr>
+			</tfoot>
+			<tbody th:remove="all-but-first">
+				<tr th:each="typ : ${orderTypes.content}">
+					<td th:text="${typ.id}">111</td>
+					<td th:text="${typ.description}">order status 111</td>
+					<td th:text="#{${'lbl.status.' + typ.status}}">order status' status 111</td>
+					<td><a href="#" th:href="@{/catalogs/orderTypes/}+${typ.id}" th:text="#{lbl.edit}">Modify!!</a></td>
+				</tr>
+				<tr><td>222</td><td>status 222</td><td>status 222</td></tr>
+				<tr><td>222</td><td>status 222</td><td>status 222</td></tr>
+				<tr><td>222</td><td>status 222</td><td>status 222</td></tr>
+			</tbody>
+			
+		</table>
+		
+	</div>
+</body>
+</html>

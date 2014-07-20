@@ -314,7 +314,7 @@ public class CatalogsServiceImp implements CatalogsService {
 	}
 
 	@Override
-	public OrderType findOrderType(short id) {
+	public OrderType findOrderType(int id) {
 		OrderTypeEntity orderTypeEnt = orderTypeDAO.findOne(id);
 		return conversionService.convert(orderTypeEnt, OrderType.class);
 	}

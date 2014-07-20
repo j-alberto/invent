@@ -52,7 +52,7 @@ public interface CatalogsService {
 	List<OrderType> getAllOrderTypes();
 	Page<OrderType> getOrderTypes(String desc, Pageable pageRequest);
 	OrderType saveOrderType(OrderType orderType);
-	OrderType findOrderType(short id);
+	OrderType findOrderType(int id);
 	List<EnumStatusGeneral> getOrderTypeStatuses();
 
 }

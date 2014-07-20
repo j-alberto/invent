@@ -21,7 +21,7 @@
 	      <ul class="nav navbar-nav">
 	        <li class="dropdown">
 	          <a href="#" class="dropdown-toggle"
-	          		data-toggle="dropdown"><span th:text="#{menu.catalogs}">catalogs!!</span><span class="caret"></span></a>
+	          data-toggle="dropdown"><span th:text="#{menu.catalogs}">catalogs!!</span><span class="caret"></span></a>
 				<ul th:fragment="catalogList(asList)" th:class="!${asList}?dropdown-menu">
 					<li><a href="#" th:href="@{/catalogs/categories}" th:text="#{menu.catalogs.itemcategory}">Item Categories!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemunit}">Units!!</a></li>
@@ -32,6 +32,14 @@
 					<li><a href="#" th:href="@{/catalogs/workflows}" th:text="#{menu.catalogs.orderWorkflow}">Order Workflow!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}">Order Status!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}">Order Type!!</a></li>
+				</ul>
+	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle"
+	          data-toggle="dropdown"><span th:text="#{menu.inventory}">inventory!!</span><span class="caret"></span></a>
+				<ul th:fragment="inventoryList(asList)" th:class="!${asList}?dropdown-menu">
+					<li><a href="#" th:href="@{/item/catalog}" th:text="#{menu.inventory.list}">View Items!!</a></li>
+					<li><a href="#" th:href="@{/item/invent}" th:text="#{menu.inventory.config}">Config Items!!</a></li>
 				</ul>
 	        </li>
 	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}" data-toggle="modal" data-target="#modalBox">About!!</a></li>
@@ -174,6 +182,22 @@
 		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
 		<li><a th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}" href="#">order status!!</a></li>
 		<li><span th:text="#{menu.catalogs.orderStatus.edit}">edit!!</span></li>
+	</ul>
+
+<!-- *************	BREADCRUMBS FOR ORDER TYPE ********** -->
+	<ul th:fragment="brCrumbCatOrderType" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.orderType}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatOrderTypeNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}" href="#">order types!!</a></li>
+		<li><span th:text="#{menu.catalogs.orderType.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatOrderTypeEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}" href="#">order Type!!</a></li>
+		<li><span th:text="#{menu.catalogs.orderType.edit}">edit!!</span></li>
 	</ul>
 
 <!-- *************	INLINE ALERTS ********** -->
