@@ -1,0 +1,4 @@
+invent
+======
+
+simple inventory example
