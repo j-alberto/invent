@@ -1,0 +1,70 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+    
+</head>
+<body>
+	<div th:replace="index :: menu"></div>
+
+	<div id="main">
+	
+	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
+	 	<div id="itemCategoriesDiv" th:fragment="itemCategoriesFrag">
+			<table>
+				<thead>
+					<tr>
+						<th th:text="#{itemCategories.lbl.id}">Id!!</th>
+						<th th:text="#{itemCategories.lbl.desc}">category name!!</th>
+						<th th:text="#{itemCategories.lbl.status}">status!!</th>
+					</tr>
+				</thead>
+				<tbody th:remove="all-but-first">
+					<tr th:each="cat : ${itemCategories.content}">
+						<td th:text="${cat.id}">111</td>
+						<td th:text="${cat.description}">Category 111</td>
+						<td th:text="#{${'itemCategories.lbl.status.'+cat.status}}">a status</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</body>
+</html>

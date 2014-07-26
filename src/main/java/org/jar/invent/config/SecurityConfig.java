@@ -22,26 +22,26 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	private DataSource datasource;
 	
-	private static final String QUERY_AUTH_BY_UNAME = "select u.user_name as 'username', a.authority_name as 'authority' "
-			+ "from USER u, `GROUP` g, GROUP_MEMBER gm, AUTHORITY a, GROUP_AUTHORITY ga "
-			+ "where u.user_id = gm.user_fk"
-			+ "  and g.group_id = gm.group_fk"
-			+ "  and g.group_id = ga.group_fk"
-			+ "  and ga.authority_fk = a.authority_id"
-			+ "  and u.user_name = ?";
+	private static final String QUERY_AUTH_BY_UNAME = "select u.name as 'username', a.name as 'authority' "
+			+ "from sys_user u, sys_group g, sys_user_group ug, sys_authority a, sys_group_authority ga "
+			+ "where u.id = ug.iduser"
+			+ "  and g.id = ug.idgroup"
+			+ "  and g.id = ga.idgroup"
+			+ "  and ga.idauthority = a.id"
+			+ "  and u.name = ?";
 	
-	private static final String QUERY_GROUP_AUTH_BY_UNAME = "select g.group_id as 'id', g.group_name "
-			+ ", a.authority_name as 'authority' "
-			+ "from USER u, `GROUP` g, GROUP_MEMBER gm, AUTHORITY a, GROUP_AUTHORITY ga "
-			+ "where u.user_id = gm.user_fk"
-			+ "  and g.group_id = gm.group_fk"
-			+ "  and g.group_id = ga.group_fk"
-			+ "  and ga.authority_fk = a.authority_id"
-			+ "  and u.user_name = ?";
+	private static final String QUERY_GROUP_AUTH_BY_UNAME = "select g.id as 'id', g.name "
+			+ ", a.name as 'authority' "
+			+ "from sys_user u, sys_group g, sys_user_group ug, sys_authority a, sys_group_authority ga "
+			+ "where u.id = ug.iduser"
+			+ "  and g.id = ug.idgroup"
+			+ "  and g.id = ga.idgroup"
+			+ "  and ga.idauthority = a.id"
+			+ "  and u.name = ?";
 	
-	private static final String QUERY_USER_BY_UNAME = "select u.user_name as 'username', u.password, u.enabled "
-			+ "from USER u "
-			+ "where u.user_name = ?";
+	private static final String QUERY_USER_BY_UNAME = "select u.name as 'username', u.password, u.enabled "
+			+ "from sys_user u "
+			+ "where u.name = ?";
 	
 	
 	public void setDatasource(DataSource datasource) {

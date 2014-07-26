@@ -8,56 +8,56 @@ INSERT INTO `invent`.`order_workflow` (`id`, `description`) VALUES (2, 'internal
 INSERT INTO `invent`.`order_workflow` (`id`, `description`) VALUES (3, 'external buy');
 INSERT INTO `invent`.`order_workflow` (`id`, `description`) VALUES (4, 'inventory transfer');
 
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (1, 'created', 3, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (2, 'validated', 3, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (3, 'dispatched', 3, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (4, 'sended', 3, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (5, 'finished', 3, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (6, 'requested', 1, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (7, 'authorized', 1, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (8, 'finished', 1, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (9, 'requested', 2, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (10, 'authorized', 2, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (11, 'dispatched', 2, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (12, 'sended', 2, 'S');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (13, 'completed', 2, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (14, 'requested', 4, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (15, 'authorized', 4, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (16, 'transfered', 4, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (17, 'cancelled', 1, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (18, 'cancelled', 2, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (19, 'cancelled', 3, 'A');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (20, 'closed', 2, 'D');
-INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (21, 'closed', 3, 'D');
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (1, 'created', 3, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (2, 'validated', 3, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (3, 'dispatched', 3, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (4, 'sended', 3, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (5, 'finished', 3, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (6, 'requested', 1, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (7, 'authorized', 1, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (8, 'finished', 1, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (9, 'requested', 2, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (10, 'authorized', 2, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (11, 'dispatched', 2, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (12, 'sended', 2, 3);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (13, 'completed', 2, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (14, 'requested', 4, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (15, 'authorized', 4, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (16, 'transfered', 4, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (17, 'cancelled', 1, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (18, 'cancelled', 2, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (19, 'cancelled', 3, 1);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (20, 'closed', 2, 3);
+INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`, `status`) VALUES (21, 'closed', 3, 3);
 INSERT INTO `invent`.`order_status` (`id`, `description`, `idworkflow`) VALUES (22, 'cancelled', 4);
 
-INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('internal', 'A');
-INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('external', 'D');
-INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('temporal', 'S');
-INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('external', 'A');
+INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('internal', 1);
+INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('external', 3);
+INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('temporal', 3);
+INSERT INTO `invent`.`order_type` (`description`, `status`) VALUES ('external', 1);
 
 INSERT INTO `invent`.`customer_type` (`id`, `description`) VALUES (1, 'Company');
 INSERT INTO `invent`.`customer_type` (`id`, `description`) VALUES (2, 'Person');
 INSERT INTO `invent`.`customer_type` (`id`, `description`) VALUES (3, 'Government');
 INSERT INTO `invent`.`customer_type` (`id`, `description`) VALUES (4, 'ONG');
 
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (1, 'New', 'A');
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (2, 'Authorized', 'D');
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (3, 'No Authorized', 'D');
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (4, 'Active', 'A');
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (5, 'Blocked', 'A');
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (6, 'Deleted', 'A');
-INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (7, 'Pending authorization', 'S');
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (1, 'New', 1);
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (2, 'Authorized', 3);
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (3, 'No Authorized', 3);
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (4, 'Active', 1);
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (5, 'Blocked', 1);
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (6, 'Deleted', 1);
+INSERT INTO `invent`.`customer_status` (`id`, `description`, `status`) VALUES (7, 'Pending authorization', 3);
 
-INSERT INTO `invent`.`unit` (`id`, `name`, `description`, `data_type`) VALUES (1, 'grams', 'metric grams', 'F');
-INSERT INTO `invent`.`unit` (`id`, `name`, `description`, `data_type`) VALUES (2, 'kilograms', 'metric kilograms', 'F');
-INSERT INTO `invent`.`unit` (`id`, `name`, `description`, `data_type`) VALUES (3, 'tons', 'metric tons', 'F');
+INSERT INTO `invent`.`unit` (`id`, `name`, `description`, `data_type`) VALUES (1, 'grams', 'metric grams', 3);
+INSERT INTO `invent`.`unit` (`id`, `name`, `description`, `data_type`) VALUES (2, 'kilograms', 'metric kilograms', 3);
+INSERT INTO `invent`.`unit` (`id`, `name`, `description`, `data_type`) VALUES (3, 'tons', 'metric tons', 3);
 
 -- secondary data
-INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('A123', 'deck1', 'A');
-INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('A124', 'deck2', 'A');
-INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('A125', 'desck3', 'D');
-INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('F1', 'freezer1', 'A');
+INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('A123', 'deck1', 1);
+INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('A124', 'deck2', 1);
+INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('A125', 'desck3', 3);
+INSERT INTO `invent`.`storage` (`code`, `description`, `status`) VALUES ('F1', 'freezer1', 1);
 INSERT INTO `invent`.`storage` (`code`, `description`) VALUES ('F2', 'freezer2');
 
 INSERT INTO `invent`.`customer` (`code`, `name`, `idtype`, `idstatus`, `description`) VALUES ('cus1', 'mycompany1', 1, 4, 'a national company');
@@ -71,7 +71,7 @@ INSERT INTO `invent`.`customer` (`code`, `name`, `idtype`, `idstatus`) VALUES ('
 INSERT INTO `invent`.`customer` (`code`, `name`, `idtype`, `idstatus`) VALUES ('abc2', 'green war', 4, 4);
 
 -- access
-INSERT INTO `invent`.`sys_user` (`id`, `name`, `password`, `enabled`, `status`) VALUES (1, 'guest', 'g', 1, 'A');
+INSERT INTO `invent`.`sys_user` (`id`, `name`, `password`, `enabled`, `status`) VALUES (1, 'guest', 'g', 1, 1);
 INSERT INTO `invent`.`sys_user` (`id`, `name`, `password`, `enabled`, `status`) VALUES (2, 'guest2', 'gg', 0, 'B');
 INSERT INTO `invent`.`sys_user` (`id`, `name`, `password`, `enabled`) VALUES (3, 'admin', 'a', 1);
 

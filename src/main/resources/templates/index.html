@@ -22,21 +22,22 @@
 	<h1 id="loadBox" th:text="#{msg.loading}">loading...!!</h1>
 		<div class="menuContainer"  th:fragment="menu">
 	    <ul id="menu">
-	        <li><a href="#" th:href="@{/groups}" th:text="#{menu.home}">Home!!</a></li>
+	        <li><a href="#" th:href="categories" th:text="#{menu.home}">Home!!</a></li>
 	        <li><a href="#s1" th:text="#{menu.general}">general!!</a>
 	            <span id="s1"></span>
 	            <ul class="submenu">
 	                <li ><a href="#" th:text="#{menu.general.catalogs}">catalogs!!</a>
 	                    <ul>
-	                        <li><a href="#" th:text="#{menu.general.catalogs.groups}"
-	                        	onclick="loadPage('groups')">Groups!!</a></li>
-	                        <li><a href="#" th:text="#{menu.general.catalogs.lists}">Group Lists!!</a></li>
+<!-- 	                        <li><a href="#" th:text="#{menu.general.catalogs.itemcategories}" -->
+<!-- 	                        	onclick="loadPage('groups')">categories!!</a></li> -->
+	                        <li><a href="#" th:text="#{menu.general.catalogs.itemcategories}"
+	                        	th:href="categories">categories!!</a></li>
 	                    </ul>
 	                </li>
 
 	            </ul>
 	        </li>
-	        <li><a href="#" th:text="#{menu.config}">configuración!!</a></li>
+<!-- 	        <li><a href="#" th:text="#{menu.config}">configuración!!</a></li> -->
 	        <li class="active"><a href="#" th:text="#{menu.about}">acerca de!!</a></li>
 		</ul>
 		<form th:action="@{/logout}" method="post">

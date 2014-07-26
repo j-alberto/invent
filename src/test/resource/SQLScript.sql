@@ -15,7 +15,7 @@ Database: MySQL 5.5
 CREATE TABLE invent.item
 (
   id Int(11) NOT NULL,
-  code Char(8) NOT NULL,
+  code Varchar(8) NOT NULL,
   name Varchar(20) NOT NULL,
   idcategory Smallint UNSIGNED NOT NULL,
   description Varchar(50),
@@ -35,8 +35,8 @@ CREATE TABLE invent.category
 (
   id Smallint UNSIGNED NOT NULL AUTO_INCREMENT,
   description Varchar(30) NOT NULL,
-  status Enum('R','A','S','D') NOT NULL DEFAULT 'R'
-  COMMENT 'R=registered,A=active,S=suspended,D=deleted',
+  status int NOT NULL DEFAULT 0
+  COMMENT '0=registered,1=active,2=suspended,3=deleted',
  PRIMARY KEY (id)
 )
 ;
@@ -47,8 +47,8 @@ CREATE TABLE invent.order_type
 (
   id Int NOT NULL AUTO_INCREMENT,
   description Varchar(30) NOT NULL,
-  status Enum('R','A','S','D') NOT NULL DEFAULT 'R'
-  COMMENT 'R=registered,A=active,S=suspended,D=deleted',
+  status int NOT NULL DEFAULT 0
+  COMMENT '0=registered,1=active,2=suspended,3=deleted',
  PRIMARY KEY (id)
 )
 ;
@@ -70,8 +70,8 @@ CREATE TABLE invent.order_status
   id Int NOT NULL AUTO_INCREMENT,
   description Varchar(30) NOT NULL,
   idworkflow Int NOT NULL,
-  status Enum('R','A','S','D') NOT NULL DEFAULT 'R'
-  COMMENT 'R=registered,A=active,S=suspended,D=deleted',
+  status int NOT NULL DEFAULT 0
+  COMMENT '0=registered,1=active,2=suspended,3=deleted',
  PRIMARY KEY (id)
 )
 ;
@@ -101,10 +101,10 @@ ALTER TABLE invent.inventory ADD UNIQUE code (code)
 CREATE TABLE invent.storage
 (
   id Int NOT NULL AUTO_INCREMENT,
-  code Char(8) NOT NULL,
+  code Varchar(8) NOT NULL,
   description Varchar(30) NOT NULL,
-  status Enum('R','A','S','D') NOT NULL DEFAULT 'R'
-  COMMENT 'R=registered,A=active,S=suspended,D=deleted',
+  status int NOT NULL DEFAULT 0
+  COMMENT '0=registered,1=active,2=suspended,3=deleted',
  PRIMARY KEY (id)
 )
 ;
@@ -120,8 +120,8 @@ CREATE TABLE invent.storage_movement
   idstorage_src Int,
   idstorage_dst Int,
   date_move Datetime NOT NULL,
-  type Enum('I','O','R') NOT NULL DEFAULT 'R'
-  COMMENT 'I=Input,O=Output,R=Relocation',
+  type INT NOT NULL DEFAULT 2
+  COMMENT '0=Input,1=Output,2=Relocation',
   idinventory_detail Int NOT NULL,
   idsys_user Int,
   sys_stamp Timestamp NULL,
@@ -136,8 +136,8 @@ CREATE TABLE invent.unit
   id Int NOT NULL AUTO_INCREMENT,
   name Varchar(30) NOT NULL,
   description Varchar(50),
-  data_type Enum('O','D','T','I','F') NOT NULL DEFAULT 'O'
-  COMMENT 'D=Date,T=Text,I=Integer,F=Float,O=Other',
+  data_type int NOT NULL DEFAULT 4
+  COMMENT '0=Date,1=Text,2=Integer,3=Float,4=Other',
  PRIMARY KEY (id)
 )
 ;
@@ -196,8 +196,8 @@ CREATE TABLE invent.customer_status
 (
   id Int NOT NULL AUTO_INCREMENT,
   description Varchar(30) NOT NULL,
-  status Enum('R','A','S','D') NOT NULL DEFAULT 'R'
-  COMMENT 'R=registered,A=active,S=suspended,D=deleted',
+  status int NOT NULL DEFAULT 0
+  COMMENT '0=registered,1=active,2=suspended,3=deleted',
  PRIMARY KEY (id)
 )
 ;

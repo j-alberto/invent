@@ -2,3 +2,24 @@ spring:
   thymeleaf:
     prefix: classpath:/templates/
     cache: false # set to false for hot refresh
+#  datasource:    
+#    initialize: false # populate using data.sql
+#    data: # a data (DML) script resource reference
+#    sqlScriptEncoding: UTF-8 # a charset for reading SQL scripts
+#    separator: ; # statement separator in SQL initialization scripts
+#    driverClassName: # JDBC Settings...
+#    url: 
+#    username: 
+#    password: 
+#  jpa
+#    properties.*: # properties to set on the JPA connection
+#    openInView: true
+#    show-sql: true
+#    database-platform: 
+#    database: 
+#    generate-ddl: false # ignored by Hibernate, might be useful for other vendors
+#    hibernate:
+#      naming-strategy: # naming classname
+#      ddl-auto: validate # defaults to create-drop for embedded dbs
+#    repositories:
+#      enabled: true # if spring data repository support is enabled

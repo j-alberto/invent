@@ -10,6 +10,8 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.repository.query.QueryLookupStrategy.Key;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -19,8 +21,16 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages="org.pke.liberalbus.domain.dao")
 @PropertySource(value="classpath:hibernate.properties")
+@EnableSpringDataWebSupport
+//Allows creation of proxy instances for repository(DAO) interfaces:
+@EnableJpaRepositories(basePackages="org.jar.invent.core.domain.dao" //where to look for repositories
+						,queryLookupStrategy=Key.CREATE_IF_NOT_FOUND)//default strategy 
+/**
+ * Configuration of JPA repository (database)
+ * @author zero
+ *
+ */
 public class PersistanceJPAConfig {
 	
     @Value("${hibernate.connection.driver_class}")
@@ -36,7 +46,7 @@ public class PersistanceJPAConfig {
 	public LocalContainerEntityManagerFactoryBean entityManagerFactory(){
 		LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
 	      em.setDataSource(dataSource());
-	      em.setPackagesToScan("org.pke.liberalbus.domain");
+	      em.setPackagesToScan("org.jar.invent.core.domain");
 	      em.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
 	 
 	      return em;

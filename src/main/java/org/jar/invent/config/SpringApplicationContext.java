@@ -5,7 +5,8 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
-@ComponentScan(basePackages="org.pke.liberalbus.controller")
+@ComponentScan(basePackages={"org.jar.invent.web.controller",
+							 "org.jar.invent.core.service"})
 @EnableAutoConfiguration
 public class SpringApplicationContext {
 
@@ -13,5 +14,4 @@ public class SpringApplicationContext {
     	SpringApplication sa = new SpringApplication(SpringApplicationContext.class, args);
     	sa.run(args);
     }
-
 }
