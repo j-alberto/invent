@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/categories")
+@RequestMapping("/catalogs/categories")
 public class CategoryController {
 
 	private CategoryService categoryService;

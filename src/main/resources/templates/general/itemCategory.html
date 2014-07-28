@@ -3,8 +3,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     
-	<link rel="stylesheet" type="text/css" href="../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
-	<link rel="stylesheet" type="text/css" href="../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/>
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
@@ -15,8 +15,14 @@
 	<div th:replace="index :: menu"></div>
 
 	<div id="main">
-	
-	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
+		<ul class="breadcrumb">
+			<li><a th:href="@{/catalogs}" href="#">Catalogs!!</a></li>
+			<li><a th:href="@{/catalogs/categories}" href="#">item categories!!</a></li>
+		</ul>
+		
+			 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
+	 	<p>Item categories description!!</p>
+	 	<div class="floatingLinkBox">asdasdasdasdasdasdsaasd</div>
 	 	<div id="itemCategoriesDiv" th:fragment="itemCategoriesFrag">
 			<table>
 				<thead>
@@ -62,9 +68,50 @@
 						<td>Category 333</td>
 						<td>a status</td>
 					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>222</td>
+						<td>Category 222</td>
+						<td>a status</td>
+					</tr>
+					<tr>
+						<td>333</td>
+						<td>Category 333</td>
+						<td>a status</td>
+					</tr>
 				</tbody>
 			</table>
 		</div>
+		
 	</div>
 </body>
 </html>

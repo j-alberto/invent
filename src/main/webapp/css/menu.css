@@ -62,6 +62,7 @@ body {
     position: absolute;
     top: 50px;
     width: 96%;
+    z-index: 10000;
 }
 #menu > li {
     border-bottom: 5px solid transparent;

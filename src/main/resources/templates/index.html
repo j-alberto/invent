@@ -22,16 +22,16 @@
 	<h1 id="loadBox" th:text="#{msg.loading}">loading...!!</h1>
 		<div class="menuContainer"  th:fragment="menu">
 	    <ul id="menu">
-	        <li><a href="#" th:href="categories" th:text="#{menu.home}">Home!!</a></li>
+	        <li><a href="#" th:href="@{/}" th:text="#{menu.home}">Home!!</a></li>
 	        <li><a href="#s1" th:text="#{menu.general}">general!!</a>
 	            <span id="s1"></span>
 	            <ul class="submenu">
-	                <li ><a href="#" th:text="#{menu.general.catalogs}">catalogs!!</a>
+	                <li ><a href="#" th:href="@{/catalogs}" th:text="#{menu.general.catalogs}">catalogs!!</a>
 	                    <ul>
 <!-- 	                        <li><a href="#" th:text="#{menu.general.catalogs.itemcategories}" -->
 <!-- 	                        	onclick="loadPage('groups')">categories!!</a></li> -->
 	                        <li><a href="#" th:text="#{menu.general.catalogs.itemcategories}"
-	                        	th:href="categories">categories!!</a></li>
+	                        	th:href="@{/catalogs/categories}">categories!!</a></li>
 	                    </ul>
 	                </li>
 
@@ -55,7 +55,7 @@
 				
 <!-- 	</div> -->
 	<div id="main">
-	
+		<div id="breadCrumbs"></div>
 	</div>
 </body>
 </html>

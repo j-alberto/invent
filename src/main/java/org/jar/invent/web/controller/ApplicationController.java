@@ -15,6 +15,11 @@ public class ApplicationController {
 	public String home(){
 		return "index";
 	}
+
+	@RequestMapping("/catalogs")
+	public String catalogsSiteMap(){
+		return "general/catalogs";
+	}
 	
 	@RequestMapping("/greeting")
 	public String returnGreeting(){

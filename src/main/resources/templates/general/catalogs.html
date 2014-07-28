@@ -1,0 +1,24 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+    
+</head>
+<body>
+	<div th:replace="index :: menu"></div>
+
+	<div id="main">
+	<ul class="breadcrumb">
+		<li><a th:href="@{/catalogs}">Catalogs!!</a></li>
+	</ul>
+
+	</div>
+</body>
+</html>
