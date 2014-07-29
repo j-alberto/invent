@@ -44,18 +44,23 @@ public class CategoryController {
 
 	@RequestMapping(value="/add",method=RequestMethod.GET)
 	public String addCategories(Model model){
-		log.info("enters here! get");
 		return "general/itemCategoryAdd";
 	}
-	
+
+	@RequestMapping(value="/raw",method=RequestMethod.GET)
+	public String addCategoriesRaw(Model model,
+		@PageableDefault(page=0,size=50) Pageable pageRequest){
+		
+		Page<Category> cats= categoryService.getCategoryList(pageRequest);
+		model.addAttribute("itemCategories", cats);
+		
+		return "general/itemCategory :: table1";
+	}
+
 	@RequestMapping(value="/add",method=RequestMethod.POST)
 	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model){
-		log.info("entering");
+
 		if(bindResults.hasErrors()){
-			log.info("entering errors");
-			for(String kay : model.keySet()){
-				log.info(kay+">>"+model.get(kay));
-			}
 			return "general/itemCategoryAdd";
 		}
 		

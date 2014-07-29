@@ -5,10 +5,23 @@
     
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/menu.css" th:href="@{/css/menu.css}"/>
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/jquery-DataTables.css" th:href="@{/css/jquery-dataTables.css}"/>
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
 	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+	<script src="../../webapp/js/jquery-dataTables.js" th:src="@{/js/jquery-dataTables.js}"></script>
+	
+	<script type="text/javascript">
+		$(document).ready(
+			function() {
+				$('#table1').dataTable( {
+			        "processing": true,
+			        "serverSide": true,
+			        "ajax": "http://localhost:8080/invent/catalogs/categories/raw"
+			    } );
+			} );
+	</script>
 </head>
 <body>
 	<div th:replace="index :: menu"></div>
@@ -22,9 +35,10 @@
 	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
 	 	<a th:href="@{/catalogs/categories/add}" href="#"
 	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
-	 	
-	 	<div id="itemCategoriesDiv" th:fragment="itemCategoriesFrag">
-			<table>
+	 	<br/><br/>
+
+			<table id="table1" class="display"
+				th:fragment="table1">
 				<thead>
 					<tr>
 						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
@@ -32,6 +46,13 @@
 						<th th:text="#{itemCategory.lbl.status}">status!!</th>
 					</tr>
 				</thead>
+				<tfoot>
+					<tr>
+						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
+						<th th:text="#{itemCategory.lbl.desc}">category name!!</th>
+						<th th:text="#{itemCategory.lbl.status}">status!!</th>
+					</tr>
+				</tfoot>
 				<tbody th:remove="all-but-first">
 					<tr th:each="cat : ${itemCategories.content}">
 						<td th:text="${cat.id}">111</td>
@@ -110,7 +131,6 @@
 					</tr>
 				</tbody>
 			</table>
-		</div>
 		
 	</div>
 </body>
