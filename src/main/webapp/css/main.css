@@ -1,10 +1,6 @@
 @CHARSET "UTF-8";
 
-
 /****Form-layout****/
-
-.invalidField{
-	border-color:red;	
+.invalidField {
+	border-color: red;
 }
-
-

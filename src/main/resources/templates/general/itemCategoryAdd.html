@@ -6,39 +6,35 @@
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
-	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script>
-	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+<!-- 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script> -->
+<!-- 	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script> -->
 	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
    
 </head>
-<body>
-	<br th:replace="frags/common :: menu"/>
-	<br th:replace="frags/common :: breadcrumbsCatagories"/>		
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: breadcrumbsCategories"></div>
 		
-	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
-	 	<p th:text="#{itemcategory.lbl.caption}">ADD Item categories description!!</p>
-	 	
-	 	<form th:action="@{/catalogs/categories/add}" method="post" th:object="${category}">
-	 	<table>
-	 		<tr>
-	 			<td>
-	 				<label for="description" th:text="#{itemCategory.lbl.desc}"></label>
-	 			</td>
-	 			<td>
-	 				<input id="description"  th:field="*{description}" th:errorclass="invalidField" type="text" required="required"
-	 				 	autofocus="autofocus"/>
-	 			</td>
-	 			<td>
-			 		<ul th:if="${#fields.hasErrors('description')}">
-			 			<li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
-			 		</ul>
-	 			</td>
-	 		</tr>
-	 		<tr>
-	 			<td colspan="3"><button type="submit" th:text="#{btn.add}">Add!!</button></td>
-	 		</tr>
-	 	</table>
-	 	</form>
+ 	<h3 th:text="#{itemcategory.lbl.title}">Item categories!!</h3>
+ 	<p th:text="#{itemcategory.lbl.caption}">ADD Item categories description!!</p>
+ 	
+ 	<form th:action="@{/catalogs/categories/add}" method="post" class="form-horizontal" th:object="${category}">
+ 	  <div class="form-group" th:name="description" th:errorclass="'form-group has-error'">
+		<label for="description" th:text="#{itemCategory.lbl.desc}" class="col-sm-1 control-label"></label>
+		<div class="col-sm-6">
+			<input id="description"  th:field="*{description}" type="text" required="required" autofocus="autofocus" class="form-control"/>
+			<ul th:if="${#fields.hasErrors('description')}" class="help-block">
+	 			<li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+	 		</ul>
+		</div>
+		
+		</div>
+	 	<div class="form-group">
+   			<div class="col-sm-offset-1 col-sm-6">
+      			<button type="submit" class="btn btn-default" th:text="#{btn.add}">Add!!</button>
+    		</div>
+		</div>
+ 	</form>
 
 </body>
 </html>

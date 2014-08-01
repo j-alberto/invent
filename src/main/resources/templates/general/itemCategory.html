@@ -5,7 +5,7 @@
     
 <!-- 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/menu.css" th:href="@{/css/menu.css}"/> -->
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
-	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/>
+<!-- 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/main.css" th:href="@{/css/main.css}"/> -->
 		
 	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
 <!-- 	<script src="../../webapp/js/jquery-form.js" th:src="@{/js/jquery-form.js}"></script> -->
@@ -13,16 +13,16 @@
 	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
 	
 </head>
-<body>
-	<br th:replace="frags/common :: menu"/>
-	<br th:replace="frags/common :: breadcrumbsCatagories"/>	
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: breadcrumbsCategories"></div>
 			
 	 	<h2 th:text="#{itemcategory.lbl.title}">Item categories!!</h2>
 	 	<a th:href="@{/catalogs/categories/add}" href="#"
 	 		th:text="#{menu.general.catalogs.itemcategory.addNew}">Add new category!!</a>
 	 	<br/><br/>
-		<div>
-			<table id="table1" class="display" th:fragment="tableCategory">
+		<div class="table-responsive">
+			<table id="table1" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
 				<thead>
 					<tr>
 						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
@@ -32,9 +32,9 @@
 				</thead>
 				<tfoot>
 					<tr>
-						<th th:text="#{itemCategory.lbl.id}">Id!!</th>
-						<th th:text="#{itemCategory.lbl.desc}">category name!!</th>
-						<th th:text="#{itemCategory.lbl.status}">status!!</th>
+						<td colspan="3">
+							<ul th:replace="frags/common :: pagingBar(${itemCategories},10)"></ul>
+						</td>
 					</tr>
 				</tfoot>
 				<tbody th:remove="all-but-first">
@@ -48,7 +48,7 @@
 					<tr><td>222</td><td>Category 222</td><td>a status</td></tr>
 				</tbody>
 			</table>
-			<ul th:replace="frags/common :: pagingBar(${itemCategories},5)"></ul>
+			
 		</div>
 </body>
 </html>
