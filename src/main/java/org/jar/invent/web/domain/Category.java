@@ -42,13 +42,6 @@ public class Category{
 		this.status = status;
 	}
 
-	public CategoryEntity toEntityBean() {
-		return new CategoryEntity(this.id, this.description, this.status);
-	}
-	public static Category toWebBean(CategoryEntity c) {
-		return new Category(c.getId(), c.getDescription(),c.getStatus());
-	}
-	
 	@Override
 	public String toString() {
 		return String.format("Category{id=%d, desc=%s, status=%s}", id, description, status.toString());

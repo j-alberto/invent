@@ -29,7 +29,7 @@
 			<li th:if="${path}" th:text="${path}"></li>
 		</ul>
 		<div class="bg-warning col-md-5"></div>
-		<a class="btn btn-default btn-md" href="javascript:history.back()">BACK!!</a>
+		<a class="btn btn-default btn-md" th:text="#{lbl.back}" href="javascript:history.back()">BACK!!</a>
 	</div>
 	
 	

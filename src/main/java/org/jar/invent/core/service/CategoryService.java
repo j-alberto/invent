@@ -8,6 +8,7 @@ import org.jar.invent.core.domain.CategoryEntity;
 import org.jar.invent.core.domain.EnumStatusGeneral;
 import org.jar.invent.core.domain.dao.CategoryDAO;
 import org.jar.invent.web.domain.Category;
+import org.jar.invent.web.domain.util.BeanParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -59,13 +60,13 @@ public class CategoryService {
 	}
 	
 	public Category saveCategory(Category cat){
-		CategoryEntity c = categoryDAO.save(cat.toEntityBean());
-		return Category.toWebBean(c);
+		CategoryEntity c = categoryDAO.save(BeanParser.toEntityBean(cat));
+		return BeanParser.toWebBean(c);
 	}
 	
 	public Category findCategory(short id){
 		CategoryEntity c = categoryDAO.findOne(id);
-		return c==null ? null : Category.toWebBean(c);
+		return c==null ? null : BeanParser.toWebBean(c);
 	}
 	
 	public List<EnumStatusGeneral> getCategoryStatuses(){

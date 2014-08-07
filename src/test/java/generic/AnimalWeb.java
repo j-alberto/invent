@@ -28,6 +28,15 @@ public class AnimalWeb implements WebBean<AnimalWeb,PersonEntity>{
 	public PersonEntity asCoreBean(AnimalWeb bean) {
 		return null;
 	}
+	@Override
+	public AnimalWeb asWebBean(PersonEntity bean) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+	@Override
+	public String toString(){
+		return String.format("AnimalWeb name: %s,  last name:%s",this.firstName,this.lastName);
+	}
 
 
 }

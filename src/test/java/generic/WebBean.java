@@ -1,5 +1,6 @@
 package generic;
 
+//public interface WebBean<W extends WebBean<W, C>, C extends CoreBean> {
 public interface WebBean<W extends WebBean<W, C>, C extends CoreBean> {
 
 	

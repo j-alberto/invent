@@ -26,17 +26,16 @@ public class PersonWeb implements WebBean<PersonWeb, PersonEntity>{
 	}
 	@Override
 	public PersonEntity asCoreBean(PersonWeb bean) {
-		return null;
+		return new PersonEntity(bean.getFirstName(), bean.getLastName());
 	}
 	@Override
 	public PersonWeb asWebBean(PersonEntity bean) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	static{
-		
+		return new PersonWeb(bean.getFirstName(), bean.getLastName());
 	}
 
+	@Override
+	public String toString(){
+		return String.format("PersonWeb name: %s,  last name:%s",this.firstName,this.lastName);
+	}
 
 }

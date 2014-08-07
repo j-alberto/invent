@@ -1,13 +1,13 @@
 package generic;
 
-public class PersonEntity implements CoreBean{
+public class AnimalEntity implements CoreBean{
 
 	private String firstName,lastName;
 	
-	public PersonEntity() {
+	public AnimalEntity() {
 		// TODO Auto-generated constructor stub
 	}
-	public PersonEntity(String firstName, String lastName) {
+	public AnimalEntity(String firstName, String lastName) {
 		this.firstName = firstName;
 		this.lastName = lastName;
 	}
@@ -27,6 +27,6 @@ public class PersonEntity implements CoreBean{
 	
 	@Override
 public String toString(){
-	return String.format("PersonEntity name: %s,  last name:%s",this.firstName,this.lastName);
+	return String.format("AnimalEntity name: %s,  last name:%s",this.firstName,this.lastName);
 }
 }
