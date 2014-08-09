@@ -26,8 +26,8 @@
 					<li><a href="#" th:href="@{/catalogs/categories}" th:text="#{menu.catalogs.itemcategory}">Item Categories!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemunit}">Units!!</a></li>
 					<li class="divider" th:unless="${asList}"></li>
-					<li><a href="#" th:href="@{/catalogs/custType}" th:text="#{menu.catalogs.customerType}">Customer Type!!</a></li>
-					<li><a href="#" th:href="@{/catalogs/custStatus}" th:text="#{menu.catalogs.customerStatus}">Customer Status!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/custTypes}" th:text="#{menu.catalogs.customerType}">Customer Type!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/custStatuses}" th:text="#{menu.catalogs.customerStatus}">Customer Status!!</a></li>
 					<li class="divider" th:unless="${asList}"></li>
 					<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}">Order Type!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/workflows}" th:text="#{menu.catalogs.orderWorkflow}">Order Workflow!!</a></li>
@@ -108,20 +108,27 @@
 	</ul>
 	<ul th:fragment="brCrumbCatUnitEdit" class="breadcrumb">
 		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
-		<li><a th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemcategory}" href="#">unit!!</a></li>
+		<li><a th:href="@{/catalogs/units}" th:text="#{menu.catalogs.itemunit}" href="#">unit!!</a></li>
 		<li><span th:text="#{menu.catalogs.itemunit.edit}">edit!!</span></li>
 	</ul>
 
-<!-- *************	INLINE ALERTS ********** -->
-<!-- 	 	<div class="alert alert-success alert-dismissible" role="alert" th:fragment="alertInfo(message)"> -->
-<!-- 	 		<strong th:text="${message}"></strong> -->
-<!-- 	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	 -->
-<!-- 	 	</div> -->
-<!-- 	 	<div class="alert alert-warning alert-dismissible" role="alert" th:fragment="warningInfo(message)"> -->
-<!-- 	 		<strong th:text="${message}"></strong> -->
-<!-- 	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	 -->
-<!-- 	 	</div> -->
+<!-- *************	BREADCRUMBS FOR CUSTOMER TYPES ********** -->
+	<ul th:fragment="brCrumbCatCustType" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.customerType}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCustTypeNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/custTypes}" th:text="#{menu.catalogs.customerType}" href="#">customer types!!</a></li>
+		<li><span th:text="#{menu.catalogs.customerType.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCustTypeEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/custTypes}" th:text="#{menu.catalogs.customerType}" href="#">customer types!!</a></li>
+		<li><span th:text="#{menu.catalogs.customerType.edit}">edit!!</span></li>
+	</ul>
 
+<!-- *************	INLINE ALERTS ********** -->
 	 	<div th:class="'alert alert-'+${type}+' alert-dismissible'" role="alert" th:fragment="alert(message,type)">
 	 		<strong th:text="${message}"></strong>
 	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	

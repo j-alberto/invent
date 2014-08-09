@@ -26,13 +26,13 @@ public class ApplicationController {
 		return "other/about";
 	}
 
-	@RequestMapping("/greeting")
+	@RequestMapping("/offsession")
 	public String returnGreeting(){
 		return "other/GreetingPage";
 	}	
 	
 //	public String returnSecureGreeting(@RequestParam(value="name", required=false,defaultValue="Stranger") String name
-	@RequestMapping("/sgreeting")
+	@RequestMapping("/insession")
 	public String returnSecureGreeting(){
 		
 		return "other/SecureGreetingPage";

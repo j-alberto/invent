@@ -1,6 +1,5 @@
 package org.jar.invent.core.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,10 +33,10 @@ public class CategoryService {
 
 
 	public List<Category> getAllCategories(){
-		return asWebDomainList((List<CategoryEntity>)categoryDAO.findAll());
+		return BeanParser.asWebCategoryList((List<CategoryEntity>)categoryDAO.findAll());
 	}
 	
-	public Page<Category> getCategories(String text, Pageable pageRequest){
+	public Page<Category> getCategories(String desc, Pageable pageRequest){
 		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
 			//TODO: let consumer know about change in page's size
 			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
@@ -45,14 +44,14 @@ public class CategoryService {
 
 		Page<CategoryEntity> resultPage;
 		
-		if(text.isEmpty()){
+		if(desc.isEmpty()){
 			resultPage = categoryDAO.findAll(pageRequest);
 		}else{
-			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(text, pageRequest);
+			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 		
 		
-		List<Category> categoriesWeb = asWebDomainList(resultPage.getContent());
+		List<Category> categoriesWeb = BeanParser.asWebCategoryList(resultPage.getContent());
 		
 		Page<Category> categoriesPage = new PageImpl<Category>(categoriesWeb, pageRequest, resultPage.getTotalElements());
 
@@ -73,17 +72,4 @@ public class CategoryService {
 		return Arrays.asList(EnumStatusGeneral.values());
 	}
 	
-	/**
-	 * Transforms a Core-object List into a Web-object list
-	 * @param categories
-	 * @return
-	 */
-	private List<Category> asWebDomainList(List<CategoryEntity> categories){
-		List<Category> webCategories = new ArrayList<Category>();
-		
-		for(CategoryEntity c : categories){
-			webCategories.add(new Category(c.getId(), c.getDescription(), c.getStatus()));
-		}
-		return webCategories;
-	}
 }

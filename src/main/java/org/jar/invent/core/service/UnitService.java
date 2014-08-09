@@ -1,6 +1,5 @@
 package org.jar.invent.core.service;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -34,7 +33,7 @@ public class UnitService {
 
 
 	public List<Unit> getAllUnits(){
-		return asWebDomainList((List<UnitEntity>)unitDAO.findAll());
+		return BeanParser.asWebUnitList((List<UnitEntity>)unitDAO.findAll());
 	}
 	
 	public Page<Unit> getUnits(String text, Pageable pageRequest){
@@ -52,7 +51,7 @@ public class UnitService {
 		}
 		
 		
-		List<Unit> categoriesWeb = asWebDomainList(resultPage.getContent());
+		List<Unit> categoriesWeb = BeanParser.asWebUnitList(resultPage.getContent());
 		
 		Page<Unit> categoriesPage = new PageImpl<Unit>(categoriesWeb, pageRequest, resultPage.getTotalElements());
 
@@ -72,18 +71,5 @@ public class UnitService {
 	public List<DataType> getUnitDataTypes(){
 		return Arrays.asList(DataType.values());
 	}
-	
-	/**
-	 * Transforms a Core-object List into a Web-object list
-	 * @param categories
-	 * @return
-	 */
-	private List<Unit> asWebDomainList(List<UnitEntity> categories){
-		List<Unit> webItemUnits = new ArrayList<Unit>();
-		
-		for(UnitEntity c : categories){
-			webItemUnits.add(BeanParser.toWebBean(c));
-		}
-		return webItemUnits;
-	}
+
 }

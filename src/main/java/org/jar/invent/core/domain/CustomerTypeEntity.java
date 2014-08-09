@@ -1,7 +1,9 @@
 package org.jar.invent.core.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -14,6 +16,14 @@ import java.util.List;
 public class CustomerTypeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+		public CustomerTypeEntity() {
+		}
+		public CustomerTypeEntity(int id, String description) {
+			this.id = id;
+			this.description = description;
+		}
+
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
@@ -25,9 +35,6 @@ public class CustomerTypeEntity implements Serializable {
 	//bi-directional many-to-one association to Customer
 	@OneToMany(mappedBy="customerType")
 	private List<CustomerEntity> customers;
-
-	public CustomerTypeEntity() {
-	}
 
 	public int getId() {
 		return this.id;
@@ -65,6 +72,11 @@ public class CustomerTypeEntity implements Serializable {
 		customer.setCustomerType(null);
 
 		return customer;
+	}
+	
+	@Override
+	public String toString() {
+		return String.format("CategoryEntity{id=%d, desc=%s}", id, description);
 	}
 
 }

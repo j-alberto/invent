@@ -14,7 +14,7 @@
 	<div th:replace="frags/common :: menu"></div>
 	<div th:replace="frags/common :: (${edit}? brCrumbCatUnitEdit : brCrumbCatUnitNew)"></div>
 		
- 	<h3 th:text="#{itemunit.lbl.title}">Item units!!</h3>
+ 	<h2 th:text="#{itemunit.lbl.title}">Item units!!</h2>
  	<p th:text="#{itemunit.lbl.caption}">ADD Itemunitd description!!</p>
  	
  	<form th:action="@{/catalogs/units/}+(${edit}?'edit':'add')" method="post" class="form-horizontal" th:object="${unit}">
