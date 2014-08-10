@@ -128,6 +128,22 @@
 		<li><span th:text="#{menu.catalogs.customerType.edit}">edit!!</span></li>
 	</ul>
 
+<!-- *************	BREADCRUMBS FOR CUSTOMER STATUSES ********** -->
+	<ul th:fragment="brCrumbCatCustStatus" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.customerStatus}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCustStatusNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/custStatuses}" th:text="#{menu.catalogs.customerStatus}" href="#">customer Statuses!!</a></li>
+		<li><span th:text="#{menu.catalogs.customerStatus.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatCustStatusEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/custStatuses}" th:text="#{menu.catalogs.customerStatus}" href="#">customer Statuses!!</a></li>
+		<li><span th:text="#{menu.catalogs.customerStatus.edit}">edit!!</span></li>
+	</ul>
+
 <!-- *************	BREADCRUMBS FOR ORDER WORKFLOWS ********** -->
 	<ul th:fragment="brCrumbCatOrderWflow" class="breadcrumb">
 		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>

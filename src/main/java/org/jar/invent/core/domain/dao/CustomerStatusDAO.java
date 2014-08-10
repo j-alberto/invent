@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerStatusDAO extends JpaRepository<CustomerStatusEntity, Short>{
+public interface CustomerStatusDAO extends JpaRepository<CustomerStatusEntity, Integer>{
     
 	Page<CustomerStatusEntity> findByDescriptionContainingIgnoreCase(String desc, Pageable pageRequest);
 	

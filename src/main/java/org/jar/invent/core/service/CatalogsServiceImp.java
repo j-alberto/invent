@@ -230,7 +230,7 @@ public class CatalogsServiceImp implements CatalogsService {
 	}
 
 	@Override
-	public OrderStatus findOrderStatus(short id) {
+	public OrderStatus findOrderStatus(int id) {
 		OrderStatusEntity orderStatus = orderStatusDAO.findOne(id);
 		return orderStatus==null ? null : BeanParser.toWebBean(orderStatus);
 	}
@@ -269,7 +269,7 @@ public class CatalogsServiceImp implements CatalogsService {
 	}
 
 	@Override
-	public CustomerStatus findCustomerStatus(short id) {
+	public CustomerStatus findCustomerStatus(int id) {
 		CustomerStatusEntity customerStatusEnt = customerStatusDAO.findOne(id);
 		return customerStatusEnt==null ? null : BeanParser.toWebBean(customerStatusEnt);
 	}

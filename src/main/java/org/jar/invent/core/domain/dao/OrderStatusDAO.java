@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface OrderStatusDAO extends JpaRepository<OrderStatusEntity, Short>{
+public interface OrderStatusDAO extends JpaRepository<OrderStatusEntity, Integer>{
     
 	Page<OrderStatusEntity> findByDescriptionContainingIgnoreCase(String desc, Pageable pageRequest);
 	
