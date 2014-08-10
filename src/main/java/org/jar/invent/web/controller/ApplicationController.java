@@ -30,8 +30,7 @@ public class ApplicationController {
 	public String returnGreeting(){
 		return "other/GreetingPage";
 	}	
-	
-//	public String returnSecureGreeting(@RequestParam(value="name", required=false,defaultValue="Stranger") String name
+
 	@RequestMapping("/insession")
 	public String returnSecureGreeting(){
 		

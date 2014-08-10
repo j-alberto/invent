@@ -29,9 +29,9 @@
 					<li><a href="#" th:href="@{/catalogs/custTypes}" th:text="#{menu.catalogs.customerType}">Customer Type!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/custStatuses}" th:text="#{menu.catalogs.customerStatus}">Customer Status!!</a></li>
 					<li class="divider" th:unless="${asList}"></li>
-					<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}">Order Type!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/workflows}" th:text="#{menu.catalogs.orderWorkflow}">Order Workflow!!</a></li>
 					<li><a href="#" th:href="@{/catalogs/orderStatuses}" th:text="#{menu.catalogs.orderStatus}">Order Status!!</a></li>
+					<li><a href="#" th:href="@{/catalogs/orderTypes}" th:text="#{menu.catalogs.orderType}">Order Type!!</a></li>
 				</ul>
 	        </li>
 	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}" data-toggle="modal" data-target="#modalBox">About!!</a></li>
@@ -126,6 +126,22 @@
 		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
 		<li><a th:href="@{/catalogs/custTypes}" th:text="#{menu.catalogs.customerType}" href="#">customer types!!</a></li>
 		<li><span th:text="#{menu.catalogs.customerType.edit}">edit!!</span></li>
+	</ul>
+
+<!-- *************	BREADCRUMBS FOR ORDER WORKFLOWS ********** -->
+	<ul th:fragment="brCrumbCatOrderWflow" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#"></a></li>
+		<li><span th:text="#{menu.catalogs.orderWorkflow}"></span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatOrderWflowNew" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/workflows}" th:text="#{menu.catalogs.orderWorkflow}" href="#">order workflows!!</a></li>
+		<li><span th:text="#{menu.catalogs.orderWorkflow.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCatOrderWflowEdit" class="breadcrumb">
+		<li><a th:href="@{/catalogs}" th:text="#{menu.catalogs}" href="#">catalogs!!</a></li>
+		<li><a th:href="@{/catalogs/workflows}" th:text="#{menu.catalogs.orderWorkflow}" href="#">order workflows!!</a></li>
+		<li><span th:text="#{menu.catalogs.orderWorkflow.edit}">edit!!</span></li>
 	</ul>
 
 <!-- *************	INLINE ALERTS ********** -->

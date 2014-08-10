@@ -3,18 +3,29 @@ package org.jar.invent.web.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.jar.invent.core.domain.EnumStatusGeneral;
 
 public class CustomerStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	@NotBlank
+	@Length(min=1, max=30)
 	private String description;
 	private EnumStatusGeneral status;
 	private List<Customer> customers;
 
-	public CustomerStatus() {
-	}
+		public CustomerStatus() {
+			this.status = EnumStatusGeneral.REGISTERED;
+		}
+		
+		public CustomerStatus(int id, String description, EnumStatusGeneral status) {
+			this.id = id;
+			this.description = description;
+			this.status = status;
+		}
 
 	public int getId() {
 		return this.id;
@@ -62,4 +73,8 @@ public class CustomerStatus implements Serializable {
 		return customer;
 	}
 
+	@Override
+	public String toString(){
+		return String.format("CustomerStatus{id=%d, desc=%s, status=%s}", id, description, status.toString());
+	}
 }

@@ -2,7 +2,7 @@ package org.jar.invent.web.controller;
 
 import javax.validation.Valid;
 
-import org.jar.invent.core.service.CustomerTypeService;
+import org.jar.invent.core.service.CatalogsService;
 import org.jar.invent.web.domain.CustomerType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +25,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/catalogs/custTypes")
 public class CustomerTypeController {
 
-	private CustomerTypeService customerTypeService;
+	private CatalogsService catalogsService;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final int DEFAULT_PAGE_SIZE=10;
@@ -34,8 +34,8 @@ public class CustomerTypeController {
 	private static final String REDIR_CUST_TYPE= "redirect:/catalogs/custTypes";
 	
 	@Autowired
-	public CustomerTypeController(CustomerTypeService customerTypeService) {
-		this.customerTypeService = customerTypeService;
+	public CustomerTypeController(CatalogsService catalogsService) {
+		this.catalogsService = catalogsService;
 	}
 	
 
@@ -46,7 +46,7 @@ public class CustomerTypeController {
 		
 			
 		model.addAttribute("searchText",searchText);
-		Page<CustomerType> cats= customerTypeService.getCustomerTypes(searchText, pageRequest);
+		Page<CustomerType> cats= catalogsService.getCustomerTypes(searchText, pageRequest);
 		model.addAttribute("customerTypes", cats);
 		
 		return TEMPLATE_CUST_TYPE;
@@ -67,7 +67,7 @@ public class CustomerTypeController {
 			return TEMPLATE_CUST_TYPE_ADD;
 		}
 		
-		customerTypeService.saveCustomerType(customerType);
+		catalogsService.saveCustomerType(customerType);
 		model.clear();
 
 		redirectAttributes.addFlashAttribute("eventDone","added");
@@ -80,7 +80,7 @@ public class CustomerTypeController {
 	public String editCustomerType(final Model model, @PathVariable final short id
 		,final RedirectAttributes redirectAttributes){
 
-		CustomerType cat = customerTypeService.findCustomerType(id);
+		CustomerType cat = catalogsService.findCustomerType(id);
 		if(cat==null){
 			redirectAttributes.addFlashAttribute("eventDone","idNotFound");
 			return REDIR_CUST_TYPE;
@@ -103,7 +103,7 @@ public class CustomerTypeController {
 			return TEMPLATE_CUST_TYPE_ADD;
 		}
 		
-		customerTypeService.saveCustomerType(customerType);
+		catalogsService.saveCustomerType(customerType);
 		redirectAttributes.addFlashAttribute("eventDone","updated");
 		
 		return REDIR_CUST_TYPE;

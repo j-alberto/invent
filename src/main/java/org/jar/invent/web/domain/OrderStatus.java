@@ -3,19 +3,33 @@ package org.jar.invent.web.domain;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 import org.jar.invent.core.domain.EnumStatusGeneral;
 
 public class OrderStatus implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
+	@NotBlank
+	@Length(min=1, max=30)
 	private String description;
 	private EnumStatusGeneral status;
 	private List<Order> orders;
+	@NotNull
 	private OrderWorkflow orderWorkflow;
 
-	public OrderStatus() {
-	}
+		public OrderStatus() {
+			this.status = EnumStatusGeneral.REGISTERED;
+		}
+		
+		public OrderStatus(int id, String description, EnumStatusGeneral status) {
+			this.id = id;
+			this.description = description;
+			this.status = status;
+		}
 
 	public int getId() {
 		return this.id;
@@ -70,5 +84,9 @@ public class OrderStatus implements Serializable {
 	public void setOrderWorkflow(OrderWorkflow orderWorkflow) {
 		this.orderWorkflow = orderWorkflow;
 	}
-
+	
+	@Override
+	public String toString(){
+		return String.format("OrderStatus{id=%d, desc=%s, status=%s}", id, description, status.toString());
+	}
 }

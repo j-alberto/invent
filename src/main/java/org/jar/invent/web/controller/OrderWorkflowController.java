@@ -1,13 +1,9 @@
 package org.jar.invent.web.controller;
 
-import java.util.List;
-
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.jar.invent.core.domain.EnumStatusGeneral;
 import org.jar.invent.core.service.CatalogsService;
-import org.jar.invent.web.domain.Category;
+import org.jar.invent.web.domain.OrderWorkflow;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,100 +22,95 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
-@RequestMapping("/catalogs/categories")
-public class CategoryController {
+@RequestMapping("/catalogs/workflows")
+public class OrderWorkflowController {
 
-	private CatalogsService catalogService;
+	private CatalogsService catalogsService;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final int DEFAULT_PAGE_SIZE=10;
-	private static final String TEMPLATE_ITEM_CAT= "catalogs/itemCategory";
-	private static final String TEMPLATE_ITEM_CAT_ADD= "catalogs/itemCategoryAdd";
-	private static final String REDIR_ITEM_CAT= "redirect:/catalogs/categories";
+	private static final String TEMPLATE_ORDER_WFLOW= "catalogs/orderWorkflow";
+	private static final String TEMPLATE_ORDER_WFLOW_ADD= "catalogs/orderWorkflowAdd";
+	private static final String REDIR_ORDER_WFLOW= "redirect:/catalogs/workflows";
 	
 	@Autowired
-	public CategoryController(CatalogsService catalogService) {
-		this.catalogService = catalogService;
+	public OrderWorkflowController(CatalogsService catalogsService) {
+		this.catalogsService = catalogsService;
 	}
 	
 
 	@RequestMapping(method=RequestMethod.GET)
-	public String getCategories(Model model
+	public String getOrderWorkflows(Model model
 								,@RequestParam(value="searchText",required=false,defaultValue="") String searchText
 								,@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
 		
 			
 		model.addAttribute("searchText",searchText);
-		Page<Category> cats= catalogService.getCategories(searchText, pageRequest);
-		model.addAttribute("itemCategories", cats);
+		Page<OrderWorkflow> wflows= catalogsService.getOrderWorkflows(searchText, pageRequest);
+		model.addAttribute("orderWorkflows", wflows);
 		
-		return TEMPLATE_ITEM_CAT;
+		return TEMPLATE_ORDER_WFLOW;
 	}
 
 	@RequestMapping(value="/add",method=RequestMethod.GET)
-	public String addCategories(final Model model){
-		
-		return TEMPLATE_ITEM_CAT_ADD;
+	public String addOrderWorkflow(final Model model){
+		return TEMPLATE_ORDER_WFLOW_ADD;
 	}
 
 	@RequestMapping(value="/add",method=RequestMethod.POST)
-	public String addCategories(@Valid final Category category, final BindingResult bindResults, final ModelMap model
+	public String addOrderWorkflow(@Valid final OrderWorkflow orderWflow, final BindingResult bindResults, final ModelMap model
 			,final RedirectAttributes redirectAttributes){
 		
-		log.info("adding category: "+category);
+		log.info("adding orderWorkflow: "+orderWflow);
 		if(bindResults.hasErrors()){
-			return TEMPLATE_ITEM_CAT_ADD;
+			return TEMPLATE_ORDER_WFLOW_ADD;
 		}
 		
-		catalogService.saveCategory(category);
+		catalogsService.saveOrderWorkflow(orderWflow);
 		model.clear();
 
 		redirectAttributes.addFlashAttribute("eventDone","added");
 		
-		return REDIR_ITEM_CAT;
+		return REDIR_ORDER_WFLOW;
 	}
 
 
 	@RequestMapping(value="/{id}",method=RequestMethod.GET)
-	public String editCategory(final Model model, @PathVariable final short id
+	public String editOrderWorkflow(final Model model, @PathVariable final short id
 		,final RedirectAttributes redirectAttributes){
 
-		Category cat = catalogService.findCategory(id);
-		if(cat==null){
+		OrderWorkflow orderWflow = catalogsService.findOrderWorkflow(id);
+		if(orderWflow==null){
 			redirectAttributes.addFlashAttribute("eventDone","idNotFound");
-			return REDIR_ITEM_CAT;
+			return REDIR_ORDER_WFLOW;
 		}
-		model.addAttribute("category", cat);
+		model.addAttribute("orderWorkflow", orderWflow);
 		model.addAttribute("edit", true);
 		
-		return TEMPLATE_ITEM_CAT_ADD;
+		return TEMPLATE_ORDER_WFLOW_ADD;
 	}
 
 	@RequestMapping(value="/edit",method=RequestMethod.POST)
-	public String editCategory(@Valid final Category category, final BindingResult bindResults
+	public String editOrderWorkflow(@Valid final OrderWorkflow orderWflow, final BindingResult bindResults
 			,final ModelMap model
 			,final RedirectAttributes redirectAttributes){
 
 		model.addAttribute("edit", true);
-		log.info("updating category: "+category);
+		log.info("updating orderWorkflow: "+orderWflow);
 		
 		if(bindResults.hasErrors()){
-			return TEMPLATE_ITEM_CAT_ADD;
+			return TEMPLATE_ORDER_WFLOW_ADD;
 		}
 		
-		catalogService.saveCategory(category);
+		catalogsService.saveOrderWorkflow(orderWflow);
 		redirectAttributes.addFlashAttribute("eventDone","updated");
 		
-		return REDIR_ITEM_CAT;
+		return REDIR_ORDER_WFLOW;
 	}
 	
 	@ModelAttribute
-	public Category getCategory(){
-		return new Category();
+	public OrderWorkflow getOrderWorkflow(){
+		return new OrderWorkflow();
 	}
-	
-	@ModelAttribute("categoryTypes")
-	public List<EnumStatusGeneral> getCategoryStatuses(){
-		return catalogService.getCategoryStatuses();
-	}
+
 }

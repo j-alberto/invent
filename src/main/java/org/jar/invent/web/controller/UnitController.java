@@ -5,7 +5,7 @@ import java.util.List;
 import javax.validation.Valid;
 
 import org.jar.invent.core.domain.UnitEntity.DataType;
-import org.jar.invent.core.service.UnitService;
+import org.jar.invent.core.service.CatalogsService;
 import org.jar.invent.web.domain.Unit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -28,7 +28,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 @RequestMapping("/catalogs/units")
 public class UnitController {
 
-	private UnitService unitService;
+	private CatalogsService catalogsService;
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final int DEFAULT_PAGE_SIZE=10;
@@ -37,8 +37,8 @@ public class UnitController {
 	private static final String REDIR_ITEM_UNIT= "redirect:/catalogs/units";
 	
 	@Autowired
-	public UnitController(UnitService unitService) {
-		this.unitService = unitService;
+	public UnitController(CatalogsService catalogsService) {
+		this.catalogsService = catalogsService;
 	}
 	
 
@@ -48,7 +48,7 @@ public class UnitController {
 								,@PageableDefault(page=0,size=DEFAULT_PAGE_SIZE) Pageable pageRequest){
 
 		model.addAttribute("searchText",searchText);
-		Page<Unit> units= unitService.getUnits(searchText, pageRequest);
+		Page<Unit> units= catalogsService.getUnits(searchText, pageRequest);
 		model.addAttribute("itemUnits", units);
 		
 		return TEMPLATE_ITEM_UNIT;
@@ -69,7 +69,7 @@ public class UnitController {
 			return TEMPLATE_ITEM_UNIT_ADD;
 		}
 		
-		unitService.saveUnit(unit);
+		catalogsService.saveUnit(unit);
 		model.clear();
 
 		redirectAttributes.addFlashAttribute("eventDone", "added");
@@ -82,7 +82,7 @@ public class UnitController {
 	public String editUnit(final Model model, @PathVariable final int id
 		,final RedirectAttributes redirectAttributes){
 
-		Unit unit = unitService.findUnit(id);
+		Unit unit = catalogsService.findUnit(id);
 		if(null == unit){
 			redirectAttributes.addFlashAttribute("eventDone", "idNotFound");
 			return REDIR_ITEM_UNIT;
@@ -105,7 +105,7 @@ public class UnitController {
 			return TEMPLATE_ITEM_UNIT_ADD;
 		}
 		
-		unitService.saveUnit(unit);
+		catalogsService.saveUnit(unit);
 		redirectAttributes.addFlashAttribute("eventDone", "updated");
 		
 		return REDIR_ITEM_UNIT;
@@ -118,6 +118,6 @@ public class UnitController {
 	
 	@ModelAttribute("unitDataTypes")
 	public List<DataType> getUnitDataTypes(){
-		return unitService.getUnitDataTypes();
+		return catalogsService.getUnitDataTypes();
 	}
 }

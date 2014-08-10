@@ -1,6 +1,6 @@
 package org.jar.invent.web.service;
 
-import org.jar.invent.core.service.CategoryService;
+import org.jar.invent.core.service.CatalogsService;
 import org.jar.invent.web.domain.Category;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/rest/categories")
 public class CategoryRestService {
 
-	private CategoryService categoryService;
+	private CatalogsService catalogsService;
 	
 	public CategoryRestService(){}
 
 	@Autowired
-	public CategoryRestService(CategoryService categoryService){
-		this.categoryService = categoryService;
+	public CategoryRestService(CatalogsService catalogsService){
+		this.catalogsService = catalogsService;
 	}
 	
 	@RequestMapping(method=RequestMethod.GET)
@@ -32,7 +32,7 @@ public class CategoryRestService {
 			 @RequestParam(value="name",defaultValue="") String name
 			,@PageableDefault(page=0,size=50) Pageable pageRequest){
 		
-		Page<Category> categories = categoryService.getCategories(name, pageRequest);
+		Page<Category> categories = catalogsService.getCategories(name, pageRequest);
 		
 		return new ResponseEntity<Page<Category>>(categories, HttpStatus.OK);
 	}

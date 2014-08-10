@@ -1,7 +1,9 @@
 package org.jar.invent.core.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -13,6 +15,15 @@ import java.util.List;
 @Table(name="order_status")
 public class OrderStatusEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
+
+		public OrderStatusEntity() {
+		}
+		
+		public OrderStatusEntity(int id, String description, EnumStatusGeneral status) {
+			this.id = id;
+			this.description = description;
+			this.status = status;
+		}
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -34,9 +45,6 @@ public class OrderStatusEntity implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idworkflow", nullable=false)
 	private OrderWorkflowEntity orderWorkflow;
-
-	public OrderStatusEntity() {
-	}
 
 	public int getId() {
 		return this.id;
@@ -90,6 +98,11 @@ public class OrderStatusEntity implements Serializable {
 
 	public void setOrderWorkflow(OrderWorkflowEntity orderWorkflow) {
 		this.orderWorkflow = orderWorkflow;
+	}
+	
+	@Override
+	public String toString(){
+		return String.format("OrderStatusEntity{id=%d, desc=%s, status=%s}", id, description, status.toString());
 	}
 
 }

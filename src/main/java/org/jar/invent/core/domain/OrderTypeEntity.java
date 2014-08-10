@@ -1,7 +1,9 @@
 package org.jar.invent.core.domain;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -14,6 +16,15 @@ import java.util.List;
 public class OrderTypeEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
 
+		public OrderTypeEntity() {
+		}
+	
+		public OrderTypeEntity(int id, String description, EnumStatusGeneral status) {
+			this.id = id;
+			this.description = description;
+			this.status = status;
+		}
+	
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(unique=true, nullable=false)
@@ -29,9 +40,6 @@ public class OrderTypeEntity implements Serializable {
 	//bi-directional many-to-one association to Order
 	@OneToMany(mappedBy="orderType")
 	private List<OrderEntity> orders;
-
-	public OrderTypeEntity() {
-	}
 
 	public int getId() {
 		return this.id;
@@ -77,6 +85,11 @@ public class OrderTypeEntity implements Serializable {
 		order.setOrderType(null);
 
 		return order;
+	}
+	
+	@Override
+	public String toString(){
+		return String.format("OrderTypeEntity{id=%d, desc=%s, status=%s}", id, description, status.toString());
 	}
 
 }
