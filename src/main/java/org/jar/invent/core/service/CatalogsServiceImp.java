@@ -32,6 +32,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.PropertySource;
+import org.springframework.core.convert.ConversionService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -62,6 +63,9 @@ public class CatalogsServiceImp implements CatalogsService {
 	private OrderStatusDAO orderStatusDAO;
 	private CustomerStatusDAO customerStatusDAO;
 	private OrderTypeDAO orderTypeDAO;
+	
+//	@Autowired
+	private	ConversionService conversionService;
 	
 	@Value("${page.maxsize}")
 	private int MAX_PAGE_SIZE= 100;
@@ -199,6 +203,8 @@ public class CatalogsServiceImp implements CatalogsService {
 	public OrderWorkflow findOrderWorkflow(int id) {
 		OrderWorkflowEntity wflow = orderWorkflowDAO.findOne(id);
 		return wflow==null ? null : BeanParser.toWebBean(wflow);
+//		log.info("Converting with service!!");
+//		return wflow==null ? null : conversionService.convert(wflow, OrderWorkflow.class);
 	}
 
 	@Override
@@ -326,6 +332,10 @@ public class CatalogsServiceImp implements CatalogsService {
 		}
 		
 		return pageRequest;
+	}
+
+	public void setTransformService( ConversionService conversionService) {
+		this.conversionService = conversionService;
 	}
 
 }

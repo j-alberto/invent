@@ -7,9 +7,8 @@ import org.springframework.core.convert.converter.Converter;
 public class WorkflowConverter implements Converter<OrderWorkflowEntity, OrderWorkflow>{
 
 	@Override
-	public OrderWorkflow convert(OrderWorkflowEntity arg0) {
-		// TODO Auto-generated method stub
-		return null;
+	public OrderWorkflow convert(OrderWorkflowEntity bean) {
+		return new OrderWorkflow(bean.getId(), bean.getDescription());
 	}
 
 }

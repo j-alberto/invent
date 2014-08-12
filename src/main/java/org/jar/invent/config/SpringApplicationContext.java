@@ -24,5 +24,21 @@ public class SpringApplicationContext {
     	SpringApplication sa = new SpringApplication(SpringApplicationContext.class, args);
     	sa.run(args);
     }
+    
+    @Bean
+    public FormattingConversionServiceFactoryBean formattingConversionServiceFactoryBean(){
+    	Logger.getLogger(getClass()).info("creating converter!!!");
+    	
+    	@SuppressWarnings("rawtypes")
+    	Set<Formatter> formatters = new HashSet<>();
+
+		formatters.add(new WorkFlowFormatter());
+
+		FormattingConversionServiceFactoryBean formatter = new FormattingConversionServiceFactoryBean();
+		formatter.setFormatters(formatters);
+		
+    	return formatter;
+    }
+    
 
 }

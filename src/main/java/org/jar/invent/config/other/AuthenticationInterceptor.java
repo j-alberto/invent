@@ -1,4 +1,4 @@
-package org.jar.invent.config.interceptor;
+package org.jar.invent.config.other;
 
 import java.io.IOException;
 
