@@ -1,29 +1,24 @@
 package org.jar.invent.config;
 
-import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
-import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.data.repository.query.QueryLookupStrategy.Key;
 import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
 @PropertySource(value="classpath:hibernate.properties")
 @EnableSpringDataWebSupport
-//Allows creation of proxy instances for repository(DAO) interfaces:
+//Allows creation of proxy instances for repository(DAO) interfaces
 @EnableJpaRepositories(basePackages="org.jar.invent.core.domain.dao" //where to look for repositories
 						,queryLookupStrategy=Key.CREATE_IF_NOT_FOUND)//default strategy 
 /**
@@ -62,18 +57,5 @@ public class PersistanceJPAConfig {
 	      dataSource.setPassword(password);
 	      return dataSource;
 	   }
-	
-//	@Bean
-//	   public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory){
-//	      JpaTransactionManager transactionManager = new JpaTransactionManager();
-//	      transactionManager.setEntityManagerFactory(entityManagerFactory);
-//	 
-//	      return transactionManager;
-//	   }
-//	
-//	 @Bean
-//	   public PersistenceExceptionTranslationPostProcessor exceptionTranslation(){
-//	      return new PersistenceExceptionTranslationPostProcessor();
-//	   }
 
 }

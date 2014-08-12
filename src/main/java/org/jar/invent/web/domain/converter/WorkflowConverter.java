@@ -6,8 +6,12 @@ import org.springframework.core.convert.converter.Converter;
 
 public class WorkflowConverter implements Converter<OrderWorkflowEntity, OrderWorkflow>{
 
+		public WorkflowConverter() { }
+	
 	@Override
 	public OrderWorkflow convert(OrderWorkflowEntity bean) {
+		if(null == bean) return null;
+		
 		return new OrderWorkflow(bean.getId(), bean.getDescription());
 	}
 

@@ -1,12 +1,8 @@
 package org.jar.invent.web.domain.formatter;
 
 import java.text.ParseException;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Locale;
-import java.util.Map;
 
-import org.apache.log4j.Logger;
 import org.jar.invent.core.service.CatalogsService;
 import org.jar.invent.web.domain.OrderWorkflow;
 import org.springframework.beans.factory.annotation.Autowired;

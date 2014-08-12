@@ -1,16 +1,8 @@
 package org.jar.invent.config;
-import java.util.HashSet;
-import java.util.Set;
-
-import org.apache.log4j.Logger;
-import org.jar.invent.web.domain.formatter.WorkFlowFormatter;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
-import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.format.Formatter;
-import org.springframework.format.support.FormattingConversionServiceFactoryBean;
 
 @Configuration
 @ComponentScan(basePackages={"org.jar.invent.web.controller",
@@ -24,21 +16,4 @@ public class SpringApplicationContext {
     	SpringApplication sa = new SpringApplication(SpringApplicationContext.class, args);
     	sa.run(args);
     }
-    
-    @Bean
-    public FormattingConversionServiceFactoryBean formattingConversionServiceFactoryBean(){
-    	Logger.getLogger(getClass()).info("creating converter!!!");
-    	
-    	@SuppressWarnings("rawtypes")
-    	Set<Formatter> formatters = new HashSet<>();
-
-		formatters.add(new WorkFlowFormatter());
-
-		FormattingConversionServiceFactoryBean formatter = new FormattingConversionServiceFactoryBean();
-		formatter.setFormatters(formatters);
-		
-    	return formatter;
-    }
-    
-
 }

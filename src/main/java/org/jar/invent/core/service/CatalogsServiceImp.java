@@ -12,6 +12,7 @@ import org.jar.invent.core.domain.OrderTypeEntity;
 import org.jar.invent.core.domain.OrderWorkflowEntity;
 import org.jar.invent.core.domain.UnitEntity;
 import org.jar.invent.core.domain.UnitEntity.DataType;
+import org.jar.invent.core.domain.converter.ListConverter;
 import org.jar.invent.core.domain.dao.CategoryDAO;
 import org.jar.invent.core.domain.dao.CustomerStatusDAO;
 import org.jar.invent.core.domain.dao.CustomerTypeDAO;
@@ -26,7 +27,6 @@ import org.jar.invent.web.domain.OrderStatus;
 import org.jar.invent.web.domain.OrderType;
 import org.jar.invent.web.domain.OrderWorkflow;
 import org.jar.invent.web.domain.Unit;
-import org.jar.invent.web.domain.util.BeanParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,8 +64,10 @@ public class CatalogsServiceImp implements CatalogsService {
 	private CustomerStatusDAO customerStatusDAO;
 	private OrderTypeDAO orderTypeDAO;
 	
-//	@Autowired
+	@Autowired
 	private	ConversionService conversionService;
+	@Autowired
+	private	ListConverter listConverter;
 	
 	@Value("${page.maxsize}")
 	private int MAX_PAGE_SIZE= 100;
@@ -74,7 +76,7 @@ public class CatalogsServiceImp implements CatalogsService {
 	
 	
 	public List<Category> getAllCategories(){
-		return BeanParser.asWebCategoryList(categoryDAO.findAll());
+		return listConverter.convert(categoryDAO.findAll(),Category.class);
 	}
 	
 	public Page<Category> getCategories(String desc, Pageable pageRequest){
@@ -87,20 +89,20 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 		
-		List<Category> categoriesWeb = BeanParser.asWebCategoryList(resultPage.getContent());
+		List<Category> categoriesWeb = listConverter.convert(resultPage.getContent(), Category.class);
 		Page<Category> categoriesPage = new PageImpl<Category>(categoriesWeb, pageRequest, resultPage.getTotalElements());
 
 		return categoriesPage;
 	}
 	
 	public Category saveCategory(Category categ){
-		CategoryEntity categEnt = categoryDAO.save(BeanParser.toEntityBean(categ));
-		return BeanParser.toWebBean(categEnt);
+		CategoryEntity categEnt = categoryDAO.save(conversionService.convert(categ, CategoryEntity.class));
+		return conversionService.convert(categEnt,Category.class);
 	}
 	
 	public Category findCategory(short id){
 		CategoryEntity categEnt = categoryDAO.findOne(id);
-		return categEnt==null ? null : BeanParser.toWebBean(categEnt);
+		return conversionService.convert(categEnt, Category.class);
 	}
 	
 	public List<EnumStatusGeneral> getCategoryStatuses(){
@@ -108,7 +110,7 @@ public class CatalogsServiceImp implements CatalogsService {
 	}
 
 	public List<Unit> getAllUnits(){
-		return BeanParser.asWebUnitList(unitDAO.findAll());
+		return listConverter.convert(unitDAO.findAll(), Unit.class);
 	}
 	
 	public Page<Unit> getUnits(String text, Pageable pageRequest){
@@ -121,20 +123,20 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = unitDAO.findByNameOrDescriptionContainingAllIgnoreCase(text, text, pageRequest);
 		}
 		
-		List<Unit> unitsWeb = BeanParser.asWebUnitList(resultPage.getContent());
+		List<Unit> unitsWeb = listConverter.convert(resultPage.getContent(), Unit.class);
 		Page<Unit> unitsPage = new PageImpl<Unit>(unitsWeb, pageRequest, resultPage.getTotalElements());
 
 		return unitsPage;
 	}
 	
 	public Unit saveUnit(Unit unit){
-		UnitEntity unitEnt = unitDAO.save(BeanParser.toEntityBean(unit));
-		return BeanParser.toWebBean(unitEnt);
+		UnitEntity unitEnt = unitDAO.save(conversionService.convert(unit, UnitEntity.class));
+		return conversionService.convert(unitEnt,Unit.class);
 	}
 	
 	public Unit findUnit(int id){
 		UnitEntity unitEnt = unitDAO.findOne(id);
-		return unitEnt==null ? null : BeanParser.toWebBean(unitEnt);
+		return conversionService.convert(unitEnt, Unit.class);
 	}
 	
 	public List<DataType> getUnitDataTypes(){
@@ -142,7 +144,7 @@ public class CatalogsServiceImp implements CatalogsService {
 	}
 
 	public List<CustomerType> getAllCustomerTypes(){
-		return BeanParser.asWebCustomerTypeList(customerTypeDAO.findAll());
+		return listConverter.convert(customerTypeDAO.findAll(), CustomerType.class);
 	}
 	
 	public Page<CustomerType> getCustomerTypes(String desc, Pageable pageRequest){
@@ -155,25 +157,25 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = customerTypeDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 
-		List<CustomerType> custTypesWeb = BeanParser.asWebCustomerTypeList(resultPage.getContent());
+		List<CustomerType> custTypesWeb = listConverter.convert(resultPage.getContent(), CustomerType.class);
 		Page<CustomerType> custTypesPage = new PageImpl<CustomerType>(custTypesWeb, pageRequest, resultPage.getTotalElements());
 
 		return custTypesPage;
 	}
 	
 	public CustomerType saveCustomerType(CustomerType custType){
-		CustomerTypeEntity custTypeEnt = customerTypeDAO.save(BeanParser.toEntityBean(custType));
-		return BeanParser.toWebBean(custTypeEnt);
+		CustomerTypeEntity custTypeEnt = customerTypeDAO.save(conversionService.convert(custType, CustomerTypeEntity.class));
+		return conversionService.convert(custTypeEnt, CustomerType.class);
 	}
 	
 	public CustomerType findCustomerType(int id){
 		CustomerTypeEntity custTypeEnt = customerTypeDAO.findOne(id);
-		return custTypeEnt==null ? null : BeanParser.toWebBean(custTypeEnt);
+		return conversionService.convert(custTypeEnt, CustomerType.class);
 	}
 
 	@Override
 	public List<OrderWorkflow> getAllOrderWorkflows() {
-		return BeanParser.asWebOrderWorkflowList(orderWorkflowDAO.findAll());
+		return listConverter.convert(orderWorkflowDAO.findAll(), OrderWorkflow.class);
 	}
 
 	@Override
@@ -187,7 +189,7 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = orderWorkflowDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 
-		List<OrderWorkflow> orderWflowsWeb = BeanParser.asWebOrderWorkflowList(resultPage.getContent());
+		List<OrderWorkflow> orderWflowsWeb = listConverter.convert(resultPage.getContent(), OrderWorkflow.class);
 		Page<OrderWorkflow> orderWflowsPage = new PageImpl<OrderWorkflow>(orderWflowsWeb, pageRequest, resultPage.getTotalElements());
 
 		return orderWflowsPage;
@@ -195,21 +197,19 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	@Override
 	public OrderWorkflow saveOrderWorkflow(OrderWorkflow wflow) {
-		OrderWorkflowEntity wflowEnt = orderWorkflowDAO.save(BeanParser.toEntityBean(wflow));
-		return BeanParser.toWebBean(wflowEnt);
+		OrderWorkflowEntity wflowEnt = orderWorkflowDAO.save(conversionService.convert(wflow,OrderWorkflowEntity.class));
+		return conversionService.convert(wflowEnt, OrderWorkflow.class);
 	}
 
 	@Override
 	public OrderWorkflow findOrderWorkflow(int id) {
 		OrderWorkflowEntity wflow = orderWorkflowDAO.findOne(id);
-		return wflow==null ? null : BeanParser.toWebBean(wflow);
-//		log.info("Converting with service!!");
-//		return wflow==null ? null : conversionService.convert(wflow, OrderWorkflow.class);
+		return conversionService.convert(wflow, OrderWorkflow.class);
 	}
 
 	@Override
 	public List<OrderStatus> getAllOrderStatuses() {
-		return BeanParser.asWebOrderStatusList(orderStatusDAO.findAll());
+		return listConverter.convert(orderStatusDAO.findAll(), OrderStatus.class);
 	}
 
 	@Override
@@ -223,7 +223,7 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = orderStatusDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 
-		List<OrderStatus> orderStatusesWeb = BeanParser.asWebOrderStatusList(resultPage.getContent());
+		List<OrderStatus> orderStatusesWeb = listConverter.convert(resultPage.getContent(), OrderStatus.class);
 		Page<OrderStatus> orderStatusesPage = new PageImpl<OrderStatus>(orderStatusesWeb, pageRequest, resultPage.getTotalElements());
 
 		return orderStatusesPage;
@@ -231,14 +231,14 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	@Override
 	public OrderStatus saveOrderStatus(OrderStatus orderStatus) {
-		OrderStatusEntity orderStatusEnt = orderStatusDAO.save(BeanParser.toEntityBean(orderStatus));
-		return BeanParser.toWebBean(orderStatusEnt);
+		OrderStatusEntity orderStatusEnt = orderStatusDAO.save(conversionService.convert(orderStatus,OrderStatusEntity.class));
+		return conversionService.convert(orderStatusEnt, OrderStatus.class);
 	}
 
 	@Override
 	public OrderStatus findOrderStatus(int id) {
 		OrderStatusEntity orderStatus = orderStatusDAO.findOne(id);
-		return orderStatus==null ? null : BeanParser.toWebBean(orderStatus);
+		return conversionService.convert(orderStatus, OrderStatus.class);
 	}
 
 	@Override
@@ -248,7 +248,7 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	@Override
 	public List<CustomerStatus> getAllCustomerStatuses() {
-		return BeanParser.asWebCustomerStatusList(customerStatusDAO.findAll());
+		return listConverter.convert(customerStatusDAO.findAll(), CustomerStatus.class);
 	}
 
 	@Override
@@ -262,7 +262,7 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = customerStatusDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 
-		List<CustomerStatus> customerStatusesWeb = BeanParser.asWebCustomerStatusList(resultPage.getContent());
+		List<CustomerStatus> customerStatusesWeb = listConverter.convert(resultPage.getContent(), CustomerStatus.class);
 		Page<CustomerStatus> customerStatusesPage = new PageImpl<CustomerStatus>(customerStatusesWeb, pageRequest, resultPage.getTotalElements());
 
 		return customerStatusesPage;
@@ -270,14 +270,14 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	@Override
 	public CustomerStatus saveCustomerStatus(CustomerStatus customerStatus) {
-		CustomerStatusEntity customerStatusEnt = customerStatusDAO.save(BeanParser.toEntityBean(customerStatus));
-		return BeanParser.toWebBean(customerStatusEnt);
+		CustomerStatusEntity customerStatusEnt = customerStatusDAO.save(conversionService.convert(customerStatus, CustomerStatusEntity.class));
+		return conversionService.convert(customerStatusEnt, CustomerStatus.class);
 	}
 
 	@Override
 	public CustomerStatus findCustomerStatus(int id) {
 		CustomerStatusEntity customerStatusEnt = customerStatusDAO.findOne(id);
-		return customerStatusEnt==null ? null : BeanParser.toWebBean(customerStatusEnt);
+		return conversionService.convert(customerStatusEnt, CustomerStatus.class);
 	}
 
 	@Override
@@ -287,7 +287,7 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	@Override
 	public List<OrderType> getAllOrderTypes() {
-		return BeanParser.asWebOrderTypeList(orderTypeDAO.findAll());
+		return listConverter.convert(orderTypeDAO.findAll(), OrderType.class);
 	}
 
 	@Override
@@ -301,7 +301,7 @@ public class CatalogsServiceImp implements CatalogsService {
 			resultPage = orderTypeDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
 		}
 
-		List<OrderType> orderTypesWeb = BeanParser.asWebOrderTypeList(resultPage.getContent());
+		List<OrderType> orderTypesWeb = listConverter.convert(resultPage.getContent(), OrderType.class);
 		Page<OrderType> orderTypesPage = new PageImpl<OrderType>(orderTypesWeb, pageRequest, resultPage.getTotalElements());
 
 		return orderTypesPage;
@@ -309,25 +309,29 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	@Override
 	public OrderType saveOrderType(OrderType orderType) {
-		OrderTypeEntity orderTypeEnt = orderTypeDAO.save(BeanParser.toEntityBean(orderType));
-		return BeanParser.toWebBean(orderTypeEnt);
+		OrderTypeEntity orderTypeEnt = orderTypeDAO.save(conversionService.convert(orderType, OrderTypeEntity.class));
+		return conversionService.convert(orderTypeEnt, OrderType.class);
 	}
 
 	@Override
 	public OrderType findOrderType(short id) {
 		OrderTypeEntity orderTypeEnt = orderTypeDAO.findOne(id);
-		return orderTypeEnt==null ? null : BeanParser.toWebBean(orderTypeEnt);
+		return conversionService.convert(orderTypeEnt, OrderType.class);
 	}
 
 	@Override
 	public List<EnumStatusGeneral> getOrderTypeStatuses() {
 		return Arrays.asList(EnumStatusGeneral.values());
 	}
-	
+
+	/**
+	 * Checks that no request asks for more than max page size
+	 * @param pageRequest
+	 * @return
+	 */
 	private Pageable validatePageRequest(Pageable pageRequest){
 		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
 			//TODO: let consumer know about change in page's size
-			log.info("changing request page size to "+MAX_PAGE_SIZE);
 			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
 		}
 		
@@ -336,6 +340,10 @@ public class CatalogsServiceImp implements CatalogsService {
 
 	public void setTransformService( ConversionService conversionService) {
 		this.conversionService = conversionService;
+	}
+
+	public void setListConverter(ListConverter listConverter) {
+		this.listConverter = listConverter;
 	}
 
 }
