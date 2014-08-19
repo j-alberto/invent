@@ -1,0 +1,93 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+   
+</head>
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<div th:replace="frags/common :: (${edit}? brCrumbItemEdit : brCrumbItemNew)"></div>
+		
+ 	<h2 th:text="#{item.lbl.title}">Item management!!</h2>
+ 	<p th:text="#{item.lbl.caption}">ADD Itemunitd description!!</p>
+ 	
+ 	<form th:action="@{/items/}+(${edit}?'edit':'add')" method="post" class="form-horizontal" th:object="${item}">
+ 	  
+ 	  <div class="form-group" th:name="id" th:errorclass="'form-group has-error'">
+		<div class="col-sm-6">
+			<input id="id"  th:field="*{id}" type="hidden" required="required" class="form-control"/>
+		</div>
+	  </div>
+
+ 	  <div class="form-group" th:name="category" th:errorclass="'form-group has-error'">
+		<label for="dataType" th:text="#{itemcategory.lbl.desc}" class="col-sm-2 control-label">category!!</label>
+		<div class="col-sm-6">
+			<select id="dataType"  th:field="*{category}" class="form-control">
+				<option th:each="cat : ${itemCategories}" th:value="${cat.id}"
+					th:text="${cat.description}">a category!!</option>
+			</select>
+			<ul th:if="${#fields.hasErrors('category')}" class="help-block">
+	 			<li th:each="err : ${#fields.errors('category')}" th:text="${err}"/>
+	 		</ul>
+		</div>
+	  </div>
+
+ 	  <div class="form-group" th:name="name" th:errorclass="'form-group has-error'">
+		<label for="name" th:text="#{item.lbl.name}" class="col-sm-2 control-label"></label>
+		<div class="col-sm-6">
+			<input id="name"  th:field="*{name}" type="text" required="required" class="form-control" maxlength="20"
+			autofocus="autofocus" autocomplete="off"/>
+			<ul th:if="${#fields.hasErrors('name')}" class="help-block">
+	 			<li th:each="err : ${#fields.errors('name')}" th:text="${err}"/>
+	 		</ul>
+		</div>
+	  </div>
+
+ 	  <div class="form-group" th:name="description" th:errorclass="'form-group has-error'">
+		<label for="description" th:text="#{item.lbl.desc}" class="col-sm-2 control-label"></label>
+		<div class="col-sm-6">
+			<input id="description"  th:field="*{description}" type="text" class="form-control" maxlength="50"
+			autocomplete="off"/>
+			<ul th:if="${#fields.hasErrors('description')}" class="help-block">
+	 			<li th:each="err : ${#fields.errors('description')}" th:text="${err}"/>
+	 		</ul>
+		</div>
+	  </div>
+
+ 	  <div class="form-group" th:name="provider" th:errorclass="'form-group has-error'">
+		<label for="provider" th:text="#{item.lbl.provider}" class="col-sm-2 control-label"></label>
+		<div class="col-sm-6">
+			<input id="provider"  th:field="*{provider}" type="text" class="form-control" autocomplete="off" maxlength="45"/>
+			<ul th:if="${#fields.hasErrors('provider')}" class="help-block">
+	 			<li th:each="err : ${#fields.errors('provider')}" th:text="${err}"/>
+	 		</ul>
+		</div>
+	  </div>
+
+ 	  <div class="form-group" th:name="rating" th:errorclass="'form-group has-error'">
+		<label for="rating" th:text="#{item.lbl.rating}" class="col-sm-2 control-label"></label>
+		<div class="col-sm-6">
+			<input id="rating"  th:field="*{rating}" type="number" class="form-control" autocomplete="off" max="100" min="0" step="1"/>
+			<ul th:if="${#fields.hasErrors('rating')}" class="help-block">
+	 			<li th:each="err : ${#fields.errors('rating')}" th:text="${err}"/>
+	 		</ul>
+		</div>
+	  </div>
+	  	  
+	   <div class="form-group">
+   			<div class="col-sm-offset-2 col-sm-6">
+      			<button type="submit" class="btn btn-primary" th:text="#{btn.save}">Save!!</button>
+      			<button type="reset" class="btn btn-default" th:text="#{btn.reset}">Reset!!</button>
+      			<a href="javascript:history.back()" th:text="#{btn.return}" class="btn btn-default pull-right">Regresar!!</a>
+    		</div>
+	  </div>
+ 	</form>
+
+</body>
+</html>

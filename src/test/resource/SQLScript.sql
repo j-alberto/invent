@@ -13,7 +13,7 @@ Database: MySQL 5.5
 -- Table invent.item
 
 CREATE TABLE invent.item (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `idcategory` smallint(5) unsigned NOT NULL,
   `name` varchar(20) NOT NULL,
   `description` varchar(50) DEFAULT NULL,
@@ -82,8 +82,8 @@ CREATE TABLE invent.order_status
 
 CREATE TABLE invent.inventory
 (
-  id Int NOT NULL,
-  code Varchar(8) NOT NULL,
+  id Int NOT NULL AUTO_INCREMENT,
+  code Varchar(10) NOT NULL,
   iditem Int(11) NOT NULL,
   quantity Decimal(14,6) UNSIGNED NOT NULL DEFAULT 0,
   idunit Int NOT NULL,

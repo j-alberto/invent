@@ -34,7 +34,7 @@ public class ItemController {
 	private Logger log = LoggerFactory.getLogger(getClass());
 
 	private static final String TEMPLATE_ITEM= "inventory/items";
-	private static final String TEMPLATE_ITEM_ADD= "inventory/itemsAdd";
+	private static final String TEMPLATE_ITEM_ADD= "inventory/itemAdd";
 	private static final String REDIR_ITEM= "redirect:/items";
 	
 	@Autowired

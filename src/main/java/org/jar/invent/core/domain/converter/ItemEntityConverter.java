@@ -2,10 +2,12 @@ package org.jar.invent.core.domain.converter;
 
 import org.jar.invent.core.domain.ItemEntity;
 import org.jar.invent.web.domain.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;
 
 public class ItemEntityConverter implements Converter<Item,ItemEntity> {
 
+	@Autowired
 	private CategoryEntityConverter categoryEntityConverter;
 	
 	@Override

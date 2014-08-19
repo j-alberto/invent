@@ -17,6 +17,8 @@ import org.jar.invent.web.domain.converter.OrderStatusConverter;
 import org.jar.invent.web.domain.converter.OrderTypeConverter;
 import org.jar.invent.web.domain.converter.UnitConverter;
 import org.jar.invent.web.domain.converter.WorkflowConverter;
+import org.jar.invent.web.domain.formatter.CategoryFormatter;
+import org.jar.invent.web.domain.formatter.ItemFormatter;
 import org.jar.invent.web.domain.formatter.WorkFlowFormatter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -29,10 +31,9 @@ import org.springframework.context.annotation.Configuration;
 public class TransformationsConfig {
 
 	
-	@Bean
-	public WorkFlowFormatter workFlowFormatter(){
-		return new WorkFlowFormatter();
-	}
+	@Bean public WorkFlowFormatter workFlowFormatter(){	return new WorkFlowFormatter();	}
+	@Bean public ItemFormatter itemFormatter(){	return new ItemFormatter();	}
+	@Bean public CategoryFormatter categoryFormatter(){	return new CategoryFormatter();	}
 	
 	
 	@Bean public ListConverter listConverter(){	return new ListConverter();	}

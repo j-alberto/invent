@@ -16,7 +16,12 @@ import org.springframework.format.Formatter;
 public class WorkFlowFormatter implements Formatter<OrderWorkflow>{
 
 	@Autowired
-	CatalogsService catalogsService;
+	private	CatalogsService catalogsService;
+	
+
+	void setCatalogsService(CatalogsService catalogsService) {
+		this.catalogsService = catalogsService;
+	}
 	
 	@Override
 	public String print(OrderWorkflow workflow, Locale locale) {
@@ -28,6 +33,8 @@ public class WorkFlowFormatter implements Formatter<OrderWorkflow>{
 		Integer id = Integer.valueOf(workflow);
 		return catalogsService.findOrderWorkflow(id);
 	}
+
+
 	
 	
 }

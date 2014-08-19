@@ -201,6 +201,16 @@
 		<li><span th:text="#{menu.catalogs.orderType.edit}">edit!!</span></li>
 	</ul>
 
+<!-- *************	BREADCRUMBS FOR ITEMS ********** -->
+	<ul th:fragment="brCrumbItemNew" class="breadcrumb">
+		<li><a th:href="@{/items}" th:text="#{menu.inv.item}" href="#"></a></li>
+		<li><span th:text="#{menu.inv.item.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbItemEdit" class="breadcrumb">
+		<li><a th:href="@{/items}" th:text="#{menu.inv.item}" href="#"></a></li>
+		<li><span th:text="#{menu.inv.item.edit}">edit!!</span></li>
+	</ul>
+
 <!-- *************	INLINE ALERTS ********** -->
 <!-- valid types are: success, warning, info and error -->
 	 	<div th:class="'alert alert-'+${type}+' alert-dismissible'" role="alert" th:fragment="alert(message,type)">
