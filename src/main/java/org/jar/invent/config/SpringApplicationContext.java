@@ -8,7 +8,9 @@ import org.springframework.context.annotation.Configuration;
 @ComponentScan(basePackages={"org.jar.invent.web.controller",
 							 "org.jar.invent.core.service",
 							 "org.jar.invent.web.service",
-							 "org.jar.invent.config"})
+							 "org.jar.invent.business",
+							 "org.jar.invent.config"
+							 })
 @EnableAutoConfiguration
 public class SpringApplicationContext {
 

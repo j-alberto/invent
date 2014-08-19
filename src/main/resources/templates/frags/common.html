@@ -38,8 +38,9 @@
 	          <a href="#" class="dropdown-toggle"
 	          data-toggle="dropdown"><span th:text="#{menu.inventory}">inventory!!</span><span class="caret"></span></a>
 				<ul th:fragment="inventoryList(asList)" th:class="!${asList}?dropdown-menu">
-					<li><a href="#" th:href="@{/item/catalog}" th:text="#{menu.inventory.list}">View Items!!</a></li>
-					<li><a href="#" th:href="@{/item/invent}" th:text="#{menu.inventory.config}">Config Items!!</a></li>
+					<li><a href="#" th:href="@{/items}" th:text="#{menu.inv.item}">Items!!</a></li>
+					<li><a href="#" th:href="@{/inventory}" th:text="#{menu.inv.inventory}">Inventory!!</a></li>
+					
 				</ul>
 	        </li>
 	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}" data-toggle="modal" data-target="#modalBox">About!!</a></li>
@@ -201,6 +202,7 @@
 	</ul>
 
 <!-- *************	INLINE ALERTS ********** -->
+<!-- valid types are: success, warning, info and error -->
 	 	<div th:class="'alert alert-'+${type}+' alert-dismissible'" role="alert" th:fragment="alert(message,type)">
 	 		<strong th:text="${message}"></strong>
 	 		<button type="button" class="close" data-dismiss="alert">&times;</button>	

@@ -12,21 +12,23 @@ Database: MySQL 5.5
 
 -- Table invent.item
 
-CREATE TABLE invent.item
-(
-  id Int(11) NOT NULL,
-  code Varchar(8) NOT NULL,
-  name Varchar(20) NOT NULL,
-  idcategory Smallint UNSIGNED NOT NULL,
-  description Varchar(50),
-  price Decimal(10,2) UNSIGNED
-) ENGINE = InnoDB
-;
+CREATE TABLE invent.item (
+  `id` int(11) NOT NULL,
+  `idcategory` smallint(5) unsigned NOT NULL,
+  `name` varchar(20) NOT NULL,
+  `description` varchar(50) DEFAULT NULL,
+  `provider` varchar(45) DEFAULT NULL,
+  `rating` decimal(4,2) unsigned DEFAULT NULL,
+  `url_snapshot` varchar(254) DEFAULT NULL,
+  `url_image` varchar(254) DEFAULT NULL,
+  `sys_stamp` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `idsys_user` int(11) NOT NULL
+) ENGINE=InnoDB;
 
 ALTER TABLE invent.item ADD PRIMARY KEY (id)
 ;
 
-ALTER TABLE invent.item ADD UNIQUE code (code)
+ALTER TABLE invent.item ADD INDEX itemprovider (provider)
 ;
 
 -- Table invent.category
@@ -124,7 +126,7 @@ CREATE TABLE invent.storage_movement
   COMMENT '0=Input,1=Output,2=Relocation',
   idinventory_detail Int NOT NULL,
   idsys_user Int,
-  sys_stamp Timestamp NULL,
+  sys_stamp Timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (id)
 )
 ;
@@ -215,7 +217,7 @@ CREATE TABLE invent.order
   price_total Decimal(14,4) UNSIGNED NOT NULL DEFAULT 0,
   comments Varchar(50),
   idsys_user Int,
-  sys_stamp Timestamp NULL,
+  sys_stamp Timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
  PRIMARY KEY (id)
 )
 ;

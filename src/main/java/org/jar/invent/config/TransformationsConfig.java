@@ -1,16 +1,18 @@
 package org.jar.invent.config;
 
 import org.jar.invent.core.domain.converter.CategoryEntityConverter;
-import org.jar.invent.core.domain.converter.CustomerTypeEntityConverter;
 import org.jar.invent.core.domain.converter.CustomerStatusEntityConverter;
+import org.jar.invent.core.domain.converter.CustomerTypeEntityConverter;
+import org.jar.invent.core.domain.converter.ItemEntityConverter;
 import org.jar.invent.core.domain.converter.ListConverter;
 import org.jar.invent.core.domain.converter.OrderStatusEntityConverter;
 import org.jar.invent.core.domain.converter.OrderTypeEntityConverter;
 import org.jar.invent.core.domain.converter.UnitEntityConverter;
 import org.jar.invent.core.domain.converter.WorkflowEntityConverter;
 import org.jar.invent.web.domain.converter.CategoryConverter;
-import org.jar.invent.web.domain.converter.CustomerTypeConverter;
 import org.jar.invent.web.domain.converter.CustomerStatusConverter;
+import org.jar.invent.web.domain.converter.CustomerTypeConverter;
+import org.jar.invent.web.domain.converter.ItemConverter;
 import org.jar.invent.web.domain.converter.OrderStatusConverter;
 import org.jar.invent.web.domain.converter.OrderTypeConverter;
 import org.jar.invent.web.domain.converter.UnitConverter;
@@ -55,5 +57,8 @@ public class TransformationsConfig {
 	
 	@Bean public OrderTypeConverter orderTypeConverter(){	return new OrderTypeConverter();	}
 	@Bean public OrderTypeEntityConverter orderTypeEntityConverter(){	return new OrderTypeEntityConverter();	}
-   
+
+	@Bean public ItemConverter itemConverter(){	return new ItemConverter();	}
+	@Bean public ItemEntityConverter itemEntityConverter(){	return new ItemEntityConverter();	}
+
 }

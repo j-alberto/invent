@@ -7,8 +7,9 @@ import java.util.List;
 
 
 /**
- * The persistent class for the inventory database table.
- * 
+ * The persistent class for the Stock database table.
+ * This class actually represents an element registered in an inventory, whether they are in stock or not, 
+ * TODO : Rename this entity to Stock and create InventoryEntity to replace inventoryCode field
  */
 @Entity
 @Table(name="inventory")

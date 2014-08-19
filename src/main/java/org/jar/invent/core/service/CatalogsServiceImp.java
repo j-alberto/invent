@@ -83,7 +83,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		pageRequest = validatePageRequest(pageRequest);
 
 		Page<CategoryEntity> resultPage;
-		if(desc.isEmpty()){
+		if(null == desc || desc.isEmpty()){
 			resultPage = categoryDAO.findAll(pageRequest);
 		}else{
 			resultPage = categoryDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
@@ -120,7 +120,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		if(text.isEmpty()){
 			resultPage = unitDAO.findAll(pageRequest);
 		}else{
-			resultPage = unitDAO.findByNameOrDescriptionContainingAllIgnoreCase(text, text, pageRequest);
+			resultPage = unitDAO.findByNameContainingOrDescriptionContainingAllIgnoreCase(text, text, pageRequest);
 		}
 		
 		List<Unit> unitsWeb = listConverter.convert(resultPage.getContent(), Unit.class);
@@ -151,7 +151,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		pageRequest = validatePageRequest(pageRequest);
 
 		Page<CustomerTypeEntity> resultPage;
-		if(desc.isEmpty()){
+		if(null == desc || desc.isEmpty()){
 			resultPage = customerTypeDAO.findAll(pageRequest);
 		}else{
 			resultPage = customerTypeDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
@@ -183,7 +183,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		pageRequest = validatePageRequest(pageRequest);
 		
 		Page<OrderWorkflowEntity> resultPage;
-		if(desc.isEmpty()){
+		if(null == desc || desc.isEmpty()){
 			resultPage = orderWorkflowDAO.findAll(pageRequest);
 		}else{
 			resultPage = orderWorkflowDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
@@ -217,7 +217,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		pageRequest = validatePageRequest(pageRequest);
 
 		Page<OrderStatusEntity> resultPage;
-		if(desc.isEmpty()){
+		if(null == desc || desc.isEmpty()){
 			resultPage = orderStatusDAO.findAll(pageRequest);
 		}else{
 			resultPage = orderStatusDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
@@ -256,7 +256,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		pageRequest = validatePageRequest(pageRequest);
 
 		Page<CustomerStatusEntity> resultPage;
-		if(desc.isEmpty()){
+		if(null == desc || desc.isEmpty()){
 			resultPage = customerStatusDAO.findAll(pageRequest);
 		}else{
 			resultPage = customerStatusDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);
@@ -295,7 +295,7 @@ public class CatalogsServiceImp implements CatalogsService {
 		pageRequest = validatePageRequest(pageRequest);
 
 		Page<OrderTypeEntity> resultPage;
-		if(desc.isEmpty()){
+		if(null == desc || desc.isEmpty()){
 			resultPage = orderTypeDAO.findAll(pageRequest);
 		}else{
 			resultPage = orderTypeDAO.findByDescriptionContainingIgnoreCase(desc, pageRequest);

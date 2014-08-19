@@ -2,21 +2,58 @@ package org.jar.invent.web.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 import java.util.List;
 
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
+import org.hibernate.validator.constraints.Range;
+import org.springframework.web.multipart.MultipartFile;
+/**
+ * Represents an item, not necessarily in inventory.
+ * @author zero
+ */
 public class Item implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private int id;
-	private String code;
-	private String description;
+	@NotBlank
+	@Length(min=1, max=20)
 	private String name;
-	private BigDecimal price;
+	@Length(min=0, max=50)
+	private String description;
+	@Length(min=0, max=45)
+	private String provider;
+	@Range(min=0, max=100)
+	private BigDecimal rating;
+	private String urlSnapshot;
+	private String urlImage;
+	private Timestamp sysStamp;
+	private int idsysUser;
+	private MultipartFile image;
+
 	private List<Inventory> inventories;
+	@NotNull
 	private Category category;
 
-	public Item() {
-	}
+		public Item() {
+		}
+		public Item(int id, Category category, String name, String description,
+		String provider, BigDecimal rating, String urlSnapshot, String urlImage,
+		Timestamp sysStamp, int idsysUser){
+			this.id = id;
+			this.category = category;
+			this.name = name;
+			this.description = description;
+			this.provider = provider;
+			this.rating = rating;
+			this.urlSnapshot = urlSnapshot;
+			this.urlImage = urlImage;
+			this.sysStamp = sysStamp;
+			this.idsysUser = idsysUser;
+		}
 
 	public int getId() {
 		return this.id;
@@ -26,12 +63,12 @@ public class Item implements Serializable {
 		this.id = id;
 	}
 
-	public String getCode() {
-		return this.code;
+	public String getProvider() {
+		return this.provider;
 	}
 
-	public void setCode(String code) {
-		this.code = code;
+	public void setProvider(String provider) {
+		this.provider = provider;
 	}
 
 	public String getDescription() {
@@ -50,12 +87,12 @@ public class Item implements Serializable {
 		this.name = name;
 	}
 
-	public BigDecimal getPrice() {
-		return this.price;
+	public BigDecimal getRating() {
+		return this.rating;
 	}
 
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setRating(BigDecimal rating) {
+		this.rating = rating;
 	}
 
 	public List<Inventory> getInventories() {
@@ -87,5 +124,32 @@ public class Item implements Serializable {
 	public void setCategory(Category category) {
 		this.category = category;
 	}
-
+	public String getUrlSnapshot() {
+		return urlSnapshot;
+	}
+	public void setUrlSnapshot(String urlSnapshot) {
+		this.urlSnapshot = urlSnapshot;
+	}
+	public String getUrlImage() {
+		return urlImage;
+	}
+	public void setUrlImage(String urlImage) {
+		this.urlImage = urlImage;
+	}
+	public Timestamp getSysStamp() {
+		return sysStamp;
+	}
+	public void setSysStamp(Timestamp sysStamp) {
+		this.sysStamp = sysStamp;
+	}
+	public int getIdsysUser() {
+		return idsysUser;
+	}
+	public void setIdsysUser(int idsysUser) {
+		this.idsysUser = idsysUser;
+	}
+	@Override
+	public String toString(){
+		return String.format("Item{id=%d,name=%s, provider=%s}", id,name,provider);
+	}
 }
