@@ -152,4 +152,10 @@ public class Item implements Serializable {
 	public String toString(){
 		return String.format("Item{id=%d,name=%s, provider=%s}", id,name,provider);
 	}
+	public MultipartFile getImage() {
+		return image;
+	}
+	public void setImage(MultipartFile image) {
+		this.image = image;
+	}
 }

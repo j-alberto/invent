@@ -1,5 +1,7 @@
 package org.jar.invent.web.controller;
 
+import java.io.File;
+
 import javax.validation.Valid;
 
 import org.jar.invent.business.ItemRegisterBR;
@@ -23,6 +25,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Controller
@@ -107,7 +110,19 @@ public class ItemController {
 			return TEMPLATE_ITEM_ADD;
 		}
 		
-		inventoryService.registerNewItem(item);
+		
+		MultipartFile image = item.getImage();
+		log.info(image.getContentType());
+		log.info(image.getName());
+		log.info(image.getOriginalFilename());
+		log.info("size: "+image.getSize());
+		log.info("isEmpty: "+image.isEmpty());
+
+
+
+		
+		
+		inventoryService.modifyItem(item);
 		redirectAttributes.addFlashAttribute("eventDone","updated");
 		
 		return REDIR_ITEM;
