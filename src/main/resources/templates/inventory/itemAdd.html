@@ -83,7 +83,7 @@
  	  <div class="form-group" th:name="image" th:errorclass="'form-group has-error'">
 		<label for="image" th:text="#{item.lbl.image}" class="col-sm-2 control-label"></label>
 		<div class="col-sm-6">
-			<input id="image"  th:field="*{image}" type="file" class="form-control" accept="image/jpeg,image/bmp,image/png"	/>
+			<input id="image"  th:field="*{image}" type="file" class="form-control" accept="image/jpeg,image/gif,image/png"	/>
 			<ul th:if="${#fields.hasErrors('image')}" class="help-block">
 	 			<li th:each="err : ${#fields.errors('image')}" th:text="${err}"/>
 	 		</ul>
