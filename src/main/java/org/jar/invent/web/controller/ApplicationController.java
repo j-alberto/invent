@@ -6,17 +6,16 @@ import java.io.IOException;
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.xml.ws.spi.http.HttpHandler;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.HandlerMapping;
 
 @Controller
@@ -54,42 +53,50 @@ public class ApplicationController {
 		return "other/SecureGreetingPage";
 	}
 	
-	@RequestMapping("/gallery/**")
+	@RequestMapping(value={"/gallery/**/*.jpg","/gallery/**/*.jpeg","/gallery/**/*.png","/gallery/**/*.gif"}
+			,produces={MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE}
+			,method=RequestMethod.GET)
+	
 	public void getImages(HttpServletResponse response, HttpServletRequest request){
-		String imagePath = request.getAttribute( HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE )
-				.toString()
-				.replaceFirst("gallery/", "");
-				
-		byte[] byteBuffer = new byte[1024];
-		FileInputStream fis;
-		try {
-			Path path = FileSystems.getDefault().getPath(imagePath);
-			fis = new FileInputStream(path.toFile());
-			int length = fis.read(byteBuffer);
+		String imagePath = request.getAttribute( HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE ).toString();
+		
+		try(FileInputStream fis = readFileAsStream(imagePath);
+				ServletOutputStream out = response.getOutputStream()){
 			
-			response.setContentType("image/*");
-			
-			while ((fis != null) && ((length = fis.read(byteBuffer)) != -1)){
-				response.getOutputStream().write(byteBuffer, 0, length);
-			}
-			
-			//response.setHeader("", value);
-			
-			fis.close();
-			response.getOutputStream().close();
-			
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			setContentType(response, imagePath);
+			setContent(out, fis, imagePath);
+
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}finally{
+			log.info("cannot find image at: "+imagePath);
+		}
+	}
+	
+	private FileInputStream readFileAsStream(String url) throws FileNotFoundException{
+		Path path = FileSystems.getDefault().getPath( url.replaceFirst("/gallery/", "") );
+		return new FileInputStream(path.toFile());
+	}
+	
+	private void setContent(ServletOutputStream out, FileInputStream fis, String url) throws IOException{
+		int length;
+		byte[] buffer = new byte[4096];
+
+		while ((length = fis.read(buffer)) != -1)
+			out.write(buffer,0,length);
+
+	}
+
+	private void setContentType(HttpServletResponse response, String url){
+		url = url.toLowerCase();
+		if(url.endsWith(".jpg") || url.endsWith(".jpeg")){
+			response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+			
+		}else if(url.endsWith(".png")){
+			response.setContentType(MediaType.IMAGE_PNG_VALUE);
+			
+		}else if(url.endsWith(".gif")){
+			response.setContentType(MediaType.IMAGE_GIF_VALUE);
 			
 		}
 
-//		
 	}
-
-
 }

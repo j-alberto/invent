@@ -1,5 +1,8 @@
 package org.jar.invent.core.service;
 
+import java.awt.Graphics2D;
+import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FilePermission;
 import java.io.IOException;
@@ -14,6 +17,8 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.imageio.ImageIO;
 
 import org.jar.invent.business.ItemRegisterBR;
 import org.jar.invent.core.domain.ItemEntity;
@@ -96,7 +101,7 @@ public class InventoryServiceImp implements InventoryService {
 		ItemEntity item = itemRegister.getItem(id);
 		return conversionService.convert(item, Item.class);
 	}
- 
+	// TODO move to helper/utility bean for file processing
     private void saveMultipartToDisk(Item item) throws IllegalStateException, IOException {
     	if(null == item.getImage() || item.getImage().isEmpty()){
     		return;
@@ -113,10 +118,48 @@ public class InventoryServiceImp implements InventoryService {
 				Files.createFile(path);
 			}
 			
-	        item.getImage().transferTo(path.toFile().getAbsoluteFile());
+			File f = path.toFile().getAbsoluteFile();
+	        item.getImage().transferTo(f);
 	        
 	        item.setUrlImage(path.toString());
+	        
+	        //snapshot
+			BufferedImage s = ImageIO.read(f);
+			BufferedImage s2 = resizeImage(s);
+			
+			Path path2 = FileSystems.getDefault().getPath("itemImages"
+					,String.valueOf(item.getId())
+					,"snapshot"
+					,item.getImage().getOriginalFilename());
+			if(Files.notExists(path2.getParent())){
+				Files.createDirectories(path2.getParent());
+			}
+			if(Files.notExists(path2)){
+				Files.createFile(path2);
+			}
+			
+			ImageIO.write(s2, "png", path2.toFile());
+			item.setUrlSnapshot(path2.toString());
+			
     	}
+    }
+    
+    private static BufferedImage resizeImage(BufferedImage originalImage){
+    	 
+		BufferedImage resizedImage = new BufferedImage(50, 50, BufferedImage.TYPE_INT_RGB);
+		Graphics2D g = resizedImage.createGraphics();
+		g.drawImage(originalImage, 0, 0, 50, 50, null);
+		g.dispose();	
+		//g.setComposite(AlphaComposite.Src);
+	 
+//		g.setRenderingHint(RenderingHints.KEY_INTERPOLATION,
+//		RenderingHints.VALUE_INTERPOLATION_BILINEAR);
+//		g.setRenderingHint(RenderingHints.KEY_RENDERING,
+//		RenderingHints.VALUE_RENDER_QUALITY);
+//		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+//		RenderingHints.VALUE_ANTIALIAS_ON);
+ 
+	return resizedImage;
     }
     
 }

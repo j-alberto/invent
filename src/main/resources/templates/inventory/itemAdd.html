@@ -20,11 +20,10 @@
  	<form th:action="@{/items/}+(${edit}?'edit':'add')" method="post" class="form-horizontal" th:object="${item}"
  	 enctype="multipart/form-data">
  	  
- 	  <div class="form-group" th:name="id" th:errorclass="'form-group has-error'">
-		<div class="col-sm-6">
-			<input id="id"  th:field="*{id}" type="hidden" required="required" class="form-control"/>
-		</div>
-	  </div>
+
+	<input th:field="*{id}" type="hidden" required="required"/>
+	<input th:field="*{urlImage}" type="hidden"/>
+	<input th:field="*{urlSnapshot}" type="hidden"/>
 
  	  <div class="form-group" th:name="category" th:errorclass="'form-group has-error'">
 		<label for="dataType" th:text="#{itemcategory.lbl.desc}" class="col-sm-2 control-label">category!!</label>
@@ -84,13 +83,18 @@
  	  <div class="form-group" th:name="image" th:errorclass="'form-group has-error'">
 		<label for="image" th:text="#{item.lbl.image}" class="col-sm-2 control-label"></label>
 		<div class="col-sm-6">
-			<input id="image"  th:field="*{image}" type="file" class="form-control" accept="image/jpeg,image/bmp,image/png"
-			/>
+			<input id="image"  th:field="*{image}" type="file" class="form-control" accept="image/jpeg,image/bmp,image/png"	/>
 			<ul th:if="${#fields.hasErrors('image')}" class="help-block">
 	 			<li th:each="err : ${#fields.errors('image')}" th:text="${err}"/>
 	 		</ul>
 		</div>
 	  </div>
+	  
+	    <div class="form-group">
+   			<div class="col-sm-offset-2">
+	  			<img th:if="${item.urlImage}" th:src="@{'/gallery/'+${item.urlImage}}" class="col-sm-6"></img>
+	  		</div>
+	   </div>
 	  
 	   <div class="form-group">
    			<div class="col-sm-offset-2 col-sm-6">
