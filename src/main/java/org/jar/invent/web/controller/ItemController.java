@@ -1,7 +1,5 @@
 package org.jar.invent.web.controller;
 
-import java.io.File;
-
 import javax.validation.Valid;
 
 import org.jar.invent.business.ItemRegisterBR;
@@ -38,6 +36,7 @@ public class ItemController {
 
 	private static final String TEMPLATE_ITEM= "inventory/items";
 	private static final String TEMPLATE_ITEM_ADD= "inventory/itemAdd";
+	private static final String TEMPLATE_ITEM_IMAGE= "inventory/itemQuickView";
 	private static final String REDIR_ITEM= "redirect:/items";
 	
 	@Autowired
@@ -128,6 +127,13 @@ public class ItemController {
 		return REDIR_ITEM;
 	}
 	
+	@RequestMapping(value="/detail/{id}", method=RequestMethod.GET)
+	public String showDeatilModal(@PathVariable final int id, final Model model){
+		Item item = inventoryService.getItem(id);
+		model.addAttribute("item", item);
+		return TEMPLATE_ITEM_IMAGE;
+	}
+
 	@ModelAttribute
 	public Item getItem(){
 		return new Item();
@@ -137,4 +143,5 @@ public class ItemController {
 	public Page<Category> getItemCategories(){
 		return catalogsService.getCategories(null, new PageRequest(0, 1000));
 	}
+	
 }

@@ -53,10 +53,12 @@ public class ApplicationController {
 		return "other/SecureGreetingPage";
 	}
 	
+	/**
+	 * This is meant to be the only access point for images uploaded to application
+	 */
 	@RequestMapping(value={"/gallery/**/*.jpg","/gallery/**/*.jpeg","/gallery/**/*.png","/gallery/**/*.gif"}
 			,produces={MediaType.IMAGE_JPEG_VALUE, MediaType.IMAGE_PNG_VALUE, MediaType.IMAGE_GIF_VALUE}
-			,method=RequestMethod.GET)
-	
+			,method=RequestMethod.GET)	
 	public void getImages(HttpServletResponse response, HttpServletRequest request){
 		String imagePath = request.getAttribute( HandlerMapping.PATH_WITHIN_HANDLER_MAPPING_ATTRIBUTE ).toString();
 		
@@ -67,7 +69,7 @@ public class ApplicationController {
 			setContent(out, fis, imagePath);
 
 		} catch (IOException e) {
-			log.info("cannot find image at: "+imagePath);
+			log.info("image not found at: "+imagePath);
 		}
 	}
 	
