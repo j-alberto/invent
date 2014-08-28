@@ -2,6 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
     
 	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
 		
@@ -67,15 +68,26 @@
 					<td th:text="${item.name}">name 111</td>
 					<td th:text="${item.description}">description 111</td>
 					<td th:text="${item.rating}">rating 111</td>
-					<td><img th:if="${item.urlImage}" th:src="@{'/gallery/'+${item.urlSnapshot}}" class="col-sm-6"></img></td>
+					<td><a th:href="@{'/items/detail/'+${item.id}}"
+					data-toggle="modal" data-target="#imgsModal">
+						<img th:if="${item.urlImage}" th:src="@{'/gallery/'+${item.urlSnapshot}}" ></img>
+					</a></td>
 					<td><a  href="#" th:href="@{/items/}+${item.id}" th:text="#{lbl.edit}">Modify!!</a></td>
 				</tr>
 				<tr><td>222</td><td>Category 222</td><td>a name d</td><td>a desc</td><td>a rating3</td><td><a href="#">Modify!!</a></td></tr>
 				<tr><td>222</td><td>Category 222</td><td>a name d</td><td>a desc</td><td>a rating3</td><td><a href="#">Modify!!</a></td></tr>
 				<tr><td>222</td><td>Category 222</td><td>a name d</td><td>a desc</td><td>a rating3</td><td><a href="#">Modify!!</a></td></tr>
 			</tbody>
-			
 		</table>
+	  
+	  <div class="modal fade" id="imgsModal" tabindex="-1" role="dialog" aria-labelledby="modalBox" aria-hidden="true"
+	  >
+	    <div class="modal-dialog" style="max-width: 100%; width: 95%">
+	    	<div class="modal-content container-fluid"></div>
+	    </div>
+
+	  </div>
+
 		
 	</div>
 </body>

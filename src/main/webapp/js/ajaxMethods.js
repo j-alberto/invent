@@ -7,6 +7,12 @@ $(document).ready(function(){
 	    $(this).addClass('info').siblings().removeClass('info');
 
 	});
+	
+
+	$('#imgsModal').on('hidden.bs.modal', function(event){		
+		$('#imgsModal').removeData('bs.modal');
+		
+	});
 
 });
 

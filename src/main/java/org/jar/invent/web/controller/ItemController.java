@@ -107,19 +107,7 @@ public class ItemController {
 		
 		if(bindResults.hasErrors()){
 			return TEMPLATE_ITEM_ADD;
-		}
-		
-		
-		MultipartFile image = item.getImage();
-		log.info(image.getContentType());
-		log.info(image.getName());
-		log.info(image.getOriginalFilename());
-		log.info("size: "+image.getSize());
-		log.info("isEmpty: "+image.isEmpty());
-
-
-
-		
+		}		
 		
 		inventoryService.modifyItem(item);
 		redirectAttributes.addFlashAttribute("eventDone","updated");
@@ -128,7 +116,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value="/detail/{id}", method=RequestMethod.GET)
-	public String showDeatilModal(@PathVariable final int id, final Model model){
+	public String showDeatilModal(@PathVariable final int id, final ModelMap model){
 		Item item = inventoryService.getItem(id);
 		model.addAttribute("item", item);
 		return TEMPLATE_ITEM_IMAGE;
