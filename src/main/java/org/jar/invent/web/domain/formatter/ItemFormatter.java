@@ -9,7 +9,7 @@ import org.springframework.format.Formatter;
 import org.jar.invent.core.service.InventoryService;
 
 /**
- * Defines format applied to item beans from view(id) to controller (object) and vice-versa
+ * Defines format applied to Item beans from view(id) to controller (object) and vice-versa
  * @author jalberto
  *
  */

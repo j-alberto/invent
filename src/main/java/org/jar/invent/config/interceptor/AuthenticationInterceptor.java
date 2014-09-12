@@ -9,6 +9,8 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.security.authentication.AuthenticationTrustResolverImpl;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -19,30 +21,24 @@ import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 /**
  * 
  * @author zero
- * <p>Adds a WebSecurityExpressionRoot bean under the name 'auth' to the modelMap provided to views</p>
+ * custom empty interceptor
  * @see WebSecurityExpressionRoot
  */
 public class AuthenticationInterceptor extends HandlerInterceptorAdapter
 {
+	private Logger log = LoggerFactory.getLogger(getClass());
+	
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception
     {
-        if (modelAndView != null){
-            ServletRequest req = (ServletRequest) request;
-            ServletResponse resp = (ServletResponse) response;
-            FilterInvocation filterInvocation = new FilterInvocation(req, resp, new FilterChain() {
-                public void doFilter(ServletRequest request, ServletResponse response) throws IOException, ServletException{
-                    throw new UnsupportedOperationException();
-                }
-            });
- 
-            Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-            
-            if (authentication != null){
-                WebSecurityExpressionRoot secExpr = new WebSecurityExpressionRoot(authentication, filterInvocation);
-                secExpr.setTrustResolver(new AuthenticationTrustResolverImpl());
-                modelAndView.getModel().put("auth", secExpr);
-            }
-        }
+    	//log.info("RESPONSE STATUS: " + response.getStatus());
+    }
+    @Override
+    public boolean preHandle(HttpServletRequest request,
+    		HttpServletResponse response, Object handler) throws Exception {
+
+        //log.info("REQUEST AUTH TYPE: " + request.getRemoteAddr()+", REMOTE USER: "+request.getRemoteUser());
+    	return super.preHandle(request, response, handler);
+
     }
 }

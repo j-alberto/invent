@@ -1,8 +1,17 @@
 package org.jar.invent.core.domain;
 
 import java.io.Serializable;
-import javax.persistence.*;
 import java.util.List;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 
 /**
@@ -43,6 +52,16 @@ public class CustomerEntity implements Serializable {
 	private List<OrderEntity> orders;
 
 	public CustomerEntity() {
+	}
+	
+	public CustomerEntity(int id, String code, String description, String name, CustomerStatusEntity customerStatus
+			,CustomerTypeEntity customerType){
+		this.id = id;
+		this.code = code;
+		this.description = description;
+		this.name = name;
+		this.customerStatus = customerStatus;
+		this.customerType = customerType;
 	}
 
 	public int getId() {

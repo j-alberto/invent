@@ -18,11 +18,15 @@ import javax.persistence.Table;
 
 /**
  * The persistent class for the item database table.
+ * Url attributes just accept non-empty Strings, otherwise, their values are not set.
  * @author zero
- * TODO enforce idUser constraint in database
- * TODO check datatype for rating
- * TODO enforce 1:1 relationship with inventory
  */
+/*
+ TODO enforce idUser constraint in database
+ TODO check datatype for rating
+ TODO enforce 1:1 relationship with inventory
+*/
+
 @Entity
 @Table(name="item")
 public class ItemEntity implements Serializable {
@@ -77,10 +81,12 @@ public class ItemEntity implements Serializable {
 			this.description = description;
 			this.provider = provider;
 			this.rating = rating;
-			this.urlSnapshot = urlSnapshot;
-			this.urlImage = urlImage;
 			this.sysStamp = sysStamp;
 			this.idsysUser = idsysUser;
+			
+			setUrlSnapshot(urlSnapshot);
+			setUrlImage(urlImage);
+
 		}
 
 	public int getId() {
@@ -158,6 +164,8 @@ public class ItemEntity implements Serializable {
 	}
 
 	public void setUrlSnapshot(String urlSnapshot) {
+		if(null == urlSnapshot || urlSnapshot.trim().isEmpty()) return;
+			
 		this.urlSnapshot = urlSnapshot;
 	}
 
@@ -166,6 +174,8 @@ public class ItemEntity implements Serializable {
 	}
 
 	public void setUrlImage(String urlImage) {
+		if(null == urlImage || urlImage.trim().isEmpty()) return;
+
 		this.urlImage = urlImage;
 	}
 

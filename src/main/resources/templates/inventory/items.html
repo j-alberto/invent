@@ -13,7 +13,7 @@
 </head>
 <body class="container-fluid">
 	<div th:replace="frags/common :: menu"></div>
-	<ul th:fragment="brCrumbCatOrderType" class="breadcrumb">
+	<ul th:fragment="brCrumbItem" class="breadcrumb">
 		<li><span th:text="#{menu.inv.item}">items!!</span></li>
 	</ul>
 			
@@ -42,7 +42,7 @@
   				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
 	  		</div>
 		</form>
-		<table id="categoriesTable" class="table table-condensed table-striped table-hover" th:fragment="tableCategory">
+		<table id="itemsTable" class="table table-condensed table-striped table-hover" th:fragment="tableItem">
 			<thead>
 				<tr>
 					<th th:text="#{item.lbl.id}">Id!!</th>

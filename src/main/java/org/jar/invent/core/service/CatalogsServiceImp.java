@@ -330,12 +330,18 @@ public class CatalogsServiceImp implements CatalogsService {
 	 * @return
 	 */
 	private Pageable validatePageRequest(Pageable pageRequest){
-		if(pageRequest.getPageSize()>MAX_PAGE_SIZE){
-			//TODO: let consumer know about change in page's size
-			pageRequest = new PageRequest(pageRequest.getPageNumber(), MAX_PAGE_SIZE);
-		}
 		
-		return pageRequest;
+		int pageNum = 0, pageSize = MAX_PAGE_SIZE;
+		
+		if(null != pageRequest){
+			pageNum = pageRequest.getPageNumber();
+			
+			if( pageRequest.getPageSize()<MAX_PAGE_SIZE ){
+				pageSize = pageRequest.getPageSize();
+			}
+		}
+
+		return new PageRequest(pageNum, pageSize);
 	}
 
 	public void setTransformService( ConversionService conversionService) {

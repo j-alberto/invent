@@ -9,7 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.Formatter;
 
 /**
- * Defines format applied to item beans from view(id) to controller (object) and vice-versa
+ * Defines format applied to (Item-)Category beans from view(id) to controller (object) and vice-versa
  * @author jalberto
  *
  */

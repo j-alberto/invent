@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+    
+	<link rel="stylesheet" type="text/css" href="../../../webapp/css/bootstrap.min.css" th:href="@{/css/bootstrap.min.css}"/>
+		
+	<script src="../../webapp/js/jquery.js" th:src="@{/js/jquery.js}"></script>
+	<script src="../../webapp/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+	<script src="../../webapp/js/ajaxMethods.js" th:src="@{/js/ajaxMethods.js}"></script>
+
+</head>
+<body class="container-fluid">
+	<div th:replace="frags/common :: menu"></div>
+	<ul th:fragment="brCrumbCustomer" class="breadcrumb">
+		<li><span th:text="#{menu.customers}">Customers!!</span></li>
+	</ul>
+			
+ 	<h2 th:text="#{customer.lbl.title}">Customer management!!</h2>
+ 	<a th:href="@{/customers/add}" href="#" th:text="#{customer.btn.addNew}">Add new customer!!</a>
+ 	
+ 	<br/><br/>
+
+	 <div th:if="${eventDone} == 'added'">
+ 		<div th:replace="frags/common :: alert(#{customer.msg.addSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'updated'">
+ 		<div th:replace="frags/common :: alert(#{customer.msg.updateSuccess},'success')"></div>
+	</div>
+	 <div th:if="${eventDone} == 'idNotFound'">
+	 		<div th:replace="frags/common :: alert(#{customer.msg.notFound},'warning')"></div>
+	</div>
+
+
+	<div class="table-responsive">
+		<form th:action="@{customers}" method="get" class="form-inline">
+			<div class="form-group">
+				<label class="sr-only" for="searchBox" th:text="#{btn.search}">Search!!</label>
+  				<input type="search" id="searchBox" name="searchText" th:value="${searchText}"/>
+  				<button type="submit" class="btn btn-default btn-sm" th:text="#{btn.search}">search!!</button>
+	  		</div>
+		</form>
+		<table id="customersTable" class="table table-condensed table-striped table-hover" th:fragment="tableCustomer">
+			<thead>
+				<tr>
+					<th th:text="#{customer.lbl.id}">Id!!</th>
+					<th th:text="#{customer.lbl.name}">Name!!</th>
+					<th th:text="#{customer.lbl.code}">Code!!</th>
+					<th th:text="#{customertype.lbl.desc}">type!!</th>
+					<th th:text="#{customer.lbl.desc}">Description!!</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tfoot>
+				<tr>
+					<td colspan="3">
+						<ul th:replace="frags/common :: pagingBar(${customers},10,${searchText},'customers')"></ul>
+					</td>
+					<td colspan="3"></td>
+				</tr>
+			</tfoot>
+			<tbody th:remove="all-but-first">
+				<tr th:each="cus : ${customers.content}">
+					<td th:text="${cus.id}">111</td>
+					<td th:text="${cus.name}">name 111</td>
+					<td th:text="${cus.code}">rating 111</td>
+					<td th:text="${cus.customerType.description}">Type 111</td>
+					<td th:text="${cus.description}">description 111</td>
+					<td><a  href="#" th:href="@{/customers/}+${cus.id}" th:text="#{lbl.edit}">Modify!!</a></td>
+				</tr>
+				<tr><td>1</td><td>item</td><td>item code</td><td>type desc</td><td>description</td><td></td> </tr>
+			</tbody>
+		</table>
+		
+	</div>
+</body>
+</html>

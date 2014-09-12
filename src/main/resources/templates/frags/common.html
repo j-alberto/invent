@@ -43,6 +43,15 @@
 					
 				</ul>
 	        </li>
+	        <li class="dropdown">
+	          <a href="#" class="dropdown-toggle"
+	          data-toggle="dropdown"><span th:text="#{menu.customers}">customers!!</span><span class="caret"></span></a>
+				<ul th:fragment="customerList(asList)" th:class="!${asList}?dropdown-menu">
+					<li><a href="#" th:href="@{/customers}" th:text="#{menu.cus.management}">Management!!</a></li>
+					<li><a href="#" th:href="@{/customers/history}" th:text="#{menu.cus.history}">History!!</a></li>
+					
+				</ul>
+	        </li>
 	        <li><a  th:href="@{/about}" href="#" th:text="#{menu.about}" data-toggle="modal" data-target="#modalBox">About!!</a></li>
 	      </ul>
 	      <ul class="nav navbar-nav navbar-right">
@@ -210,6 +219,17 @@
 		<li><a th:href="@{/items}" th:text="#{menu.inv.item}" href="#"></a></li>
 		<li><span th:text="#{menu.inv.item.edit}">edit!!</span></li>
 	</ul>
+
+<!-- *************	BREADCRUMBS FOR CUSTOMERS ********** -->
+	<ul th:fragment="brCrumbCustomerNew" class="breadcrumb">
+		<li><a th:href="@{/customers}" th:text="#{menu.customers}" href="#"></a></li>
+		<li><span th:text="#{menu.cus.management.addNew}">new!!</span></li>
+	</ul>
+	<ul th:fragment="brCrumbCustomerEdit" class="breadcrumb">
+		<li><a th:href="@{/customers}" th:text="#{menu.customers}" href="#"></a></li>
+		<li><span th:text="#{menu.cus.management.edit}">edit!!</span></li>
+	</ul>
+
 
 <!-- *************	INLINE ALERTS ********** -->
 <!-- valid types are: success, warning, info and error -->

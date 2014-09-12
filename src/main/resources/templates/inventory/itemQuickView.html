@@ -7,10 +7,28 @@
 
 </head>
 <body>
-	<div>
-		<img th:if="${item.urlImage}" th:src="@{'/gallery/'+${item.urlImage}}" class="img-responsive center-block"></img>
-		<p>sadsadsad</p>
-		<p>sadsadsad</p>	<p>sadsadsad</p>
+	<div class="container-fluid">
+	<h1 th:text="#{item.lbl.detail}" class="text-center">ITEM DETAIL!!</h1>
+	
+	<dl>
+		<dt th:text="#{item.lbl.name}"></dt>
+		<dd th:text="${item.name}"></dd>
+		<dt>&nbsp;</dt>
+		<dt th:text="#{itemcategory.lbl.desc}"></dt>
+		<dd th:text="${item.category.description}"></dd>
+		<dt>&nbsp;</dt>
+		<dt th:text="#{item.lbl.desc}"></dt>
+		<dd th:text="${item.description}"></dd>
+		<dt>&nbsp;</dt>
+		<dt th:text="#{item.lbl.rating}"></dt>
+		<dd th:text="${item.rating}"></dd>
+		<dt>&nbsp;</dt>
+		<dt th:text="#{item.lbl.provider}"></dt>
+		<dd th:text="${item.provider}"></dd>
+	</dl>
+
+	<img th:if="${item.urlImage}" th:src="@{'/gallery/'+${item.urlImage}}" class="img-responsive center-block"></img>
+
 	</div>
 </body>
 </html>
